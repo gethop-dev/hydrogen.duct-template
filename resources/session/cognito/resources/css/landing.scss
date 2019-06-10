@@ -1,0 +1,31 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
+/***************************************************************
+** TODO: This stylesheet doesn't use ourl current guidelines. **
+** It has to be refactored.                                   **
+***************************************************************/
+
+.landing-container header {
+  text-align: center;
+}
+
+.landing-container header h1 {
+  color: var(--hydrogen-black);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: .5rem;
+}
+
+.login-form input, login-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
