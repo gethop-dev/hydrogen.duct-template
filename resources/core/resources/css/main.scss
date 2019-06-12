@@ -63,7 +63,7 @@ The stylesheet presented new is there just as an example of usage.
   margin: 20px;
   font-weight: bold;
   color: var(--hydrogen-brown);
-}{{#hydrogen-cljs-session?}}
+}{{#hydrogen-session?}}
 .logout {
   margin: 0 auto;
   width: 100px;
@@ -77,4 +77,4 @@ The stylesheet presented new is there just as an example of usage.
 .logout:hover {
   background-color: var(--hydrogen-darker-brown);
   color: var(--hydrogen-darker-white);
-}{{/hydrogen-cljs-session?}}
+}{{/hydrogen-session?}}

@@ -8,15 +8,15 @@
             [integrant.core :as ig]
             [<<namespace>>.api.util :as util]))
 
-(defmethod ig/init-key :<<namespace>>.api/example [_ {:keys [<<#hydrogen-cljs-session?>>auth-middleware<</hydrogen-cljs-session?>>] :as options}]
+(defmethod ig/init-key :<<namespace>>.api/example [_ {:keys [<<#hydrogen-session?>>auth-middleware<</hydrogen-session?>>] :as options}]
   (context "/api/example" []
     (GET "/" []
       {:status 200
        :body {:msg "Welcome!"}
-       :headers {"content-type" "application/json"}})<<#hydrogen-cljs-session?>>
+       :headers {"content-type" "application/json"}})<<#hydrogen-session?>>
     (->
      (GET "/for-authenticated" []
        {:status 200
         :body {:msg "Hello again!"}
         :headers {"content-type" "application/json"}})
-     (util/wrap-authentication-required auth-middleware))<</hydrogen-cljs-session?>>))
+     (util/wrap-authentication-required auth-middleware))<</hydrogen-session?>>))

@@ -13,7 +13,7 @@
     (str "\n  [" $ "]")))
 
 (defn profile [{:keys [project-ns]}]
-  {:vars {:hydrogen-cljs-core? true
+  {:vars {:hydrogen-core? true
           :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                               "api/config"
                                                               "api/example"])}

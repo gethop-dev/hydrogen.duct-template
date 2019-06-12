@@ -9,7 +9,7 @@
 (rf/reg-sub
  ::active-view
  (fn [db]
-   (get db :active-view <<#hydrogen-cljs-session?>>:landing<</hydrogen-cljs-session?>><<^hydrogen-cljs-session?>>:home<</hydrogen-cljs-session?>>)))
+   (get db :active-view <<#hydrogen-session?>>:landing<</hydrogen-session?>><<^hydrogen-session?>>:home<</hydrogen-session?>>)))
 
 (rf/reg-event-db
  ::set-active-view

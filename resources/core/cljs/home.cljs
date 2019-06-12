@@ -4,8 +4,8 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.home
-  (:require [re-frame.core :as rf]<<#hydrogen-cljs-session?>>
-            [<<namespace>>.client.session :as session]<</hydrogen-cljs-session?>>
+  (:require [re-frame.core :as rf]<<#hydrogen-session?>>
+            [<<namespace>>.client.session :as session]<</hydrogen-session?>>
             [<<namespace>>.client.tooltip :as tooltip]
             [<<namespace>>.client.view :as view]))
 
@@ -13,13 +13,13 @@
  ::go-to-home
  (fn [_ _]
    {:dispatch [::view/set-active-view :home]
-    :redirect "/#/home"}))<<#hydrogen-cljs-session?>>
+    :redirect "/#/home"}))<<#hydrogen-session?>>
 
 (defn logout []
   [:div.logout
    {:on-click #(do (rf/dispatch [::session/user-logout])
                    (view/redirect! "/#/landing"))}
-   "Logout"])<</hydrogen-cljs-session?>>
+   "Logout"])<</hydrogen-session?>>
 
 (defn links []
   [:div {:id "home-links"}
@@ -64,5 +64,5 @@
    [:h1 "Welcome to Hydrogen!"]
    [tooltip-sandbox]
    [:p "What do you want to play with?"]
-   [links]<<#hydrogen-cljs-session?>>
-   [logout]<</hydrogen-cljs-session?>>])
+   [links]<<#hydrogen-session?>>
+   [logout]<</hydrogen-session?>>])

@@ -8,8 +8,8 @@
             [re-frame.core :as rf]
             [day8.re-frame.http-fx]
             [reagent.core :as reagent]
-            [<<namespace>>.client.home :as home]<<#hydrogen-cljs-session?>>
-            [<<namespace>>.client.landing :as landing]<</hydrogen-cljs-session?>>
+            [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
+            [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]
             [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.todo :as todo]
@@ -17,7 +17,7 @@
             [<<namespace>>.client.view :as view]))
 
 (def default-db
-  {:theme :light})<<#hydrogen-cljs-session?>>
+  {:theme :light})<<#hydrogen-session?>>
 
 (rf/reg-event-db
  ::set-config
@@ -27,24 +27,24 @@
 (rf/reg-event-db
  ::error
  (fn [db [_ _]]
-   (assoc db :error :unable-to-load-config)))<</hydrogen-cljs-session?>>
+   (assoc db :error :unable-to-load-config)))<</hydrogen-session?>>
 
 (rf/reg-event-fx
  ::load-app
  (fn [{:keys [db]} [_]]
-   {:db default-db<<#hydrogen-cljs-session?>>
+   {:db default-db<<#hydrogen-session?>>
     :http-xhrio {:method :get
                  :uri "/api/config"
                  :format (ajax/json-request-format)
                  :response-format (ajax/transit-response-format)
                  :on-success [::set-config]
-                 :on-failure [::error]}<</hydrogen-cljs-session?>>}))
+                 :on-failure [::error]}<</hydrogen-session?>>}))
 
 (defn main []
   (let [active-view (rf/subscribe [::view/active-view])]
     (fn []
-      (case @active-view<<#hydrogen-cljs-session?>>
-        :landing [landing/main]<</hydrogen-cljs-session?>>
+      (case @active-view<<#hydrogen-session?>>
+        :landing [landing/main]<</hydrogen-session?>>
         :home [home/main]
         :todo-list [todo/main]))))
 

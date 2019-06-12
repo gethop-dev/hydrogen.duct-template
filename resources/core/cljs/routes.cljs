@@ -10,9 +10,9 @@
             [goog.history.EventType :as EventType]
             [re-frame.core :as rf]
             [secretary.core :as secretary]
-            [<<namespace>>.client.home :as home]<<#hydrogen-cljs-session?>>
+            [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
-            [<<namespace>>.client.session :as session]<</hydrogen-cljs-session?>>
+            [<<namespace>>.client.session :as session]<</hydrogen-session?>>
             [<<namespace>>.client.todo :as todo]
             [<<namespace>>.client.view :as view]))
 
@@ -22,7 +22,7 @@
      EventType/NAVIGATE
      (fn [event]
        (secretary/dispatch! (.-token event))))
-    (.setEnabled true)))<<#hydrogen-cljs-session?>>
+    (.setEnabled true)))<<#hydrogen-session?>>
 
 (defn- anyone? [access-config]
   (every? #(true? (val %)) access-config))
@@ -93,7 +93,7 @@
     (rf/dispatch [:go-to [::todo/go-to-todo]]))
 
   ;; --------------------
-  (hook-browser-navigation!))<</hydrogen-cljs-session?>><<^hydrogen-cljs-session?>>
+  (hook-browser-navigation!))<</hydrogen-session?>><<^hydrogen-session?>>
 
 (defn app-routes []
   (secretary/set-config! :prefix "#")
@@ -110,4 +110,4 @@
     (rf/dispatch [::todo/go-to-todo]))
 
   ;; --------------------
-  (hook-browser-navigation!))<</hydrogen-cljs-session?>>
+  (hook-browser-navigation!))<</hydrogen-session?>>

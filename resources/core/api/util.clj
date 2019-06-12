@@ -4,8 +4,8 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.api.util
-  (:require <<#hydrogen-cljs-session?>>[buddy.auth :refer [authenticated?]]
-            <</hydrogen-cljs-session?>>[compojure.core :refer [GET POST context]]))<<#hydrogen-cljs-session?>>
+  (:require <<#hydrogen-session?>>[buddy.auth :refer [authenticated?]]
+            <</hydrogen-session?>>[compojure.core :refer [GET POST context]]))<<#hydrogen-session?>>
 
 (defn- restrict-fn
   "Restrict access to the handler. Only allow access if the request
@@ -21,4 +21,4 @@
 (defn wrap-authentication-required [handler auth-middleware]
   (-> handler
       (compojure.core/wrap-routes restrict-fn)
-      (compojure.core/wrap-routes auth-middleware)))<</hydrogen-cljs-session?>>
+      (compojure.core/wrap-routes auth-middleware)))<</hydrogen-session?>>
