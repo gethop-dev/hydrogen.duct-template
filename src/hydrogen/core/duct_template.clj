@@ -24,7 +24,7 @@
            [re-frame "0.10.6"]
            [reagent "0.8.1"]
            [secretary "1.2.3"]
-           [hydrogen/module.cljs "0.1.4"]]
+           [hydrogen/module "0.1.4"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.3.7"]]
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
@@ -49,7 +49,7 @@
                "resources/{{dirs}}/public/css/theming.scss" (resource "core/resources/css/theming.scss")
                "resources/{{dirs}}/public/css/tooltip.scss" (resource "core/resources/css/tooltip.scss")
                "resources/{{dirs}}/public/css/utils.scss" (resource "core/resources/css/utils.scss")}
-   :modules {:hydrogen.module.cljs/core {:add-example-api? true}}
+   :modules {:hydrogen.module/core {:add-example-api? true}}
    :dirs ["src/{{dirs}}/boundary/adapter"
           "src/{{dirs}}/boundary/port"]
    :repl-options {:host "0.0.0.0"

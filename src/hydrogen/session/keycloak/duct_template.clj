@@ -11,8 +11,9 @@
    :deps '[[duct/middleware.buddy "0.1.0"]
            [magnet/buddy-auth.jwt-oidc "0.5.0"]]
    :templates {;; Client
-               "src/{{dirs}}/client/landing.cljs" (resource "cognito/cljs/landing.cljs")
-               "src/{{dirs}}/client/session.cljs" (resource "cognito/cljs/session.cljs")
+               "src/{{dirs}}/client/landing.cljs" (resource "keycloak/cljs/landing.cljs")
+               "src/{{dirs}}/client/session.cljs" (resource "keycloak/cljs/session.cljs")
                ;; Resources
-               "resources/{{dirs}}/public/css/landing.scss" (resource "cognito/resources/css/landing.scss")}
-   :modules {:hydrogen.module.cljs/session {:add-example-api? true}}})
+               "resources/{{dirs}}/public/css/auth.scss" (resource "keycloak/resources/css/auth.scss")
+               "resources/{{dirs}}/public/css/landing.scss" (resource "keycloak/resources/css/landing.scss")}
+   :modules {:hydrogen.module/session.keycloak {:add-example-api? true}}})

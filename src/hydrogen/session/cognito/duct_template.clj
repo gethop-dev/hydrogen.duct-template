@@ -15,4 +15,4 @@
                "src/{{dirs}}/client/session.cljs" (resource "session/cognito/cljs/session.cljs")
                ;; Resources
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/cognito/resources/css/landing.scss")}
-   :modules {:hydrogen.module.cljs/session {:add-example-api? true}}})
+   :modules {:hydrogen.module/session.cognito {:add-example-api? true}}})

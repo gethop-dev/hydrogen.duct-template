@@ -5,7 +5,8 @@
  */
 
 @import 'button';{{#hydrogen-session?}}
-@import 'landing';{{/hydrogen-session?}}
+@import 'landing';{{/hydrogen-session?}}{{#hydrogen-session-keycloak?}}
+@import 'auth';{{/hydrogen-session-keycloak?}}
 @import 'theming';
 @import 'tooltip';
 @import 'utils';
