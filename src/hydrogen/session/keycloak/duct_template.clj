@@ -10,7 +10,7 @@
           :hydrogen-session-keycloak? true}
    :deps '[[duct/middleware.buddy "0.1.0"]
            [magnet/buddy-auth.jwt-oidc "0.5.0"]
-           [hydrogen/module.session.keycloak "0.1.4"]]
+           [hydrogen/module.session.keycloak "0.1.0"]]
    :templates {;; Client
                "src/{{dirs}}/client/cookie.cljs" (resource "session/keycloak/cljs/cookie.cljs")
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
