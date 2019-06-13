@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Moved repository to new one without `.cljs` in name.
 
+### Added
+- `+hydrogen/session.keycloak` profile!
+
 ## [0.1.3] - 2019-05-09
 
 ### Added

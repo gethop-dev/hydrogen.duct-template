@@ -1,6 +1,7 @@
 /target
 /classes
 /checkouts
+duct-template.iml
 profiles.clj
 pom.xml
 pom.xml.asc

@@ -10,28 +10,12 @@
             [goog.history.EventType :as EventType]
             [re-frame.core :as rf]
             [secretary.core :as secretary]
+            [clojure.string :as str]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]<</hydrogen-session?>>
             [<<namespace>>.client.todo :as todo]
-            [<<namespace>>.client.view :as view]))
-
-(defn hook-browser-navigation! []
-  (doto (History.)
-    (goog.events/listen
-     EventType/NAVIGATE
-     (fn [event]
-       (secretary/dispatch! (.-token event))))
-    (.setEnabled true)))<<#hydrogen-session?>>
-
-(defn- anyone? [access-config]
-  (every? #(true? (val %)) access-config))
-
-(defn- only-authenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
-  (and allow-authenticated? (not allow-unauthenticated?)))
-
-(defn- only-unauthenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
-  (and (not allow-authenticated?) allow-unauthenticated?))
+            [<<namespace>>.client.view :as view]))<<#hydrogen-session?>>
 
 (def ^:const access-config-defaults
   {:allow-unauthenticated? false
@@ -41,13 +25,86 @@
 
 (def ^:const default-delay-time 50)
 
-(defn config-exists? [db]
-  (get db :config))
-
 (rf/reg-event-db
- ::error
- (fn [db _]
-   (assoc db :error "request timed out!")))
+  ::error
+  (fn [db _]
+      (assoc db :error "request timed out!")))
+
+(defn config-exists? [db]
+      (get db :config))<<#hydrogen-session-keycloak?>>
+
+(defn- fix-callbacks
+       [route]
+       (cond
+         (re-find #"&state=" route)
+         (let [fixed-route (str/replace route "&state=" "?state=")]
+              fixed-route)
+         :else
+         route))
+
+(defn hook-browser-navigation! []
+      (let [history (History.)]
+           (doto history
+                 (goog.events/listen
+                   EventType/NAVIGATE
+                   (fn [event]
+                       (let [route (fix-callbacks (.-token event))]
+                            (secretary/dispatch! route))))
+                 (.setEnabled true))))
+
+(defn- go-authenticated [evt access-config]
+       (if (:allow-authenticated? access-config)
+         {:dispatch evt}
+         {:redirect "/#/home"}))
+
+(defn- go-unauthenticated [evt access-config]
+       (if (:allow-unauthenticated? access-config)
+         {:dispatch evt}
+         {:redirect "/#/landing"}))
+
+(rf/reg-event-fx
+  :go-to*
+  (fn [{:keys [db]} [_ evt access-config]]
+      (let [access-config (merge access-config-defaults access-config)]
+           (if (:jwt-token db)
+             (go-authenticated evt access-config)
+             (go-unauthenticated evt access-config)))))
+
+(rf/reg-event-fx
+  :go-to
+  [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
+  (fn [{:keys [db cookies]}
+       [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
+                  :or {remaining-retries default-number-retries}
+                  :as access-config}]]]
+      (cond
+        (and
+          (config-exists? db)
+          (not (get cookies "KEYCLOAK_PROCESS")))
+        {:dispatch [:go-to* evt access-config]}
+        (> remaining-retries 0)
+        {:dispatch-later
+         [{:ms default-delay-time
+           :dispatch [:go-to evt
+                      (assoc access-config :remaining-retries (dec remaining-retries))]}]}
+        :else {:dispatch [::error]})))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
+
+(defn hook-browser-navigation! []
+      (doto (History.)
+            (goog.events/listen
+              EventType/NAVIGATE
+              (fn [event]
+                  (secretary/dispatch! (.-token event))))
+            (.setEnabled true)))
+
+(defn- anyone? [access-config]
+  (every? #(true? (val %)) access-config))
+
+(defn- only-authenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
+  (and allow-authenticated? (not allow-unauthenticated?)))
+
+(defn- only-unauthenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
+  (and (not allow-authenticated?) allow-unauthenticated?))
 
 (rf/reg-event-fx
  :go-to*
@@ -63,34 +120,36 @@
 
 (rf/reg-event-fx
  :go-to
- (fn [{:keys [db]} [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
-                              :or {remaining-retries default-number-retries}
-                              :as access-config}]]]
-   (cond
-     (config-exists? db) {:dispatch [:go-to* evt access-config]}
+ (fn [{:keys [db]}
+      [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
+                 :or {remaining-retries default-number-retries}
+                 :as access-config}]]]
+     (cond
+       (config-exists? db) {:dispatch [:go-to* evt access-config]}
      (> remaining-retries 0) {:dispatch-later
                               [{:ms default-delay-time
                                 :dispatch [:go-to evt
                                            (assoc access-config :remaining-retries (dec remaining-retries))]}]}
-     :else {:dispatch [::error]})))
+     :else {:dispatch [::error]})))<</hydrogen-session-cognito?>>
 
 (defn app-routes []
   (secretary/set-config! :prefix "#")
   ;; --------------------
   ;; define routes here
 
-  (defroute "/" []
-    (view/redirect! "/#/landing"))
+      (defroute "/landing" []
+                (rf/dispatch [:go-to [::landing/go-to-landing]
+                                    {:allow-authenticated? false :allow-unauthenticated? true}]))
 
-  (defroute "/landing" []
-    (rf/dispatch [:go-to [::landing/go-to-landing]
-                  {:allow-authenticated? false :allow-unauthenticated? true}]))
+      (defroute "/home" []
+                (rf/dispatch [:go-to [::home/go-to-home]]))
 
-  (defroute "/home" []
-    (rf/dispatch [:go-to [::home/go-to-home]]))
+      (defroute "/todo-list" []
+                (rf/dispatch [:go-to [::todo/go-to-todo]
+                                    {:allow-unauthenticated? true}]))
 
-  (defroute "/todo-list" []
-    (rf/dispatch [:go-to [::todo/go-to-todo]]))
+      (defroute "*" []
+                (view/redirect! "/#/landing"))
 
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>><<^hydrogen-session?>>

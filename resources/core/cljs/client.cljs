@@ -7,7 +7,8 @@
   (:require [ajax.core :as ajax]
             [re-frame.core :as rf]
             [day8.re-frame.http-fx]
-            [reagent.core :as reagent]
+            [reagent.core :as reagent]<<#hydrogen-session-keycloak?>>
+            [<<namespace>>.client.cookie]<</hydrogen-session-keycloak?>>
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]
@@ -17,12 +18,21 @@
             [<<namespace>>.client.view :as view]))
 
 (def default-db
-  {:theme :light})<<#hydrogen-session?>>
+  {:theme :light})<<#hydrogen-session?>><<#hydrogen-session-cognito?>>
 
 (rf/reg-event-db
  ::set-config
  (fn [db [_ config]]
-   (assoc db :config config)))
+   (assoc db :config config)))<</hydrogen-session-cognito?>><<#hydrogen-session-keycloak?>>
+
+(rf/reg-event-fx
+  ::set-config
+  [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
+  (fn [{:keys [db cookies]} [_ config]]
+      (merge
+        {:db (assoc db :config config)}
+        (let [keycloak-process? (get cookies "KEYCLOAK_PROCESS")]
+             (if keycloak-process? {:init-and-authenticate (:keycloak config)})))))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-db
  ::error

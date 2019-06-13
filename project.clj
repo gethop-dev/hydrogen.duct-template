@@ -1,4 +1,4 @@
-(defproject hydrogen/duct-template "0.1.4-SNAPSHOT"
+(defproject hydrogen/duct-template "0.1.4"
   :description "Hydrogen duct template"
   :url "https://github.com/magnetcoop/hydrogen.duct-template"
   :license {:name "Mozilla Public License 2.0"
