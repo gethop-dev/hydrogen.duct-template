@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [0.1.5] - 2019-06-10
+
+### Fixed
+- hydrogen.module.keycloak version
+
 ## [0.1.4] - 2019-06-10
 
 ### Changed
@@ -24,5 +29,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
+[0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/releases/tag/v0.1.5
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/releases/tag/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/releases/tag/v0.1.3
