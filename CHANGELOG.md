@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+### Fixed
+- Fix license file (the template is licensed under MPL 2.0, but the
+  license file contained the EPL 2.0 license text)
+
 ## [0.1.5] - 2019-06-10
 
 ### Fixed
