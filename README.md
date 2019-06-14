@@ -8,9 +8,7 @@ This template profile needs to be used in conjunction with `+site` and `+cljs` h
 
 `lein new duct <project name> +site +cljs +hydrogen/core`
 
-You can optionally add `+hydrogen/session.cognito` to add OIDC-based session management
-or `+hydrogen/session.keycloak` to add keycloak-based session management. Keep in mind that those two profiles are
-mutually exclusive.
+You can optionally add `+hydrogen/session.cognito` to add AWS Cognito User Pools-based session management, using OpenID Connect ID Tokens. Or `+hydrogen/session.keycloak` to add Keycloak-based session management (using OpenID Connect ID tokens too). Keep in mind that those two profiles are mutually exclusive.
 
 ## License
 
