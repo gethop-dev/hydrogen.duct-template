@@ -3,7 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+### Changed
+- Use v0.1.1 of keycloak module
+
 ### Fixed
+- Projects without session profile had routing broken on v0.1.5. It's fixed now.
 - Fix license file (the template is licensed under MPL 2.0, but the
   license file contained the EPL 2.0 license text)
 
@@ -33,6 +38,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.5...HEAD
 [0.1.5]: https://github.com/magnetcoop/hydrogen.duct-template/releases/tag/v0.1.5
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/releases/tag/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/releases/tag/v0.1.3
