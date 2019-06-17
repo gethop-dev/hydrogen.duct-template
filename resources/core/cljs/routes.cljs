@@ -15,7 +15,15 @@
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]<</hydrogen-session?>>
             [<<namespace>>.client.todo :as todo]
-            [<<namespace>>.client.view :as view]))<<#hydrogen-session?>>
+            [<<namespace>>.client.view :as view]))<<^hydrogen-session-keycloak?>>
+
+(defn hook-browser-navigation! []
+      (doto (History.)
+            (goog.events/listen
+              EventType/NAVIGATE
+              (fn [event]
+                  (secretary/dispatch! (.-token event))))
+            (.setEnabled true)))<</hydrogen-session-keycloak?>><<#hydrogen-session?>>
 
 (def ^:const access-config-defaults
   {:allow-unauthenticated? false
@@ -88,14 +96,6 @@
            :dispatch [:go-to evt
                       (assoc access-config :remaining-retries (dec remaining-retries))]}]}
         :else {:dispatch [::error]})))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
-
-(defn hook-browser-navigation! []
-      (doto (History.)
-            (goog.events/listen
-              EventType/NAVIGATE
-              (fn [event]
-                  (secretary/dispatch! (.-token event))))
-            (.setEnabled true)))
 
 (defn- anyone? [access-config]
   (every? #(true? (val %)) access-config))
