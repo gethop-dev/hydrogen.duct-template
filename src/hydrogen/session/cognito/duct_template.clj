@@ -9,7 +9,7 @@
   {:vars {:hydrogen-session? true
           :hydrogen-session-cognito? true}
    :deps '[[duct/middleware.buddy "0.1.0"]
-           [magnet/buddy-auth.jwt-oidc "0.5.0"]
+           [magnet/buddy-auth.jwt-oidc "0.6.0"]
            [hydrogen/module.session.cognito "0.1.4"]]
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/cognito/cljs/landing.cljs")
