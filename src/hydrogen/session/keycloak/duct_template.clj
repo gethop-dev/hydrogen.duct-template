@@ -10,7 +10,7 @@
           :hydrogen-session-keycloak? true}
    :deps '[[duct/middleware.buddy "0.1.0"]
            [magnet/buddy-auth.jwt-oidc "0.6.0"]
-           [hydrogen/module.session.keycloak "0.1.1"]]
+           [hydrogen/module.session.keycloak "0.1.2"]]
    :templates {;; Client
                "src/{{dirs}}/client/cookie.cljs" (resource "session/keycloak/cljs/cookie.cljs")
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
@@ -18,4 +18,11 @@
                ;; Resources
                "resources/{{dirs}}/public/css/auth.scss" (resource "session/keycloak/resources/css/auth.scss")
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")}
-   :modules {:hydrogen.module/session.keycloak {:add-example-api? true}}})
+   :modules {:hydrogen.module/session.keycloak
+             "\n {:add-example-api? true
+  :keycloak {:realm #duct/env [\"KEYCLOAK_REALM\" Str]
+             :url #duct/env [\"KEYCLOAK_URL\" Str]
+             :client-id #duct/env [\"KEYCLOAK_CLIENT_ID\" Str]}
+  :oidc {:issuer #duct/env [\"OIDC_ISSUER_URL\" Str]
+         :audience #duct/env [\"OIDC_AUDIENCE\" Str]
+         :jwks-uri #duct/env [\"OIDC_JWKS_URI\" Str]}}"}})

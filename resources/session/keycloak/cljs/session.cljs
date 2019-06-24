@@ -44,9 +44,10 @@
 
 (rf/reg-fx
   :init-and-authenticate
-  (fn [keycloak-config]
-      (let [js-keycloak-config (clj->js keycloak-config)
-            keycloak-obj (js/Keycloak js-keycloak-config)]
+  (fn [{:keys [realm url client-id]}]
+      (let [keycloak-obj (js/Keycloak #js {:realm realm
+                                           :url url
+                                           :clientId client-id})]
            (-> keycloak-obj
                (.init #js {"onLoad" "login-required"})
                (.success (fn [authenticated]
