@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Changed
 - **Breaking change** changed expected keycloak config key from `:clientId` to `:client-id`.
-- Changed parameters of deboucing for authentication checks.
+- Changed parameters of debouncing for authentication checks.
 
 ### Added
-- Generate `src/service/` and `src/domain/` directories 
+- Generate `src/service/` and `src/domain/` directories
+- Explicit configuration to keycloak and cognito profiles 
 
 ## [0.1.6] - 2019-06-19
 ### Changed

@@ -16,4 +16,8 @@
                "src/{{dirs}}/client/session.cljs" (resource "session/cognito/cljs/session.cljs")
                ;; Resources
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/cognito/resources/css/landing.scss")}
-   :modules {:hydrogen.module/session.cognito {:add-example-api? true}}})
+   :modules {:hydrogen.module/session.cognito
+             "\n {:add-example-api? true
+  :oidc {:issuer #duct/env [\"OIDC_ISSUER_URL\" Str]
+         :audience #duct/env [\"OIDC_AUDIENCE\" Str]
+         :jwks-uri #duct/env [\"OIDC_JWKS_URI\" Str]}}"}})
