@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Changed
 - **Breaking change** changed expected keycloak config key from `:clientId` to `:client-id`.
 - Changed parameters of debouncing for authentication checks.
+- Use v0.1.2 of `hydrogen/module.session.keycloak`
+- Use v0.1.8 of `hydrogen/module.session.cognito`
 
 ### Added
 - Generate `src/service/` and `src/domain/` directories
