@@ -32,8 +32,6 @@
                "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
                "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
-               "src/{{dirs}}/client/todo.cljs" (resource "core/cljs/todo.cljs")
-               "src/{{dirs}}/client/tooltip.cljs" (resource "core/cljs/tooltip.cljs")
                "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
                ;; API
                "src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
@@ -47,7 +45,6 @@
                "resources/{{dirs}}/public/css/button.scss" (resource "core/resources/css/button.scss")
                "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
                "resources/{{dirs}}/public/css/theming.scss" (resource "core/resources/css/theming.scss")
-               "resources/{{dirs}}/public/css/tooltip.scss" (resource "core/resources/css/tooltip.scss")
                "resources/{{dirs}}/public/css/utils.scss" (resource "core/resources/css/utils.scss")}
    :modules {:hydrogen.module/core {:add-example-api? true}}
    :dirs ["src/{{dirs}}/boundary/adapter"

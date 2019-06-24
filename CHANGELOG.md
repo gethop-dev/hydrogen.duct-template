@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Changed
+- Chunks of code irrelevant to the main purpose of this template
+were moved to an index of suggested next steps in the relevant `.md` file.
 
 ## [0.1.7] - 2019-06-24
 ### Changed

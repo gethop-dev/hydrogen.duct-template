@@ -13,8 +13,6 @@
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]
             [<<namespace>>.client.theme :as theme]
-            [<<namespace>>.client.todo :as todo]
-            [<<namespace>>.client.tooltip :as tooltip]
             [<<namespace>>.client.view :as view]))
 
 (def default-db
@@ -55,8 +53,7 @@
     (fn []
       (case @active-view<<#hydrogen-session?>>
         :landing [landing/main]<</hydrogen-session?>>
-        :home [home/main]
-        :todo-list [todo/main]))))
+        :home [home/main]))))
 
 (defn dev-setup []
   (when goog.DEBUG
@@ -67,8 +64,7 @@
   (let [theme (rf/subscribe [::theme/get-theme])]
     (fn []
       [:div.app-container
-       {:on-click #(tooltip/destroy-on-click-out (.. % -target))
-        :class (str "theme-" (name @theme))}
+       {:class (str "theme-" (name @theme))}
        [main]])))
 
 (defn mount-root []

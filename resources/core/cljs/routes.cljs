@@ -14,7 +14,6 @@
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]<</hydrogen-session?>>
-            [<<namespace>>.client.todo :as todo]
             [<<namespace>>.client.view :as view]))<<^hydrogen-session-keycloak?>>
 
 (defn hook-browser-navigation! []
@@ -144,10 +143,6 @@
       (defroute "/home" []
                 (rf/dispatch [:go-to [::home/go-to-home]]))
 
-      (defroute "/todo-list" []
-                (rf/dispatch [:go-to [::todo/go-to-todo]
-                                    {:allow-unauthenticated? true}]))
-
       (defroute "*" []
                 (view/redirect! "/#/landing"))
 
@@ -164,9 +159,6 @@
 
   (defroute "/home" []
     (rf/dispatch [::home/go-to-home]))
-
-  (defroute "/todo-list" []
-    (rf/dispatch [::todo/go-to-todo]))
 
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>>

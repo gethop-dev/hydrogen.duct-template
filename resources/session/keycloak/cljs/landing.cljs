@@ -33,12 +33,7 @@
       [:header
        [:h1 "Hydrogen"]])
 
-(defn links []
-      [:div {:id "home-links"}
-       [:a {:href "/#/todo-list"} "TODO LIST"]])
-
 (defn main []
       [:div.landing-container
        [header]
-       [login-form]
-       [links]])
+       [login-form]])
