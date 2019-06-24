@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.1.7] - 2019-06-24
 ### Changed
 - **Breaking change** changed expected keycloak config key from `:clientId` to `:client-id`.
 - Changed parameters of debouncing for authentication checks.
@@ -50,7 +52,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.6...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.7...HEAD
+[0.1.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
