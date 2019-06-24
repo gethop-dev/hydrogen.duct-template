@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - **Breaking change** changed expected keycloak config key from `:clientId` to `:client-id`.
 - Changed parameters of deboucing for authentication checks.
 
+### Added
+- Generate `src/service/` and `src/domain/` directories 
+
 ## [0.1.6] - 2019-06-19
 ### Changed
 - Use v0.1.1 of `hydrogen/module.session.keycloak`

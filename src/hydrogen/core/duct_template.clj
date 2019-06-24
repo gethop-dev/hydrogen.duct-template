@@ -51,6 +51,8 @@
                "resources/{{dirs}}/public/css/utils.scss" (resource "core/resources/css/utils.scss")}
    :modules {:hydrogen.module/core {:add-example-api? true}}
    :dirs ["src/{{dirs}}/boundary/adapter"
-          "src/{{dirs}}/boundary/port"]
+          "src/{{dirs}}/boundary/port"
+          "src/{{dirs}}/service"
+          "src/{{dirs}}/domain"]
    :repl-options {:host "0.0.0.0"
                   :port 4001}})
