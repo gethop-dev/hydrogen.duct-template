@@ -29,9 +29,9 @@
   {:allow-unauthenticated? false
    :allow-authenticated? true})
 
-(def ^:const default-number-retries 5)
+(def ^:const default-number-retries 10)
 
-(def ^:const default-delay-time 50)
+(def ^:const default-delay-time 250)
 
 (rf/reg-event-db
   ::error
