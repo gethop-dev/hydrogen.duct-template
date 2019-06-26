@@ -5,9 +5,11 @@
  */
 
 /***************************************************************
-** TODO: This stylesheet doesn't use ourl current guidelines. **
+** TODO: This stylesheet doesn't use our current guidelines.  **
 ** It has to be refactored.                                   **
 ***************************************************************/
+
+@import 'utils';
 
 .landing-container header {
   text-align: center;
@@ -18,14 +20,41 @@
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: .5rem;
+  margin: 3rem 0;
+  max-width: 70%;
 }
 
-.login-form input, login-form label {
-  display: block;
-  margin-bottom: 1rem;
+.form-field {
+  border-radius: $radius;
+  border-style: solid;
+  border-color: gray;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 0px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  overflow: auto;
+}
+.form-field:first-child {
+  border-radius: $radius $radius 0 0;
+}
+.form-field:last-child {
+  border-radius: 0 0 $radius $radius;
+  border-bottom-width: 1px;
+}
+.form-field__icon {
+  padding: 10px 5px;
+  border-right: solid 1px gray;
+}
+.form-field__input {
+  padding: 10px 5px;
+  flex: 1;
+  border-left: solid 1px gray;
+  outline: none;
+  border: none;
+  align-self: stretch;
 }

@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Chunks of code irrelevant to the main purpose of this template
 were moved to an index of suggested next steps in the relevant `.md` file.
 
+### Fixed
+- Refactored login form in Cognito profile to make autocompletion work properly.
+
 ## [0.1.7] - 2019-06-24
 ### Changed
 - **Breaking change** changed expected keycloak config key from `:clientId` to `:client-id`.

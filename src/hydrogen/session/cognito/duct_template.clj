@@ -15,7 +15,9 @@
                "src/{{dirs}}/client/landing.cljs" (resource "session/cognito/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/cognito/cljs/session.cljs")
                ;; Resources
-               "resources/{{dirs}}/public/css/landing.scss" (resource "session/cognito/resources/css/landing.scss")}
+               "resources/{{dirs}}/public/css/landing.scss" (resource "session/cognito/resources/css/landing.scss")
+               "resources/{{dirs}}/public/images/email-address.svg" (resource "session/cognito/resources/images/email-address.svg")
+               "resources/{{dirs}}/public/images/password.svg" (resource "session/cognito/resources/images/password.svg")}
    :modules {:hydrogen.module/session.cognito
              "\n {:add-example-api? true
   :oidc {:issuer #duct/env [\"OIDC_ISSUER_URL\" Str]
