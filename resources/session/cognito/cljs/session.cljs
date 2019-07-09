@@ -5,7 +5,7 @@
 {{=<< >>=}}
 (ns <<namespace>>.client.session
   (:require [ajax.core :as ajax]
-            [clojure.string :as s]
+            [clojure.string :as str]
             [re-frame.core :as rf]
             [reagent.core :as reagent]
             [<<namespace>>.client.view :as view]))
@@ -36,7 +36,7 @@
    (:auth-error db)))
 
 (defn- get-user-pool [db]
-  (let [awscog-user-pool-id (last (s/split (get-in db [:config :cognito :iss]) #"/"))
+  (let [awscog-user-pool-id (last (str/split (get-in db [:config :cognito :iss]) #"/"))
         awscog-app-client-id (get-in db [:config :cognito :client-id])]
     (new js/AmazonCognitoIdentity.CognitoUserPool #js {:UserPoolId awscog-user-pool-id
                                                        :ClientId awscog-app-client-id})))

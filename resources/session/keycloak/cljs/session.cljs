@@ -4,8 +4,7 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.session
-  (:require [clojure.string :as s]
-            [re-frame.core :as rf]
+  (:require [re-frame.core :as rf]
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-sub
