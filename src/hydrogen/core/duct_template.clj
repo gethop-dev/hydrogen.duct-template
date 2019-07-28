@@ -37,8 +37,11 @@
                "src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
                "src/{{dirs}}/api/example.clj" (resource "core/api/example.clj")
                "src/{{dirs}}/api/util.clj" (resource "core/api/util.clj")
+               "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")
                ;; Static
                "src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")
+               ;; Utils
+               "src/{{dirs}}/util.clj" (resource "core/util.clj")
                ;; Resources
                "resources/{{dirs}}/index.html" (resource "core/resources/index.html")
                "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
