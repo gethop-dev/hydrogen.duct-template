@@ -5,15 +5,6 @@
  */
 
 /**
- * Tell Google Closure compiler not to munge the third party JS
- * libraries below. We are pulling them from CDNs instead of adding
- * them to our code base.
- *
- * @fileoverview This is an externs file.
- * @externs
- */
-
-/**
  * Figwheel expects files with .js extension inside its source
  * directories to be a foreign library. And foreign libraries *MUST*
  * declare a namespace. In fact, figwheel assumes it, and if it
@@ -26,14 +17,23 @@
  * Note: we use a fixed namespace here, because this file *doesn't*
  * have to use a project namespace. In fact if it does, Google Closure
  * compiler complains that "name <<namespace>> is not defined in the
- * externs". So we use a namespace that is highly unlikely to be an
- * actual project namespace.
+ * externs".
  */
-goog.provide('magnet.hydrogen.client.externs');
+goog.provide('Cognito');
 
 /**
- * Javascript interop with browser clipboard. Prevent name mangling.
+ * From here below, it's just regular externs file declarations.
  */
-var navigator;
-navigator.clipboard = function(){};
-navigator.clipboard.prototype.writeText = function(){};
+var AmazonCognitoIdentity;
+AmazonCognitoIdentity.CognitoUserPool = function(){};
+AmazonCognitoIdentity.CognitoUserPool.prototype.signUp = function(){};
+AmazonCognitoIdentity.CognitoUserPool.prototype.getCurrentUser = function(){};
+AmazonCognitoIdentity.AuthenticationDetails = function(){};
+AmazonCognitoIdentity.CognitoUser = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.authenticateUser = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.getSession = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.signOut = function(){};
+
+var cognitoAuthResult;
+cognitoAuthResult.idToken;
+cognitoAuthResult.idToken.jwtToken;
