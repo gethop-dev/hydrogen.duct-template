@@ -35,6 +35,7 @@
                "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
                "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
+               "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
                "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
                ;; API
                "src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
