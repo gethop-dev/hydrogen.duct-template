@@ -12,7 +12,10 @@
     (str/join "\n   " $)
     (str "\n  [" $ "]")))
 
-(defn profile [{:keys [project-ns]}]
+(defn- use-sessions? [profiles]
+  (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
+
+(defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-core? true
           :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                               "api/config"
@@ -49,7 +52,16 @@
                "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
                "resources/{{dirs}}/public/css/theming.scss" (resource "core/resources/css/theming.scss")
                "resources/{{dirs}}/public/css/utils.scss" (resource "core/resources/css/utils.scss")}
-   :modules {:hydrogen.module/core {:add-example-api? true}}
+   :modules {:hydrogen.module/core {}}
+   :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
+                  :duct.middleware.web/format " {}"
+                  :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"
+                  :duct.compiler/sass "\n  {:source-paths [\"resources\"]\n   :output-path \"target/resources\"}"
+                  (keyword (str project-ns ".static/root")) " {}"
+                  (keyword (str project-ns ".api/example")) (if (use-sessions? profiles)
+                                                              " {:auth-middleware #ig/ref :duct.middleware.buddy/authentication}"
+                                                              " {}")
+                  (keyword (str project-ns ".api/config")) " {}"}
    :dirs ["src/{{dirs}}/boundary/adapter"
           "src/{{dirs}}/boundary/port"
           "src/{{dirs}}/service"
