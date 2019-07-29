@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 were moved to an index of suggested next steps in the relevant `.md` file.
 - Add Eastwood as a development dependency and bump lein-cljfmt version
 - Reorganized the CLJS externs file. Split them into individual files (one per library/external service).
+- Mode Cognito and Keycloak session management back into this template, instead of using external Duct modules. We no longer need to use modules (we can do all we need from the template) and this adds at least two benefits: a) a single place to maintain code, and b) configuration is explicit and visible in `config.edn`.
 
 ### Fixed
 - Refactored login form in Cognito profile to make autocompletion work properly.

@@ -11,29 +11,20 @@
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-event-fx
-  ::go-to-landing
-  (fn [_ _]
-      {:dispatch [::view/set-active-view :landing]}))
-
-(def credentials (reagent/atom {:username "" :password ""}))
-
-(defn swap-input! [event atom field]
-      (swap! atom assoc field (.. event -target -value)))
-
-(defn- do-login-if-enter-pressed [event credentials]
-       (when (= (.-key event) "Enter")
-             (rf/dispatch [::session/user-login credentials])
-             (.preventDefault event)))
+ ::go-to-landing
+ (fn [_ _]
+   {:dispatch [::view/set-active-view :landing]}))
 
 (defn login-form []
-      [:div.login-form
-       [session/keycloak-login-btn]])
+  [:div.login-form
+   [:button.button.landing__button.button--square {:on-click #(rf/dispatch [::session/auth])}
+    "Login"]])
 
 (defn header []
-      [:header
-       [:h1 "Hydrogen"]])
+  [:header
+   [:h1 "Hydrogen"]])
 
 (defn main []
-      [:div.landing-container
-       [header]
-       [login-form]])
+  [:div.landing-container
+   [header]
+   [login-form]])
