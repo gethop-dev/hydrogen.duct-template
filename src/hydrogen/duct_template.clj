@@ -5,8 +5,10 @@
 (ns hydrogen.duct-template
   (:require [hydrogen.core.duct-template :as core]
             [hydrogen.session.cognito.duct-template :as cognito]
-            [hydrogen.session.keycloak.duct-template :as keycloak]))
+            [hydrogen.session.keycloak.duct-template :as keycloak]
+            [hydrogen.persistence.sql.duct-template :as sql]))
 
 (def core-profile core/profile)
 (def session.cognito-profile cognito/profile)
 (def session.keycloak-profile keycloak/profile)
+(def persistence.sql-profile sql/profile)

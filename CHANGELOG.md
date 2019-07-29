@@ -16,6 +16,7 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 
 ### Added
 - A couple of back-end utility namespaces containing commonly used functionality (HTTP response methods, Base64 encoding/decoding, UUID generation, etc.)
+- A new persistence profile for SQL databases (only the Postgresql driver dependency is added by default). It adds all the boundary namespaces neede (port, adapter(s), etc.).
 
 ## [0.1.7] - 2019-06-24
 ### Changed
