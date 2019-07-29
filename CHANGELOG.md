@@ -13,6 +13,7 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 ### Fixed
 - Refactored login form in Cognito profile to make autocompletion work properly.
 - Added missing images used in Cognito profile.
+- Handle project names containing hyphens correctly. We used the name as-is in Javascript code, which is not valid.
 
 ### Added
 - A couple of back-end utility namespaces containing commonly used functionality (HTTP response methods, Base64 encoding/decoding, UUID generation, etc.)

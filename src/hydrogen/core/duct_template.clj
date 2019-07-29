@@ -15,8 +15,12 @@
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
 
+(defn- ns->js-ns [ns]
+  (str/replace (name ns) "-" "_"))
+
 (defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-core? true
+          :js-namespace (ns->js-ns project-ns)
           :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                               "api/config"
                                                               "api/example"])}
