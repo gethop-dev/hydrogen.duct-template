@@ -72,7 +72,7 @@ Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
 [UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.6...v0.2.0
+[0.2.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.7...v0.2.0
 [0.1.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.4...v0.1.5
