@@ -24,13 +24,13 @@
    (assoc db :config config)))<</hydrogen-session-cognito?>><<#hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
-  ::set-config
-  [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
-  (fn [{:keys [db cookies]} [_ config]]
-      (merge
-        {:db (assoc db :config config)}
-        (let [keycloak-process? (get cookies "KEYCLOAK_PROCESS")]
-             (if keycloak-process? {:init-and-authenticate (:keycloak config)})))))<</hydrogen-session-keycloak?>>
+ ::set-config
+ [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
+ (fn [{:keys [db cookies]} [_ config]]
+   (merge
+    {:db (assoc db :config config)}
+    (if-let [keycloak-process? (get cookies "KEYCLOAK_PROCESS")]
+      {:init-and-authenticate config}))))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-db
  ::error
