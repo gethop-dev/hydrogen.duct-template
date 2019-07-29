@@ -14,6 +14,7 @@
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]<</hydrogen-session?>>
+            [<<namespace>>.client.util :as util]
             [<<namespace>>.client.view :as view]))<<^hydrogen-session-keycloak?>>
 
 (defn hook-browser-navigation! []
@@ -31,11 +32,6 @@
 (def ^:const default-number-retries 10)
 
 (def ^:const default-delay-time 250)
-
-(rf/reg-event-db
-  ::error
-  (fn [db _]
-      (assoc db :error "request timed out!")))
 
 (defn config-exists? [db]
   (get db :config))<<#hydrogen-session-keycloak?>>
@@ -78,7 +74,6 @@
        (go-unauthenticated evt access-config)))))
 
 (rf/reg-event-fx
-        :else {:dispatch [::error]})))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
  :go-to
  [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
  (fn [{:keys [db cookies]}
@@ -95,6 +90,7 @@
       [{:ms default-delay-time
         :dispatch [:go-to evt
                    (assoc access-config :remaining-retries (dec remaining-retries))]}]}
+     :else {:dispatch [::util/generic-error ::route-access-error]})))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
 
 (defn- anyone? [access-config]
   (every? #(true? (val %)) access-config))
@@ -129,7 +125,7 @@
                               [{:ms default-delay-time
                                 :dispatch [:go-to evt
                                            (assoc access-config :remaining-retries (dec remaining-retries))]}]}
-     :else {:dispatch [::error]})))<</hydrogen-session-cognito?>>
+     :else {:dispatch [::util/generic-error ::route-access-error]})))<</hydrogen-session-cognito?>>
 
 (defn app-routes []
   (secretary/set-config! :prefix "#")
