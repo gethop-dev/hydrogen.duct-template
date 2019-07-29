@@ -28,33 +28,33 @@
 (defn login-form []
   (let [auth-error (rf/subscribe [::session/auth-error])]
     (fn []
-        [:div.login-form-container
-         [:form.login-form
-          [:div.form-field
-           [:img.form-field__icon {:src "images/email-address.svg"}]
-           [:input.form-field__input
-            {:type "email"
-             :auto-complete "username"
-             :placeholder "Email"
-             :id "email"
-             :value (:username @credentials)
-             :on-key-press #(do-login-if-enter-pressed % @credentials)
-             :on-change #(swap-input! % credentials :username)}]]
-          [:div.form-field
-           [:img.form-field__icon {:src "images/password.svg"}]
-           [:input.form-field__input
-            {:type "password"
-             :auto-complete "current-password"
-             :placeholder "Password"
-             :id "password"
-             :value (:password @credentials)
-             :on-key-press #(do-login-if-enter-pressed % @credentials)
-             :on-change #(swap-input! % credentials :password)}]]]
-         [:button.btn.btn--gradient
-          {:on-click #(rf/dispatch [::session/user-login @credentials])}
-          "Login"]
-         (when @auth-error
-               [:p {:style {:color :red}} (name @auth-error)])])))
+      [:div.login-form-container
+       [:form.login-form
+        [:div.form-field
+         [:img.form-field__icon {:src "images/email-address.svg"}]
+         [:input.form-field__input
+          {:type "email"
+           :auto-complete "username"
+           :placeholder "Email"
+           :id "email"
+           :value (:username @credentials)
+           :on-key-press #(do-login-if-enter-pressed % @credentials)
+           :on-change #(swap-input! % credentials :username)}]]
+        [:div.form-field
+         [:img.form-field__icon {:src "images/password.svg"}]
+         [:input.form-field__input
+          {:type "password"
+           :auto-complete "current-password"
+           :placeholder "Password"
+           :id "password"
+           :value (:password @credentials)
+           :on-key-press #(do-login-if-enter-pressed % @credentials)
+           :on-change #(swap-input! % credentials :password)}]]]
+       [:button.btn.btn--gradient
+        {:on-click #(rf/dispatch [::session/user-login @credentials])}
+        "Login"]
+       (when @auth-error
+         [:p {:style {:color :red}} (name @auth-error)])])))
 
 (defn header []
   [:header
