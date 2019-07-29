@@ -38,6 +38,7 @@
                "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
                "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
+               "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
                "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
                "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
                "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")

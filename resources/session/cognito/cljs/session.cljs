@@ -4,26 +4,27 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.session
-  (:require [ajax.core :as ajax]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [re-frame.core :as rf]
-            [reagent.core :as reagent]
+            [<<namespace>>.client.session.oidc-sso :as oidc-sso]
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-sub
  ::token
  (fn [db]
-   (:token db)))
+   (:jwt-token db)))
 
-(rf/reg-event-db
+(rf/reg-event-fx
  ::set-token
- (fn [db [_ id-token]]
-   (assoc db :token id-token)))
+ (fn [{:keys [db]} [_ jwt-token]]
+   {:db (assoc db :jwt-token jwt-token)
+    :dispatch [::oidc-sso/trigger-sso-apps]}))
 
-(rf/reg-event-db
+(rf/reg-event-fx
  ::remove-token
- (fn [db [_]]
-   (dissoc db :token)))
+ (fn [{:keys [db]} [_]]
+   {:db (dissoc db :jwt-token)
+    :dispatch [::oidc-sso/trigger-logout-apps]}))
 
 (rf/reg-event-db
  ::set-auth-error
@@ -36,8 +37,8 @@
    (:auth-error db)))
 
 (defn- get-user-pool [db]
-  (let [awscog-user-pool-id (last (str/split (get-in db [:config :cognito :iss]) #"/"))
-        awscog-app-client-id (get-in db [:config :cognito :client-id])]
+  (let [awscog-user-pool-id (last (str/split (get-in db [:config :oidc :cognito :iss]) #"/"))
+        awscog-app-client-id (get-in db [:config :oidc :cognito :client-id])]
     (new js/AmazonCognitoIdentity.CognitoUserPool #js {:UserPoolId awscog-user-pool-id
                                                        :ClientId awscog-app-client-id})))
 
@@ -47,7 +48,7 @@
                                               (when (not err)
                                                 (-> session .-idToken .-jwtToken))))]
     (-> cofx
-        (assoc-in [:db :token] jwt-token)
+        (assoc-in [:db :jwt-token] jwt-token)
         (assoc :jwt-token jwt-token))))
 
 (rf/reg-cofx
@@ -72,9 +73,9 @@
       cognito-user
       auth-details
       #js {:onSuccess (fn [cognitoAuthResult]
-                        (let [id-token (-> cognitoAuthResult .-idToken .-jwtToken)]
+                        (let [jwt-token (-> cognitoAuthResult .-idToken .-jwtToken)]
                           (rf/dispatch [::set-auth-error nil])
-                          (rf/dispatch [::set-token id-token])
+                          (rf/dispatch [::set-token jwt-token])
                           (view/redirect! "/#/home")))
            :onFailure (fn [err]
                         (rf/dispatch [::set-auth-error "Incorrect username or password"]))}))))
