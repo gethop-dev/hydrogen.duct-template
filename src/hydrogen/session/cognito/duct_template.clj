@@ -3,7 +3,7 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.session.cognito.duct-template
-  (:require [hydrogen.utils :refer [resource]]
+  (:require [hydrogen.utils :refer [resource ns->dir-name]]
             [hydrogen.session.core :as core]))
 
 (def ^:private ^:const cognito-config
@@ -32,4 +32,4 @@
    :profile-base (profile-base project-ns)
    :modules {:hydrogen.module/core {:externs-paths
                                     {:production
-                                     [(str project-ns "/client/foreign-libs/externs/cognito.js")]}}}})
+                                     [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/cognito.js")]}}}})

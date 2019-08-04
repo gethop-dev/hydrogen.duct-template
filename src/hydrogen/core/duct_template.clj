@@ -4,7 +4,7 @@
 
 (ns hydrogen.core.duct-template
   (:require [clojure.string :as str]
-            [hydrogen.utils :refer [resource]]))
+            [hydrogen.utils :refer [resource ns->js-ns]]))
 
 (defn- gen-cascading-routes [project-ns routes-refs]
   (as-> routes-refs $
@@ -14,9 +14,6 @@
 
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
-
-(defn- ns->js-ns [ns]
-  (str/replace (name ns) "-" "_"))
 
 (defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-core? true
