@@ -43,6 +43,58 @@
  (fn [db]
    (:auth-error db)))
 
+(defn- set-token-and-sched-refresh [keycloak-obj]
+  ;; See comment at the top of this file to see
+  ;; why we manage the keycloak object this way.
+  (let [jwt-token (.-idToken keycloak-obj)
+        token-exp (-> keycloak-obj .-idTokenParsed .-exp)]
+    (reset! keycloak keycloak-obj)
+    (rf/dispatch [::set-token jwt-token])
+    (rf/dispatch [::schedule-token-refresh token-exp])))
+
+(rf/reg-fx
+ ::refresh-token-keycloack
+ (fn [{:keys [min-validity]}]
+   (let [keycloak-obj @keycloak]
+     (-> keycloak-obj
+         (.updateToken min-validity)
+         (.success (fn [refreshed]
+                     ;; If token was still valid, so do nothing
+                     (when refreshed
+                       (set-token-and-sched-refresh keycloak-obj))))
+         (.error (fn []
+                   (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
+                                  [::user-logout]]]
+                     (rf/dispatch event))))))))
+
+(rf/reg-event-fx
+ ::refresh-token
+ (fn [{:keys [db]} [_ min-validity]]
+   {:db db
+    ::refresh-token-keycloack {:min-validity min-validity}}))
+
+(rf/reg-event-fx
+ ::schedule-token-refresh
+ (fn [{:keys [db]} [_ token-exp]]
+   (let [now (/ (.getTime (js/Date.)) 1000)
+         token-lifetime (int (- token-exp now))
+         ;; If we refresh the token when it's close to the session
+         ;; lifetime, keycloak returns a new token with a lifetime
+         ;; that is the difference between the current time and the
+         ;; session expiration time. Which may be lower than the
+         ;; configured token lifetime. As we keep refreshing the token
+         ;; the lifetime gets shorter and shorter, and eventually gets
+         ;; smaller than 2 seconds. That means half-lifetime would be
+         ;; zero. But half-lifetime must be greater than zero.
+         ;; Otherwise :dispatch-later would get a zero min-delay
+         ;; and return inmediatly without dispatching the event(s). So
+         ;; make sure half-lifetime is at least 1 second.
+         half-lifetime (max 1 (quot token-lifetime 2))
+         min-validity token-lifetime]
+     {:db db
+      :dispatch-later [{:ms (* 1000 half-lifetime)
+                        :dispatch [::refresh-token min-validity]}]})))
+
 (rf/reg-event-fx
  ::set-token
  (fn [{:keys [db]} [_ jwt-token]]
@@ -61,10 +113,7 @@
          (.init #js {"onLoad" "login-required"})
          (.success (fn [authenticated]
                      (when authenticated
-                       ;; See comment at the top of this file to see
-                       ;; why we manage the keycloak object this way.
-                       (reset! keycloak keycloak-obj)
-                       (rf/dispatch [::set-token (.-idToken keycloak-obj)]))))
+                       (set-token-and-sched-refresh keycloak-obj))))
          (.error (fn []
                    (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
 
@@ -94,4 +143,3 @@
    {:db (dissoc db :jwt-token)
     ::logout []
     :dispatch [::oidc-sso/trigger-logout-apps]}))
-

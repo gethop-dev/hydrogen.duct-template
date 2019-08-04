@@ -46,3 +46,5 @@ keycloak.updateToken = function(minValidity) {};
 keycloak.clearToken = function() {};
 
 keycloak.idToken;
+keycloak.idTokenParsed;
+keycloak.idTokenParsed.exp;
