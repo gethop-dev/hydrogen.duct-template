@@ -33,6 +33,12 @@ AmazonCognitoIdentity.CognitoUser = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.authenticateUser = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.getSession = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.signOut = function(){};
+AmazonCognitoIdentity.CognitoJwtToken = function(){};
+AmazonCognitoIdentity.CognitoJwtToken.prototype.getJwtToken = function(){};
+AmazonCognitoIdentity.CognitoJwtToken.prototype.getExpiration = function(){};
+AmazonCognitoIdentity.CognitoIdToken = function(){};
+AmazonCognitoIdentity.CognitoIdToken.prototype.getJwtToken = function(){};
+AmazonCognitoIdentity.CognitoIdToken.prototype.getExpiration = function(){};
 
 var cognitoAuthResult;
 cognitoAuthResult.idToken;
