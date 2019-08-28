@@ -53,7 +53,7 @@
     (rf/dispatch [::schedule-token-refresh token-exp])))
 
 (rf/reg-fx
- ::refresh-token-keycloack
+ ::refresh-token-keycloak
  (fn [{:keys [min-validity]}]
    (let [keycloak-obj @keycloak]
      (-> keycloak-obj
@@ -71,7 +71,7 @@
  ::refresh-token
  (fn [{:keys [db]} [_ min-validity]]
    {:db db
-    ::refresh-token-keycloack {:min-validity min-validity}}))
+    ::refresh-token-keycloak {:min-validity min-validity}}))
 
 (rf/reg-event-fx
  ::schedule-token-refresh
