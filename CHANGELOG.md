@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.3.1] - 2019-09-09
+### Changed
+- Use v0.7.0 of `magnetcoop/buddy-auth.jwt-oidc`
+
 ## [0.3.0] - 2019-08-04
 ### Added
 - Keycloak and Cognito session modules now automatically refresh ID tokens, based on their expiration time.
@@ -78,7 +82,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.0...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.7...v0.2.0
 [0.1.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.6...v0.1.7
