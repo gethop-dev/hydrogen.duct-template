@@ -24,7 +24,7 @@
 (defn profile [{:keys [project-ns]}]
   {:vars {:hydrogen-persistence-sql? true}
    :deps '[[duct/module.sql "0.5.0"]
-           [magnet/sql-utils "0.4.0"]
+           [magnet/sql-utils "0.4.5"]
            [org.postgresql/postgresql "42.2.5"]]
    :templates {"src/{{dirs}}/boundary/adapter/persistence/connector.clj" (resource "core/boundary/adapter/persistence/connector.clj")
                "src/{{dirs}}/boundary/adapter/persistence/sql.clj" (resource "core/boundary/adapter/persistence/sql.clj")

@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.3.2] - 2019-11-03
+### Changed
+- Use v0.3.5 of `magnet/sql-utils`
+
 ## [0.3.1] - 2019-09-09
 ### Changed
-- Use v0.7.0 of `magnetcoop/buddy-auth.jwt-oidc`
+- Use v0.7.0 of `magnet/buddy-auth.jwt-oidc`
 
 ## [0.3.0] - 2019-08-04
 ### Added
