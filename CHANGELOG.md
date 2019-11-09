@@ -86,7 +86,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.1...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.2...HEAD
+[0.3.1]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.7...v0.2.0
