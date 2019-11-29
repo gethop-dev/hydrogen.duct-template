@@ -36,24 +36,10 @@
 (defn config-exists? [db]
   (get db :config))<<#hydrogen-session-keycloak?>>
 
-(defn- fix-callbacks
-  [route]
-  (cond
-    (re-find #"&state=" route)
-    (let [fixed-route (str/replace route "&state=" "?state=")]
-      fixed-route)
-    :else
-    route))
-
 (defn hook-browser-navigation! []
-  (let [history (History.)]
-    (doto history
-      (goog.events/listen
-       EventType/NAVIGATE
-       (fn [event]
-         (let [route (fix-callbacks (.-token event))]
-           (secretary/dispatch! route))))
-      (.setEnabled true))))
+  (doto (History.)
+    (goog.events/listen EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+    (.setEnabled true)))
 
 (defn- go-authenticated [evt access-config]
   (if (:allow-authenticated? access-config)
@@ -73,24 +59,44 @@
        (go-authenticated evt access-config)
        (go-unauthenticated evt access-config)))))
 
-(rf/reg-event-fx
- :go-to
- [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
- (fn [{:keys [db cookies]}
-      [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
-                 :or {remaining-retries default-number-retries}
-                 :as access-config}]]]
-   (cond
-     (and
+(defn- go-to-handler
+  "This rf event handler is responsible for making sure that
+  user is eligible for accessing a view.
+
+  Two conditions need to be met for this handler to let through:
+  1) Config needs to exists in appdb.
+     It's the only way to know if user is authenticated
+  2) Keycloak process cannot be ongoing.
+     Finishing that process is trivial so it should finish in time before
+     this handler reaches its retrials limit.
+     (see :init-and-authenticate effect)
+
+  This handler accepts second, optional, parameter to tune it more:
+  :allow-authenticated? - if false then it will throw an error for authenticated users
+                          (`true` by default)
+  :allow-unauthenticated? - if false then it will throw an error for unauthenticated users
+                            (`false` by default)
+  :remaining-retries - how times this handler can be debounced until it meets
+                       obligatory conditions"
+  [{:keys [db]}
+   [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
+              :or {remaining-retries default-number-retries}
+              :as access-config}]]]
+  (cond
+    (and
       (config-exists? db)
-      (not (get cookies "KEYCLOAK_PROCESS")))
-     {:dispatch [:go-to* evt access-config]}
-     (> remaining-retries 0)
-     {:dispatch-later
-      [{:ms default-delay-time
-        :dispatch [:go-to evt
-                   (assoc access-config :remaining-retries (dec remaining-retries))]}]}
-     :else {:dispatch [::util/generic-error ::route-access-error]})))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
+      (not (session/keycloak-process-ongoing?)))
+    {:dispatch [:go-to* evt access-config]}
+    (> remaining-retries 0)
+    {:dispatch-later
+     [{:ms default-delay-time
+       :dispatch [:go-to evt
+                  (assoc access-config :remaining-retries (dec remaining-retries))]}]}
+    :else {:dispatch [::util/generic-error ::route-access-error]}))
+
+(rf/reg-event-fx
+  :go-to
+  go-to-handler)<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
 
 (defn- anyone? [access-config]
   (every? #(true? (val %)) access-config))

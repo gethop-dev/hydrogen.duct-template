@@ -7,11 +7,11 @@
   (:require [ajax.core :as ajax]
             [re-frame.core :as rf]
             [day8.re-frame.http-fx]
-            [reagent.core :as reagent]<<#hydrogen-session-keycloak?>>
-            [<<namespace>>.client.cookie]<</hydrogen-session-keycloak?>>
+            [reagent.core :as reagent]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
-            [<<namespace>>.client.routes :as routes]
+            [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
+            [<<namespace>>.client.session :as session]<</hydrogen-session-keycloak?>>
             [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.view :as view]))
 
@@ -24,13 +24,12 @@
    (assoc db :config config)))<</hydrogen-session-cognito?>><<#hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
- ::set-config
- [(rf/inject-cofx :cookie/get "KEYCLOAK_PROCESS")]
- (fn [{:keys [db cookies]} [_ config]]
-   (merge
-    {:db (assoc db :config config)}
-    (if-let [keycloak-process? (get cookies "KEYCLOAK_PROCESS")]
-      {:init-and-authenticate config}))))<</hydrogen-session-keycloak?>>
+  ::set-config
+  (fn [{:keys [db]} [_ config]]
+    (merge
+      {:db (assoc db :config config)}
+      (when (session/keycloak-process-ongoing?)
+        {:init-and-authenticate config}))))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-db
  ::error
@@ -73,6 +72,7 @@
 
 (defn ^:export init []
   (dev-setup)
-  (rf/dispatch-sync [::load-app])
+  (rf/dispatch-sync [::load-app])<<#hydrogen-session-keycloak?>>
+  (view/fix-query-params js/location.hash)<</hydrogen-session-keycloak?>>
   (routes/app-routes)
   (mount-root))

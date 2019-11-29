@@ -23,7 +23,6 @@
    :deps '[[duct/middleware.buddy "0.1.0"]
            [magnet/buddy-auth.jwt-oidc "0.7.0"]]
    :templates {;; Client
-               "src/{{dirs}}/client/cookie.cljs" (resource "session/keycloak/cljs/cookie.cljs")
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/keycloak/cljs/session.cljs")
                "src/{{dirs}}/client/foreign-libs/externs/keycloak.js" (resource "session/keycloak/cljs/foreign-libs/externs/keycloak.js")

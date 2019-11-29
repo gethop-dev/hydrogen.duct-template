@@ -6,7 +6,8 @@
 (ns <<namespace>>.client.session
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
-            [<<namespace>>.client.session.oidc-sso :as oidc-sso]))
+            [<<namespace>>.client.session.oidc-sso :as oidc-sso]
+            [<<namespace>>.client.view :as view]))
 
 ;; Keycloak Javascript library is not designed to be used in a
 ;; functional way. When you create a keycloak object to interact with
@@ -27,45 +28,47 @@
 ;; Reagent atom.
 (def keycloak (r/atom nil))
 
-(def kc-process-max-age
-  "Time (in seconds) that we allow for the Keycloak login process to
-  last, before timing it out"
-  60)
+(defn keycloak-process-ongoing? []
+  (and
+    (view/get-query-param js/location.hash "state")
+    (view/get-query-param js/location.hash "session_state")
+    (view/get-query-param js/location.hash "code")))
 
 (rf/reg-event-fx
  ::set-auth-error
  (fn [{:keys [db]} [_ error]]
-   {:db (assoc db :auth-error error)
-    :cookie/remove "KEYCLOAK_PROCESS"}))
+   {:db (assoc db :auth-error error)}))
 
 (rf/reg-sub
  ::auth-error
  (fn [db]
    (:auth-error db)))
 
-(defn- set-token-and-sched-refresh [keycloak-obj]
-  ;; See comment at the top of this file to see
-  ;; why we manage the keycloak object this way.
+(defn- handle-keycloak-obj-change [keycloak-obj]
   (let [jwt-token (.-idToken keycloak-obj)
         token-exp (-> keycloak-obj .-idTokenParsed .-exp)]
+    ;; See comment at the top of this file to see
+    ;; why we manage the keycloak object this way.
     (reset! keycloak keycloak-obj)
     (rf/dispatch [::set-token jwt-token])
     (rf/dispatch [::schedule-token-refresh token-exp])))
 
 (rf/reg-fx
- ::refresh-token-keycloak
- (fn [{:keys [min-validity]}]
-   (let [keycloak-obj @keycloak]
-     (-> keycloak-obj
-         (.updateToken min-validity)
-         (.success (fn [refreshed]
-                     ;; If token was still valid, so do nothing
-                     (when refreshed
-                       (set-token-and-sched-refresh keycloak-obj))))
-         (.error (fn []
-                   (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
-                                  [::user-logout]]]
-                     (rf/dispatch event))))))))
+  ::refresh-token-keycloak
+  (fn [{:keys [min-validity]}]
+    (let [keycloak-obj @keycloak]
+      (-> keycloak-obj
+          (.updateToken min-validity)
+          (.success
+            (fn [refreshed]
+              ;; If token was still valid, so do nothing
+              (when refreshed
+                (handle-keycloak-obj-change keycloak-obj))))
+          (.error
+            (fn []
+              (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
+                             [::user-logout]]]
+                (rf/dispatch event))))))))
 
 (rf/reg-event-fx
  ::refresh-token
@@ -87,7 +90,7 @@
          ;; smaller than 2 seconds. That means half-lifetime would be
          ;; zero. But half-lifetime must be greater than zero.
          ;; Otherwise :dispatch-later would get a zero min-delay
-         ;; and return inmediatly without dispatching the event(s). So
+         ;; and return immediately without dispatching the event(s). So
          ;; make sure half-lifetime is at least 1 second.
          half-lifetime (max 1 (quot token-lifetime 2))
          min-validity token-lifetime]
@@ -99,34 +102,30 @@
  ::set-token
  (fn [{:keys [db]} [_ jwt-token]]
    {:db (assoc db :jwt-token jwt-token)
-    :cookie/remove "KEYCLOAK_PROCESS"
     :dispatch [::oidc-sso/trigger-sso-apps]}))
 
 (rf/reg-fx
- :init-and-authenticate
- (fn [config]
-   (let [{:keys [realm url client-id]} (get-in config [:oidc :keycloak])
-         keycloak-obj (js/Keycloak #js {:realm realm
-                                        :url url
-                                        :clientId client-id})]
-     (-> keycloak-obj
-         (.init #js {"onLoad" "login-required"})
-         (.success (fn [authenticated]
-                     (when authenticated
-                       (set-token-and-sched-refresh keycloak-obj))))
-         (.error (fn []
-                   (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
+  :init-and-authenticate
+  (fn [config]
+    (let [{:keys [realm url client-id]} (get-in config [:oidc :keycloak])
+          keycloak-obj (js/Keycloak #js {:realm realm
+                                         :url url
+                                         :clientId client-id})]
+         (-> keycloak-obj
+             (.init #js {"onLoad" "login-required"})
+             (.success (fn [authenticated]
+                         (when authenticated
+                               (handle-keycloak-obj-change keycloak-obj)
+                               ;; Since we sometime turn &state into ?state, Keycloak
+                               ;; is unable to clean up after itself.
+                               (view/redirect! (view/remove-query-param js/location.hash :state)))))
+             (.error (fn []
+                       (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
 
 (rf/reg-event-fx
  ::auth
  (fn [{:keys [db]} _]
-   {:cookie/set ["KEYCLOAK_PROCESS" true :max-age kc-process-max-age]
-    :init-and-authenticate (:config db)}))
-
-(defn keycloak-login-btn []
-  [:div.btn.auth-btn {:on-click #(rf/dispatch [::auth])}
-   [:span "Login using "]
-   [:img.auth-btn__image {:src "https://www.keycloak.org/resources/images/keycloak_logo_480x108.png"}]])
+   {:init-and-authenticate (:config db)}))
 
 (rf/reg-fx
  ::logout
