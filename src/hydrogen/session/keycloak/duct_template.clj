@@ -3,7 +3,7 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.session.keycloak.duct-template
-  (:require [hydrogen.utils :refer [resource ns->dir-name]]
+  (:require [hydrogen.utils :refer [resource ns->dir-name gen-cascading-routes]]
             [hydrogen.session.core :as core]))
 
 (def ^:private ^:const keycloak-config
@@ -14,21 +14,33 @@
 
 (defn- profile-base [project-ns]
   (let [api-config-kw (keyword (str project-ns ".api") "config")
-        api-config (format core/api-config-profile-base keycloak-config)]
-    (assoc core/session-core-profile-base api-config-kw api-config)))
+        api-config (format core/api-config-profile-base keycloak-config)
+        api-user-kw (keyword (str project-ns ".api") "user")
+        api-user core/api-user-profile-base]
+    (-> core/session-core-profile-base
+        (assoc api-config-kw api-config)
+        (assoc api-user-kw api-user))))
 
 (defn profile [{:keys [project-ns]}]
   {:vars {:hydrogen-session? true
-          :hydrogen-session-keycloak? true}
+          :hydrogen-session-keycloak? true
+          :cascading-routes (gen-cascading-routes project-ns ["static/root"
+                                                              "api/config"
+                                                              "api/example"
+                                                              "api/user"])}
    :deps '[[duct/middleware.buddy "0.1.0"]
            [magnet/buddy-auth.jwt-oidc "0.7.0"]]
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/keycloak/cljs/session.cljs")
+               "src/{{dirs}}/client/user.cljs" (resource "session/user.cljs")
                "src/{{dirs}}/client/foreign-libs/externs/keycloak.js" (resource "session/keycloak/cljs/foreign-libs/externs/keycloak.js")
+               ;;API
+               "src/{{dirs}}/api/user.clj" (resource "session/keycloak/api/user.clj")
                ;; Resources
                "resources/{{dirs}}/public/css/auth.scss" (resource "session/keycloak/resources/css/auth.scss")
-               "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")}
+               "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")
+               "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")}
    :profile-base (profile-base project-ns)
    :modules {:hydrogen.module/core {:externs-paths
                                     {:production

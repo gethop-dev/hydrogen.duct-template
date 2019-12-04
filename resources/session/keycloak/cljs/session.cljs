@@ -7,6 +7,7 @@
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
             [<<namespace>>.client.session.oidc-sso :as oidc-sso]
+            [<<namespace>>.client.user :as user]
             [<<namespace>>.client.view :as view]))
 
 ;; Keycloak Javascript library is not designed to be used in a
@@ -116,6 +117,7 @@
              (.success (fn [authenticated]
                          (when authenticated
                                (handle-keycloak-obj-change keycloak-obj)
+                               (rf/dispatch [::user/fetch-user-data])
                                ;; Since we sometime turn &state into ?state, Keycloak
                                ;; is unable to clean up after itself.
                                (view/redirect! (view/remove-query-param js/location.hash :state)))))

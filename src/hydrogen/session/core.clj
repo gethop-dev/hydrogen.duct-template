@@ -25,6 +25,11 @@
       :logout-url #duct/env [\"OIDC_SSO_APP_1_LOGOUT_URL\" Str]
       :logout-method #duct/env [\"OIDC_SSO_APP_1_LOGOUT_METHOD\" Str]}]}}")
 
+(def ^:const api-user-profile-base
+  "
+  {:auth-middleware #ig/ref :duct.middleware.buddy/authentication
+   :logger #ig/ref :duct/logger}")
+
 (def ^:const session-core-profile-base
   {:magnet.buddy-auth/jwt-oidc jwt-oidc-profile-base
    :duct.middleware.buddy/authentication buddy-auth-profile-base})

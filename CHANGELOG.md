@@ -4,8 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- [Keycloak] - User data is fetched on successful login and displayed in home ns.
 ### Changed
 - Stopped using cookies for tracking keycloak process status.
+- Dropped the support for Cognito.
+Bugs may start happening more frequently when using Cognito profile from this version onward.
 
 ## [0.3.2] - 2019-11-03
 ### Changed

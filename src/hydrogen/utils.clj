@@ -13,3 +13,9 @@
   (str/replace (name ns) "-" "_"))
 
 (def ns->js-ns ns->dir-name)
+
+(defn gen-cascading-routes [project-ns routes-refs]
+  (as-> routes-refs $
+    (map #(format "#ig/ref :%s.%s" project-ns %) $)
+    (str/join "\n   " $)
+    (str "\n  [" $ "]")))
