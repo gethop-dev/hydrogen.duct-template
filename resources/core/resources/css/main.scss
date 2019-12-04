@@ -5,10 +5,12 @@
  */
 
 @import 'button';{{#hydrogen-session?}}
-@import 'landing';{{/hydrogen-session?}}{{#hydrogen-session-keycloak?}}
-@import 'auth';{{/hydrogen-session-keycloak?}}
+@import 'landing';{{/hydrogen-session?}}
 @import 'theming';
 @import 'utils';
+@import 'tooltip';
+@import 'generic-popup';
+@import 'loading-popup';
 
 /* A normalized styling */
 html, body, #app, .app-container{

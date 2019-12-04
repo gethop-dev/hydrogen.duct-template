@@ -13,10 +13,14 @@
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
             [<<namespace>>.client.session :as session]<</hydrogen-session-keycloak?>>
             [<<namespace>>.client.theme :as theme]
+            [<<namespace>>.client.tooltip :as tooltip]
+            [<<namespace>>.client.tooltip.generic-popup :as tooltip.generic-popup]
+            [<<namespace>>.client.tooltip.loading-popup :as tooltip.loading-popup]
+            [<<namespace>>.client.util :as util]
             [<<namespace>>.client.view :as view]))
 
 (def default-db
-  {:theme :light})<<#hydrogen-session?>><<#hydrogen-session-cognito?>>
+  {:theme :light})<<#hydrogen-session-cognito?>>
 
 (rf/reg-event-db
  ::set-config
@@ -31,11 +35,6 @@
       (when (session/keycloak-process-ongoing?)
         {:init-and-authenticate config}))))<</hydrogen-session-keycloak?>>
 
-(rf/reg-event-db
- ::error
- (fn [db [_ _]]
-   (assoc db :error :unable-to-load-config)))<</hydrogen-session?>>
-
 (rf/reg-event-fx
  ::load-app
  (fn [{:keys [db]} [_]]
@@ -45,7 +44,7 @@
                  :format (ajax/json-request-format)
                  :response-format (ajax/transit-response-format)
                  :on-success [::set-config]
-                 :on-failure [::error]}<</hydrogen-session?>>}))
+                 :on-failure [::util/generic-error]}<</hydrogen-session?>>}))
 
 (defn main []
   (let [active-view (rf/subscribe [::view/active-view])]
@@ -63,8 +62,11 @@
   (let [theme (rf/subscribe [::theme/get-theme])]
     (fn []
       [:div.app-container
-       {:class (str "theme-" (name @theme))}
-       [main]])))
+       {:on-click #(tooltip/destroy-on-click-out (.. % -target))
+        :class (str "theme-" (name @theme))}
+       [main]
+       [tooltip.loading-popup/main]
+       [tooltip.generic-popup/main]])))
 
 (defn mount-root []
   (rf/clear-subscription-cache!)

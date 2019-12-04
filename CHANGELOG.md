@@ -6,10 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - [Keycloak] - User data is fetched on successful login and displayed in home ns.
+- Tooltip, generic popup and loading popup best practices.
 ### Changed
 - Stopped using cookies for tracking keycloak process status.
-- Dropped the support for Cognito.
+- We decided to temporarily stop updating Cognito in sync with Keycloak.
 Bugs may start happening more frequently when using Cognito profile from this version onward.
+We'll resume work on Cognito soon.
 
 ## [0.3.2] - 2019-11-03
 ### Changed

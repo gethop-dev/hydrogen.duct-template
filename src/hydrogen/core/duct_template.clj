@@ -31,6 +31,9 @@
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
                "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
                "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
+               "src/{{dirs}}/client/tooltip.cljs" (resource "core/cljs/tooltip.cljs")
+               "src/{{dirs}}/client/tooltip/generic_popup.cljs" (resource "core/cljs/tooltip/generic_popup.cljs")
+               "src/{{dirs}}/client/tooltip/loading_popup.cljs" (resource "core/cljs/tooltip/loading_popup.cljs")
                "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
                "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
                ;; API
@@ -45,10 +48,14 @@
                ;; Resources
                "resources/{{dirs}}/index.html" (resource "core/resources/index.html")
                "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
-               "resources/{{dirs}}/public/css/button.scss" (resource "core/resources/css/button.scss")
+               "resources/{{dirs}}/public/images/spinner.svg" (resource "core/resources/images/spinner.svg")
+               "resources/{{dirs}}/public/css/_button.scss" (resource "core/resources/css/_button.scss")
                "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
-               "resources/{{dirs}}/public/css/theming.scss" (resource "core/resources/css/theming.scss")
-               "resources/{{dirs}}/public/css/utils.scss" (resource "core/resources/css/utils.scss")}
+               "resources/{{dirs}}/public/css/_theming.scss" (resource "core/resources/css/_theming.scss")
+               "resources/{{dirs}}/public/css/_tooltip.scss" (resource "core/resources/css/_tooltip.scss")
+               "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
+               "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
+               "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")}
    :modules {:hydrogen.module/core {}}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"

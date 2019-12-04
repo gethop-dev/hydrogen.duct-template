@@ -38,7 +38,6 @@
                ;;API
                "src/{{dirs}}/api/user.clj" (resource "session/keycloak/api/user.clj")
                ;; Resources
-               "resources/{{dirs}}/public/css/auth.scss" (resource "session/keycloak/resources/css/auth.scss")
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")
                "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")}
    :profile-base (profile-base project-ns)
