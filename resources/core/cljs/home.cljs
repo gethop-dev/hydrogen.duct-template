@@ -30,12 +30,15 @@
 
 (defn- DELETEME-demo-tooltip-component []
        [:div
-        "Hello! I'm a demo tooltip."])
+        "Hello! I'm a demo tooltip. "
+        [:a.u-clickable
+         {:on-click #(rf/dispatch [::tooltip/destroy-by-id "generic-popup"])} "x"]])
 
 (defn- DELETEME-demo-tooltip []
   [:button.btn
    {:on-click #(rf/dispatch [::tooltip/register {:id "generic-popup"
-                                                 :component DELETEME-demo-tooltip-component}])}
+                                                 :component DELETEME-demo-tooltip-component
+                                                 :modal? true}])}
    "Demo tooltip"])
 
 (defn- DELETEME-demo-loading []

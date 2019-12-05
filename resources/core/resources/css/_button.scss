@@ -1,0 +1,47 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
+@import 'theming';
+@import 'utils';
+
+button {
+  outline: none;
+}
+
+.btn {
+  @include background-color('primary-action-bg-color');
+  @include color('on-primary-action-text-color');
+  padding: 10px 12px;
+  text-decoration: none;
+  transition: background-color .2s;
+  cursor: pointer;
+  border-radius: $radius-sharp;
+  border-color: transparent;
+  display: inline-block;
+
+  &.btn--gradient {
+    background-color: initial;
+    @include themify('--gradient-from', 'primary-light-action-bg-color');
+    @include themify('--gradient-to', 'primary-action-bg-color');
+    background-image: linear-gradient(180deg, var(--gradient-from), var(--gradient-to));
+
+    &:hover {
+      @include themify('--gradient-from', 'primary-action-bg-color');
+      @include themify('--gradient-to', 'primary-dark-action-bg-color');
+    }
+  }
+}
+.btn:hover {
+  @include background-color('primary-dark-action-bg-color');
+}
+
+.flat-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: initial;
+  outline: none;
+}

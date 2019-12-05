@@ -1,0 +1,88 @@
+.tooltip {
+  position: absolute;
+  @include background-color('dark-background-color');
+  @include border-color('dark-background-color');
+  border-radius: $radius;
+  padding: $spacing-small;
+}
+
+.tooltip--left {
+  left: 0 - $spacing-normal;
+  top: 50%;
+  transform: translate( -100%, -50% );
+
+  &::after {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-left-color: inherit;
+    border-width: 6px;
+    margin-top: -6px;
+  }
+}
+.tooltip--right {
+  right: 0 - $spacing-normal;
+  top: 50%;
+  transform: translate( 100%, -50% );
+
+  &::after {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-right-color: inherit;
+    border-width: 6px;
+    margin-top: -6px;
+  }
+}
+.tooltip--top {
+  top: 0 - $spacing-normal;
+  left: 50%;
+  transform: translate( -50%, -100% );
+
+  &::after {
+    left: 50%;
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-top-color: inherit;
+    border-width: 6px;
+    margin-left: -6px;
+  }
+}
+.tooltip--bottom {
+  bottom: 0 - $spacing-normal;
+  left: 50%;
+  transform: translate( -50%, 100% );
+
+  &::after {
+    left: 50%;
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: transparent;
+    border-bottom-color: inherit;
+    border-width: 6px;
+    margin-left: -6px;
+  }
+}

@@ -1,0 +1,29 @@
+.loading-popup__container {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  padding: $spacing-big;
+  background-color: #fff;
+  border-radius: $spacing-normal;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  z-index: $z-index-max;
+}
+
+.loading-popup__backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-index-med;
+  &.loading-popup__backdrop--lightbox {
+    background-color: rgba( 0, 0, 0, 0.5 );
+  }
+}
+
+.loading-popup__spinner {
+  height: 2em;
+}
