@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Changed
+- The main layout in `client.cljs` has a new, more intuitive structure.
 
 ## [0.3.3] - 2019-12-05
 ### Added

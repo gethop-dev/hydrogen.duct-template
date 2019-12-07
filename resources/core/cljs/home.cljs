@@ -62,9 +62,9 @@
    "Logout"])<</hydrogen-session?>>
 
 (defn main []
-  [:div {:id "home"}
+  [:div
    [:img {:src "images/hydrogen-logo-white.svg" :alt "Hydrogen logo"}]
-   [:h1 "Welcome to Hydrogen!"]
+   [:h1.demo-greeting "Welcome to Hydrogen!"]
    [DELETEME-demo-tooltip]
    [DELETEME-demo-loading]<<#hydrogen-session?>>
    [user-details]

@@ -46,31 +46,37 @@
                  :on-success [::set-config]
                  :on-failure [::util/generic-error]}<</hydrogen-session?>>}))
 
-(defn main []
+(defn app []
+  (let [theme (rf/subscribe [::theme/get-theme])
+        active-view (rf/subscribe [::view/active-view])]
+    (fn []
+      [:div.app-container
+       {:on-click #(tooltip/destroy-on-click-out (.. % -target))
+        :class (str "theme-" (name @theme))}
+       [:div.app-container__main
+        {:id "app-container__main"}
+        (case @active-view
+          :foo [:div "FIXME"]
+          [home/main])]
+       [tooltip.loading-popup/main]
+       [tooltip.generic-popup/main]])))
+
+(defn main []<<#hydrogen-session?>>
   (let [active-view (rf/subscribe [::view/active-view])]
     (fn []
-      (case @active-view<<#hydrogen-session?>>
-        :landing [landing/main]<</hydrogen-session?>>
-        :home [home/main]))))
+      (if (= @active-view :landing)
+        [landing/main]
+        [app])))<</hydrogen-session?>><<^hydrogen-session?>>
+  [app]<</hydrogen-session?>>)
 
 (defn dev-setup []
   (when goog.DEBUG
     (enable-console-print!)
     (println "Dev mode")))
 
-(defn app []
-  (let [theme (rf/subscribe [::theme/get-theme])]
-    (fn []
-      [:div.app-container
-       {:on-click #(tooltip/destroy-on-click-out (.. % -target))
-        :class (str "theme-" (name @theme))}
-       [main]
-       [tooltip.loading-popup/main]
-       [tooltip.generic-popup/main]])))
-
 (defn mount-root []
   (rf/clear-subscription-cache!)
-  (reagent/render [app] (.getElementById js/document "app")))
+  (reagent/render [main] (.getElementById js/document "app")))
 
 (defn ^:export init []
   (dev-setup)

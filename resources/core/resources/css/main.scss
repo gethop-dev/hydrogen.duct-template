@@ -36,14 +36,23 @@ That's because we'll soon decide on the standards of writing them.
 The stylesheet presented new is there just as an example of usage.
 ~@DH 2018.10.25 */
 
-#home {
+.app-container {
+  display: flex;
+}
+
+.app-container__sidebar {}
+
+.app-container__main {
+  flex: 1;
+  overflow: auto;
+
   min-height: calc(100vh);
   background: var(--hydrogen-black);
   text-align: center;
   color: var(--hydrogen-white);
 }
 
-#home h1 {
+.demo-greeting {
   font-size: 3rem;
   font-weight: bold;
 }{{#hydrogen-session?}}
