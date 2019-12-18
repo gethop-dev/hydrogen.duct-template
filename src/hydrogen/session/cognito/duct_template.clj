@@ -24,6 +24,7 @@
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/cognito/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/cognito/cljs/session.cljs")
+               "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
                "src/{{dirs}}/client/user.cljs" (resource "session/user.cljs")
                "src/{{dirs}}/client/foreign-libs/externs/cognito.js" (resource "session/cognito/cljs/foreign-libs/externs/cognito.js")
                ;; Resources

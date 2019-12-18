@@ -33,6 +33,7 @@
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/keycloak/cljs/session.cljs")
+               "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
                "src/{{dirs}}/client/user.cljs" (resource "session/user.cljs")
                "src/{{dirs}}/client/foreign-libs/externs/keycloak.js" (resource "session/keycloak/cljs/foreign-libs/externs/keycloak.js")
                ;;API
