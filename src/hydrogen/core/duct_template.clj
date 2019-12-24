@@ -45,6 +45,7 @@
                "src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")
                ;; Utils
                "src/{{dirs}}/util.clj" (resource "core/util.clj")
+               "src/{{dirs}}/util/specs.cljc" (resource "core/util/specs.cljc")
                ;; Resources
                "resources/{{dirs}}/index.html" (resource "core/resources/index.html")
                "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
