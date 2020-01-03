@@ -33,3 +33,6 @@
 
 (s/def ::str-number (s/and string?
                            #(re-matches #"[0-9]+" %)))
+
+(s/def ::email (s/and string?
+                      #(re-matches #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" %)))
