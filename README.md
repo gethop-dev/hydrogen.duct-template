@@ -60,6 +60,40 @@ libs, gists and blog posts with our know-how:
 - #### Misc.
   - [CLJS image cropping](https://medium.com/magnetcoop/cropping-images-in-clojurescript-aed776747a65) - Small image cropper implementation for ClojureScript
   - [tooltips/popovers](https://medium.com/magnetcoop/data-driven-tooltips-popovers-in-re-frame-de70d5412151) - Generic tooltip implementation
+  
+### Running the application
+
+Development
+Start the REPL.
+
+```sh
+lein repl
+```
+
+Then load the development environment.
+
+```clojure
+user=> (dev)
+:loaded
+```
+
+Run go to prep and initiate the system.
+
+```clojure
+dev=> (go)
+:duct.server.http.jetty/starting-server {:port 3000}
+:initiated
+```
+
+By default this creates a web server at http://localhost:3000.
+
+When you make changes to your source files, use reset to reload any modified files and reset the server.
+
+```clojure
+dev=> (reset)
+:reloading (...)
+:resumed
+```
 
 ## Future work
 
