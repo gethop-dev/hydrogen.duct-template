@@ -60,12 +60,12 @@
     (let [keycloak-obj @keycloak]
       (-> keycloak-obj
           (.updateToken min-validity)
-          (.success
+          (.then
             (fn [refreshed]
-              ;; If token was still valid, so do nothing
+              ;; If token was still valid, do nothing
               (when refreshed
                 (handle-keycloak-obj-change keycloak-obj))))
-          (.error
+          (.catch
             (fn []
               (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
                              [::user-logout]]]
@@ -113,15 +113,16 @@
                                          :url url
                                          :clientId client-id})]
          (-> keycloak-obj
-             (.init #js {"onLoad" "login-required"})
-             (.success (fn [authenticated]
-                         (when authenticated
-                               (handle-keycloak-obj-change keycloak-obj)
-                               (rf/dispatch [::user/fetch-user-data])
-                               ;; Since we sometime turn &state into ?state, Keycloak
-                               ;; is unable to clean up after itself.
-                               (view/redirect! (view/remove-query-param js/location.hash :state)))))
-             (.error (fn []
+             (.init #js {"onLoad" "login-required"
+                         "promiseType" "native"})
+             (.then (fn [authenticated]
+                      (when authenticated
+                        (handle-keycloak-obj-change keycloak-obj)
+                        (rf/dispatch [::user/fetch-user-data])
+                        ;; Since we sometime turn &state into ?state, Keycloak
+                        ;; is unable to clean up after itself.
+                        (view/redirect! (view/remove-query-param js/location.hash :state)))))
+             (.catch (fn []
                        (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
 
 (rf/reg-event-fx
