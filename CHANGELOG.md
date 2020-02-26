@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Fixed
+- Upgraded Keycloak integration library to one that includes native promises (and added associated externs definitions)
 
 ## [0.3.4] - 2020-02-25
 ### Added
