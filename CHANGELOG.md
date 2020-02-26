@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.3.5] - 2020-02-26
 ### Fixed
 - Upgraded Keycloak integration library to one that includes native promises (and added associated externs definitions)
 
@@ -105,7 +107,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.4...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.5...HEAD
+[0.3.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.3.1...v0.3.2
