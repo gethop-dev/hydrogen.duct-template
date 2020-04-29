@@ -15,8 +15,9 @@
 (defn base64?
   "Check that `src` is a valid Base64 encoded String"
   [src]
-  (and (re-matches #"[0-9a-zA-Z+/]+={0,2}" src)
-       (= 0 (rem (count src) 4))))
+  (or (= src "")
+      (and (re-matches #"[0-9a-zA-Z+/]+={0,2}" src)
+           (= 0 (rem (count src) 4)))))
 
 (defn encode-base64
   "Encodes a byte[] as String using Base64"
