@@ -29,7 +29,7 @@
                                                               "api/example"
                                                               "api/user"])}
    :deps '[[duct/middleware.buddy "0.1.0"]
-           [magnet/buddy-auth.jwt-oidc "0.7.0"]]
+           [magnet/buddy-auth.jwt-oidc "0.8.5"]]
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/keycloak/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/keycloak/cljs/session.cljs")

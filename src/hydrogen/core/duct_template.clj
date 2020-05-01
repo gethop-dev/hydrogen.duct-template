@@ -16,14 +16,14 @@
                                                               "api/config"
                                                               "api/example"])}
    :deps '[[cljs-ajax "0.8.0"]
-           [day8.re-frame/http-fx "0.1.6"]
+           [day8.re-frame/http-fx "v0.2.0"]
            [duct/compiler.sass "0.2.1"]
-           [org.clojure/clojurescript "1.10.339"]
-           [re-frame "0.10.7"]
-           [reagent "0.8.1"]
+           [org.clojure/clojurescript "1.10.741"]
+           [re-frame "0.12.0"]
+           [reagent "0.10.0"]
            [secretary "1.2.3"]
            [hydrogen/module.core "0.1.8"]]
-   :dev-deps '[[day8.re-frame/re-frame-10x "0.4.5"]]
+   :dev-deps '[[day8.re-frame/re-frame-10x "0.6.4"]]
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
                "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
