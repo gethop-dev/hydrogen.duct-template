@@ -25,6 +25,7 @@ goog.provide('Cognito');
  * From here below, it's just regular externs file declarations.
  */
 var AmazonCognitoIdentity;
+AmazonCognitoIdentity.CognitoUserAttribute = function(){};
 AmazonCognitoIdentity.CognitoUserPool = function(){};
 AmazonCognitoIdentity.CognitoUserPool.prototype.signUp = function(){};
 AmazonCognitoIdentity.CognitoUserPool.prototype.getCurrentUser = function(){};
@@ -33,6 +34,12 @@ AmazonCognitoIdentity.CognitoUser = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.authenticateUser = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.getSession = function(){};
 AmazonCognitoIdentity.CognitoUser.prototype.signOut = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.completeNewPasswordChallenge = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.changePassword = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.forgotPassword = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.confirmPassword = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.confirmRegistration = function(){};
+AmazonCognitoIdentity.CognitoUser.prototype.resendConfirmationCode = function(){};
 AmazonCognitoIdentity.CognitoJwtToken = function(){};
 AmazonCognitoIdentity.CognitoJwtToken.prototype.getJwtToken = function(){};
 AmazonCognitoIdentity.CognitoJwtToken.prototype.getExpiration = function(){};
@@ -43,3 +50,6 @@ AmazonCognitoIdentity.CognitoIdToken.prototype.getExpiration = function(){};
 var cognitoAuthResult;
 cognitoAuthResult.idToken;
 cognitoAuthResult.idToken.jwtToken;
+
+var payload;
+payload.email;
