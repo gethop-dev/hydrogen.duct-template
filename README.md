@@ -29,6 +29,11 @@ Hydrogen also offers a profile that provides a boundary (based on Clojure protoc
 To use it simply add:
 - `+hydrogen/persistence.sql` to the list of required profiles
 
+#### Job Scheduling
+Hydrogen also offers a profile that provides job scheduling using Twarc scheduling library, with persistent JobStore backed by a Postgresql database, through [scheduling.twarc](https://github.com/magnetcoop/scheduling.twarc) Duct library. This profile depends on `+hydrogen/persistence.sql` profile, so make sure you also specify it when adding the job scheduling profile.
+To use it simply add:
+- `+hydrogen/persistence.sql +hydrogen/scheduling.twarc` to the list of required profiles
+
 ### What else can it do?
 
 In order to be able to finally share our toolset with the community, we had to cut some corners
