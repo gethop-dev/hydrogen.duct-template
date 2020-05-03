@@ -17,5 +17,5 @@
   :profiles
   {:dev          [:project/dev :profiles/dev]
    :profiles/dev {}
-   :project/dev  {:plugins [[jonase/eastwood "0.3.10"]
+   :project/dev  {:plugins [[jonase/eastwood "0.3.11"]
                             [lein-cljfmt "0.6.7"]]}})
