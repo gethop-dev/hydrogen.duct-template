@@ -10,7 +10,13 @@
   ":keycloak
     {:realm #duct/env [\"KEYCLOAK_REALM\" Str]
      :url #duct/env [\"KEYCLOAK_URL\" Str]
-     :client-id #duct/env [\"KEYCLOAK_CLIENT_ID\" Str]}")
+     :client-id #duct/env [\"KEYCLOAK_CLIENT_ID\" Str]}
+   :sso-apps
+    [{:name #duct/env [\"OIDC_SSO_APP_1_NAME\" Str]
+      :login-url #duct/env [\"OIDC_SSO_APP_1_LOGIN_URL\" Str]
+      :login-method #duct/env [\"OIDC_SSO_APP_1_LOGIN_METHOD\" Str]
+      :logout-url #duct/env [\"OIDC_SSO_APP_1_LOGOUT_URL\" Str]
+      :logout-method #duct/env [\"OIDC_SSO_APP_1_LOGOUT_METHOD\" Str]}]")
 
 (defn- profile-base [project-ns]
   (let [api-config-kw (keyword (str project-ns ".api") "config")

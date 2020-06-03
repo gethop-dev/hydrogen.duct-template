@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Changed
+- Only add additional SSO-ed apps to config.edn when using Keycloak sessions. They are not used with Cognito and then need to be removed manually.
 
 ## [0.4.0] - 2020-05-03
 ### Changed

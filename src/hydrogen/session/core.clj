@@ -17,13 +17,7 @@
 (def ^:const api-config-profile-base
   "
   {:oidc
-   {%s
-    :sso-apps
-    [{:name #duct/env [\"OIDC_SSO_APP_1_NAME\" Str]
-      :login-url #duct/env [\"OIDC_SSO_APP_1_LOGIN_URL\" Str]
-      :login-method #duct/env [\"OIDC_SSO_APP_1_LOGIN_METHOD\" Str]
-      :logout-url #duct/env [\"OIDC_SSO_APP_1_LOGOUT_URL\" Str]
-      :logout-method #duct/env [\"OIDC_SSO_APP_1_LOGOUT_METHOD\" Str]}]}}")
+   {%s}}")
 
 (def ^:const api-user-profile-base
   "
