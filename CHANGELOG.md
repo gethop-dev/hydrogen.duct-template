@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Changed
+- Upgraded Secretary dependency version. The old one wasn't compatible with the Clojurescript version we are using.
 
 ## [0.4.1] - 2020-06-03
 ### Changed
