@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
 - [Issue 17] - The atom holding keycloak state is now a clojure.core/atom rather than reagent.core/atom.
 There was no reason to use a ratom here.
+- Bumped dependencies
 
 ### Fixed
 - [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.

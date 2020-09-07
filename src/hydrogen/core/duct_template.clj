@@ -15,15 +15,15 @@
           :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                               "api/config"
                                                               "api/example"])}
-   :deps '[[cljs-ajax "0.8.0"]
-           [day8.re-frame/http-fx "v0.2.0"]
+   :deps '[[cljs-ajax "0.8.1"]
+           [day8.re-frame/http-fx "0.2.1"]
            [duct/compiler.sass "0.2.1"]
-           [org.clojure/clojurescript "1.10.741"]
-           [re-frame "0.12.0"]
+           [org.clojure/clojurescript "1.10.773"]
+           [re-frame "1.1.1"]
            [reagent "0.10.0"]
            [clj-commons/secretary "1.2.4"]
-           [hydrogen/module.core "0.1.9"]]
-   :dev-deps '[[day8.re-frame/re-frame-10x "0.6.4"]]
+           [hydrogen/module.core "0.1.11"]]
+   :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
                "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
