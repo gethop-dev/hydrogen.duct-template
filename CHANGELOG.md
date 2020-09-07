@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+## Changed
+- [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
+
 ## [0.4.3] - 2020-07-01
 ### Changed
 - Use newer versions of dependencies
@@ -162,3 +165,5 @@ This version unifies it to `rf`.
 [0.1.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/v0.1.3
+
+[Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
