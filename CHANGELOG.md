@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## Changed
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
 
+### Fixed
+- [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.
+
 ## [0.4.3] - 2020-07-01
 ### Changed
 - Use newer versions of dependencies
@@ -166,4 +169,5 @@ This version unifies it to `rf`.
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/v0.1.3
 
+[Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
