@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+## Added
+- [Issue 19] - Landing containers now have theme classes assigned. Just like main component does.
+
 ## Changed
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
 
@@ -171,3 +174,4 @@ This version unifies it to `rf`.
 
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
+[Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19

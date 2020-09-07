@@ -8,6 +8,7 @@
             [re-frame.core :as rf]
             [reagent.core :as reagent]
             [<<namespace>>.client.session :as session]
+            [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-event-fx
@@ -61,6 +62,9 @@
    [:h1 "Hydrogen"]])
 
 (defn main []
-  [:div.landing-container
-   [header]
-   [login-form]])
+  (let [theme (rf/subscribe [::theme/get-theme])]
+    (fn []
+      [:div.landing-container
+       {:class (str "theme-" (name @theme))}
+       [header]
+       [login-form]])))
