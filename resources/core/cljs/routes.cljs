@@ -98,8 +98,8 @@
   :go-to
   go-to-handler)<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
 
-(defn- anyone? [access-config]
-  (every? #(true? (val %)) access-config))
+(defn- anyone? [{:keys [allow-unauthenticated? allow-authenticated?]}]
+  (and allow-unauthenticated? allow-authenticated?))
 
 (defn- only-authenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
   (and allow-authenticated? (not allow-unauthenticated?)))

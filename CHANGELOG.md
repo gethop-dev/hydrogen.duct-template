@@ -15,6 +15,7 @@ There was no reason to use a ratom here.
 
 ### Fixed
 - [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.
+- [Issue 22] - Fix conditional checking if a route is available to a user irregardless of authentication.
 
 ## [0.4.3] - 2020-07-01
 ### Changed
@@ -179,3 +180,4 @@ This version unifies it to `rf`.
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
 [Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19
 [Issue 17]: https://github.com/magnetcoop/hydrogen.duct-template/issues/17
+[Issue 22]: https://github.com/magnetcoop/hydrogen.duct-template/issues/22
