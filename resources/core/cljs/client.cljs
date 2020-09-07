@@ -7,7 +7,7 @@
   (:require [ajax.core :as ajax]
             [re-frame.core :as rf]
             [day8.re-frame.http-fx]
-            [reagent.core :as reagent]
+            [reagent.dom :as rd]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
@@ -76,7 +76,7 @@
 
 (defn mount-root []
   (rf/clear-subscription-cache!)
-  (reagent/render [main] (.getElementById js/document "app")))
+  (rd/render [main] (.getElementById js/document "app")))
 
 (defn ^:export init []
   (dev-setup)
