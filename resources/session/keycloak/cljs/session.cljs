@@ -5,7 +5,6 @@
 {{=<< >>=}}
 (ns <<namespace>>.client.session
   (:require [re-frame.core :as rf]
-            [reagent.core :as r]
             [<<namespace>>.client.session.oidc-sso :as oidc-sso]
             [<<namespace>>.client.user :as user]
             [<<namespace>>.client.view :as view]))
@@ -27,7 +26,7 @@
 ;; there). So after an internal discussion, we have decided that the
 ;; least hacky way of doing it is storing the Keycloak object in a
 ;; Reagent atom.
-(def keycloak (r/atom nil))
+(def keycloak (atom nil))
 
 (defn keycloak-process-ongoing? []
   (and

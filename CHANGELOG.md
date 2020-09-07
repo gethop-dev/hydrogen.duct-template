@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## Changed
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
+- [Issue 17] - The atom holding keycloak state is now a clojure.core/atom rather than reagent.core/atom.
+There was no reason to use a ratom here.
 
 ### Fixed
 - [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.
@@ -175,3 +177,4 @@ This version unifies it to `rf`.
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
 [Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19
+[Issue 17]: https://github.com/magnetcoop/hydrogen.duct-template/issues/17
