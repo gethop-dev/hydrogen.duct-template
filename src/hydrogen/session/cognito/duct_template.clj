@@ -31,6 +31,7 @@
                "resources/{{dirs}}/public/images/email-address.svg" (resource "session/cognito/resources/images/email-address.svg")
                "resources/{{dirs}}/public/images/password.svg" (resource "session/cognito/resources/images/password.svg")}
    :profile-base (profile-base project-ns)
-   :modules {:hydrogen.module/core {:externs-paths
+   :modules {:hydrogen.module/core {:figwheel-main true
+                                    :externs-paths
                                     {:production
                                      [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/cognito.js")]}}}})

@@ -57,7 +57,7 @@
                "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
                "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
                "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")}
-   :modules {:hydrogen.module/core {}}
+   :modules {:hydrogen.module/core {:figwheel-main true}}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"

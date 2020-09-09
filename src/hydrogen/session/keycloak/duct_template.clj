@@ -47,6 +47,7 @@
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")
                "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")}
    :profile-base (profile-base project-ns)
-   :modules {:hydrogen.module/core {:externs-paths
+   :modules {:hydrogen.module/core {:figwheel-main true
+                                    :externs-paths
                                     {:production
                                      [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/keycloak.js")]}}}})

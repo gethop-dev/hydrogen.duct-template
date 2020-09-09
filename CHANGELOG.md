@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ## Added
+- Add `:figwheel-main true` config to `:hydrogen.module/core` key.
 - [Issue 19] - Landing containers now have theme classes assigned. Just like main component does.
 
 ## Changed
