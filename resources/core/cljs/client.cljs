@@ -3,7 +3,7 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 {{=<< >>=}}
-(ns <<namespace>>.client
+(ns ^:figwheel-hooks <<namespace>>.client
   (:require [ajax.core :as ajax]
             [re-frame.core :as rf]
             [day8.re-frame.http-fx]
@@ -77,6 +77,9 @@
 (defn mount-root []
   (rf/clear-subscription-cache!)
   (rd/render [main] (.getElementById js/document "app")))
+
+(defn ^:after-load re-render []
+  (mount-root))
 
 (defn ^:export init []
   (dev-setup)
