@@ -14,6 +14,10 @@ It creates an SPA app that's ready for you to run. Front to back. It comes packe
 - API endpoint for downloading initial config from the server
 - Bread and butter FE code that manages routes, [themes toggling (just run `(themes/toggle-theme)`)](https://github.com/magnetcoop/hydrogen.duct-template/blob/master/resources/core/cljs/theme.cljs#L27-L32), js externs, etc.
 
+## Warning!
+As of version 0.5.0, until further notice, newly generated projects will have two conflicting dependencies:
+`hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one form generated `project.clj` file.
+
 ### Additional profiles
 
 #### Authentication and session management

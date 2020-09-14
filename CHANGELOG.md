@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
-## Added
+### Added
 - Add `:figwheel-main true` config to `:hydrogen.module/core` key.
 - [Issue 19] - Landing containers now have theme classes assigned. Just like main component does.
 
-## Changed
+### Changed
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.
 - [Issue 17] - The atom holding keycloak state is now a clojure.core/atom rather than reagent.core/atom.
 There was no reason to use a ratom here.
 - Bumped dependencies
+- **BREAKING CHANGE** - newly generated projects will have two conflicting dependencies:
+                        `hydrogen/module.cljs` and `duct/module.cljs`.
+                        Please remove the latter one form generated `project.clj` file.
 
 ### Fixed
 - [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.

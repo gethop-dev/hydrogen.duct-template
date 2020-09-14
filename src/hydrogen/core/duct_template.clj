@@ -22,7 +22,9 @@
            [re-frame "1.1.1"]
            [reagent "0.10.0"]
            [clj-commons/secretary "1.2.4"]
-           [hydrogen/module.core "0.1.11"]]
+           [hydrogen/module.core "0.2.0"]
+           [hydrogen/module.cljs "0.5.0"]
+           [duct/module.web "0.7.1"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
