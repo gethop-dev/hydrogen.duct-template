@@ -18,6 +18,7 @@ There was no reason to use a ratom here.
                         Please remove the latter one form generated `project.clj` file.
 
 ### Fixed
+- [Issue 27]
 - [Issue 23] - Now the DELETEME-demo-* functions definitions will get generated for all profiles.
 - [Issue 22] - Fix conditional checking if a route is available to a user irregardless of authentication.
 
@@ -180,6 +181,7 @@ This version unifies it to `rf`.
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/v0.1.3
 
+[Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
 [Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19

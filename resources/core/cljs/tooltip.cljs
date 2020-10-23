@@ -62,8 +62,10 @@
                           (vals)
                           (filter :destroy-on-click-out?)
                           (map :id)
-                          (set))]
-    (rf/dispatch [::destroy-by-ids (disj controls-ids clicked-controller)])))
+                          (set))
+        ids-to-destroy (disj controls-ids clicked-controller)]
+    (when (seq ids-to-destroy)
+      (rf/dispatch [::destroy-by-ids ids-to-destroy]))))
 
 (defn gen-controller-class [tooltip-id]
   {:pre (string? tooltip-id)}
