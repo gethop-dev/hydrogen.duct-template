@@ -22,8 +22,18 @@ $themes: (
     'primary-light-action-bg-color': #5d80c9,
     'primary-dark-action-bg-color': #002c69,
 
+    'secondary-action-bg-color': #ea5638,
+    'secondary-light-action-bg-color': #ff8864,
+    'secondary-dark-action-bg-color': #b1200d,
+
+    'white-action-bg-color': #fff,
+    'white-light-action-bg-color': #fff,
+    'white-dark-action-bg-color': rgb(200, 200, 200),
+
     'on-primary-action-text-color': #fff,
+    'on-secondary-action-text-color': #fff,
     'on-dark-background-text-color': #fff,
+    'on-light-background-text-color': #111c2d,
 
     'input-background-color': #fff,
 ),
@@ -44,8 +54,18 @@ $themes: (
     'primary-light-action-bg-color': tomato,
     'primary-dark-action-bg-color': darkred,
 
+    'secondary-action-bg-color': red,
+    'secondary-light-action-bg-color': tomato,
+    'secondary-dark-action-bg-color': darkred,
+
+    'white-action-bg-color': #fff,
+    'white-light-action-bg-color': #fff,
+    'white-dark-action-bg-color': rgb(200, 200, 200),
+
     'on-primary-action-text-color': yellow,
+    'on-secondary-action-text-color': yellow,
     'on-dark-background-text-color': yellow,
+    'on-light-background-text-color': yellow,
 
     'input-background-color': #333333,
   )

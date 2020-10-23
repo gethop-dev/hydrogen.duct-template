@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - Add `:figwheel-main true` config to `:hydrogen.module/core` key.
 - [Issue 19] - Landing containers now have theme classes assigned. Just like main component does.
+- More btn class modifiers (btn--disabled, btn--secondary, btn--light)
 
 ### Changed
 - [Issue 24] - `reagent.core/render` is deprecated. Now we use `reagent.dom/render` instead.

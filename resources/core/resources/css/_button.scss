@@ -22,20 +22,44 @@ button {
   border-color: transparent;
   display: inline-block;
 
-  &.btn--gradient {
-    background-color: initial;
-    @include themify('--gradient-from', 'primary-light-action-bg-color');
-    @include themify('--gradient-to', 'primary-action-bg-color');
-    background-image: linear-gradient(180deg, var(--gradient-from), var(--gradient-to));
-
-    &:hover {
-      @include themify('--gradient-from', 'primary-action-bg-color');
-      @include themify('--gradient-to', 'primary-dark-action-bg-color');
-    }
+  &:hover {
+    @include background-color('primary-dark-action-bg-color');
   }
 }
-.btn:hover {
-  @include background-color('primary-dark-action-bg-color');
+
+.btn.btn--disabled {
+  @extend .u-opacity-07;
+  cursor: not-allowed;
+}
+
+.btn.btn--secondary {
+  @include background-color('secondary-action-bg-color');
+  @include color('on-secondary-action-text-color');
+
+  &:hover {
+    @include background-color('secondary-dark-action-bg-color');
+  }
+}
+
+.btn.btn--gradient {
+  background-color: initial;
+  @include themify('--gradient-from', 'primary-light-action-bg-color');
+  @include themify('--gradient-to', 'primary-action-bg-color');
+  background-image: linear-gradient(180deg, var(--gradient-from), var(--gradient-to));
+
+  &:hover {
+    @include themify('--gradient-from', 'primary-action-bg-color');
+    @include themify('--gradient-to', 'primary-dark-action-bg-color');
+  }
+}
+
+.btn.btn--light {
+  @include background-color('white-action-bg-color');
+  @include color('on-light-background-text-color');
+
+  &:hover {
+     @include background-color('white-dark-action-bg-color');
+  }
 }
 
 .flat-btn {
