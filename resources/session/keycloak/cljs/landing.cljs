@@ -18,7 +18,7 @@
 
 (defn login-form []
   [:div.login-form
-   [:button.button.landing__button.button--square {:on-click #(rf/dispatch [::session/auth])}
+   [:button.button.landing__button.button--square {:on-click #(rf/dispatch [::session/user-login])}
     "Login"]])
 
 (defn header []

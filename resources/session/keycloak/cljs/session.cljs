@@ -29,10 +29,12 @@
 (def keycloak (atom nil))
 
 (defn keycloak-process-ongoing? []
-  (and
-    (view/get-query-param js/location.hash "state")
-    (view/get-query-param js/location.hash "session_state")
-    (view/get-query-param js/location.hash "code")))
+  (or
+    (nil? @keycloak)
+    (and
+      (view/get-query-param js/location.hash "state")
+      (view/get-query-param js/location.hash "session_state")
+      (view/get-query-param js/location.hash "code"))))
 
 (rf/reg-event-fx
  ::set-auth-error
@@ -105,29 +107,40 @@
     :dispatch [::oidc-sso/trigger-sso-apps]}))
 
 (rf/reg-fx
-  :init-and-authenticate
+  :init-and-try-to-authenticate
   (fn [config]
     (let [{:keys [realm url client-id]} (get-in config [:oidc :keycloak])
           keycloak-obj (js/Keycloak #js {:realm realm
                                          :url url
                                          :clientId client-id})]
          (-> keycloak-obj
-             (.init #js {"onLoad" "login-required"
-                         "promiseType" "native"})
+             (.init #js {"onLoad" "check-sso"
+                         "promiseType" "native"
+                         "silentCheckSsoRedirectUri" (str js/window.location.origin "/silent-check.html")})
              (.then (fn [authenticated]
+                      (reset! keycloak keycloak-obj)
                       (when authenticated
                         (handle-keycloak-obj-change keycloak-obj)
                         (rf/dispatch [::user/fetch-user-data])
                         ;; Since we sometime turn &state into ?state, Keycloak
                         ;; is unable to clean up after itself.
-                        (view/redirect! (view/remove-query-param js/location.hash :state)))))
+                        (view/redirect! (-> js/location.hash
+                                          (view/remove-query-param :state)
+                                          (view/remove-query-param :code)
+                                          (view/remove-query-param :session_state))))))
              (.catch (fn []
                        (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
 
+(rf/reg-fx
+ ::login
+ (fn [_]
+   (when @keycloak
+     (.login @keycloak))))
+
 (rf/reg-event-fx
- ::auth
- (fn [{:keys [db]} _]
-   {:init-and-authenticate (:config db)}))
+ ::user-login
+ (fn [_ _]
+   {::login true}))
 
 (rf/reg-fx
  ::logout

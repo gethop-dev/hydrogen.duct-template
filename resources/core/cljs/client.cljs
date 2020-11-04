@@ -30,10 +30,8 @@
 (rf/reg-event-fx
   ::set-config
   (fn [{:keys [db]} [_ config]]
-    (merge
-      {:db (assoc db :config config)}
-      (when (session/keycloak-process-ongoing?)
-        {:init-and-authenticate config}))))<</hydrogen-session-keycloak?>>
+    {:db (assoc db :config config)
+     :init-and-try-to-authenticate config}))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
  ::load-app

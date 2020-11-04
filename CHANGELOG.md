@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - More btn class modifiers (btn--disabled, btn--secondary, btn--light)
+- [Issue 28] - now Keycloak-based applications should be able to restore sessions after refreshing
 
 ### Fixed
 - [Issue 27]
@@ -188,6 +189,7 @@ This version unifies it to `rf`.
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/v0.1.3
 
+[Issue 28]: https://github.com/magnetcoop/hydrogen.duct-template/issues/28
 [Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24

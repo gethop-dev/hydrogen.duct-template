@@ -49,7 +49,7 @@
 (defn- go-unauthenticated [evt access-config]
   (if (:allow-unauthenticated? access-config)
     {:dispatch evt}
-    {:redirect "/#/landing"}))
+    {:dispatch [::session/user-login]}))
 
 (rf/reg-event-fx
  :go-to*

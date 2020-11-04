@@ -45,7 +45,8 @@
                "src/{{dirs}}/api/user.clj" (resource "session/keycloak/api/user.clj")
                ;; Resources
                "resources/{{dirs}}/public/css/landing.scss" (resource "session/keycloak/resources/css/landing.scss")
-               "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")}
+               "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")
+               "resources/{{dirs}}/public/silent-check.html" (resource "session/keycloak/resources/silent-check.html")}
    :profile-base (profile-base project-ns)
    :modules {:hydrogen.module/core {:figwheel-main true
                                     :externs-paths
