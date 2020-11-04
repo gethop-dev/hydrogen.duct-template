@@ -16,7 +16,7 @@ It creates an SPA app that's ready for you to run. Front to back. It comes packe
 
 ## Warning!
 As of version 0.5.0, until further notice, newly generated projects will have two conflicting dependencies:
-`hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one form generated `project.clj` file.
+`hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one from the generated `project.clj` file.
 
 ### Additional profiles
 
