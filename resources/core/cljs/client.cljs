@@ -67,8 +67,13 @@
         [app])))<</hydrogen-session?>><<^hydrogen-session?>>
   [app]<</hydrogen-session?>>)
 
+;; Make log level logs no-ops for production environment.
+(rf/set-loggers! {:log (fn [& _])})
+
 (defn dev-setup []
   (when goog.DEBUG
+    ;; Reenable log level logs no-ops for dev environment.
+    (rf/set-loggers! {:log js/console.log})
     (enable-console-print!)
     (println "Dev mode")))
 
