@@ -45,9 +45,9 @@
            #(apply dissoc % ids))))
 
 (defn find-tooltip-controller-class-in-node [node]
-  (some->> (.-className node)
-           (re-find controller-class-pattern)
-           (first)))
+  (let [class-name (.-className node)]
+    (when (string? class-name)
+      (first (re-find controller-class-pattern class-name)))))
 
 (defn find-tooltip-controller-class [node]
   (or (find-tooltip-controller-class-in-node node)
