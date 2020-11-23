@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - More btn class modifiers (btn--disabled, btn--secondary, btn--light)
 - [Issue 28] - now Keycloak-based applications should be able to restore sessions after refreshing
+- Support for prod and dev migrations sets
 
 ### Fixed
 - [Issue 27]
