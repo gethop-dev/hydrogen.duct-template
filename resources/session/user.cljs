@@ -19,12 +19,12 @@
     (assoc db :user user)))
 
 (rf/reg-event-fx
-  ::fetch-user-data
-  (fn [{:keys [db]} [_]]
-      {:http-xhrio {:headers {"Authorization" (str "Bearer " (:jwt-token db))}
-                    :method :get
-                    :uri "/api/user"
-                    :format (ajax/json-request-format)
-                    :response-format (ajax/json-response-format {:keywords? true})
-                    :on-success [::set-user-data]
-                    :on-failure [::util/generic-error]}}))
+ ::fetch-user-data
+ (fn [{:keys [db]} _]
+   {:http-xhrio {:headers {"Authorization" (str "Bearer " (:jwt-token db))}
+                 :method :get
+                 :uri "/api/user"
+                 :format (ajax/json-request-format)
+                 :response-format (ajax/json-response-format {:keywords? true})
+                 :on-success [::set-user-data]
+                 :on-failure [::util/generic-error]}}))

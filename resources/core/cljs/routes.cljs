@@ -10,7 +10,6 @@
             [goog.history.EventType :as EventType]
             [re-frame.core :as rf]
             [secretary.core :as secretary]
-            [clojure.string :as str]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]<</hydrogen-session?>>
@@ -98,26 +97,53 @@
   :go-to
   go-to-handler)<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
 
-(defn- anyone? [{:keys [allow-unauthenticated? allow-authenticated?]}]
-  (and allow-unauthenticated? allow-authenticated?))
+(defn- ensure-data-event-fx
+  [{:keys [db session]} _]
+  (let [jwt-token (:jwt-token session)]
+    {:dispatch-n [(when (and jwt-token
+                             (not (get db :user)))
+                    [::user/fetch-user-data])
+                  (when (and jwt-token
+                             (not (get db :jwt-token)))
+                    [::session/set-token-and-schedule-refresh])]}))
 
-(defn- only-authenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
-  (and allow-authenticated? (not allow-unauthenticated?)))
+(rf/reg-event-fx
+ ::ensure-data
+ [(rf/inject-cofx :user-pool)
+  (rf/inject-cofx :session)]
+ ensure-data-event-fx)
 
-(defn- only-unauthenticated? [{:keys [allow-unauthenticated? allow-authenticated?]}]
-  (and (not allow-authenticated?) allow-unauthenticated?))
+(defn- deny-access [access-config jwt-token redirect-destination]
+  (rf/console :warn "access denied"
+              (clj->js {:access-config access-config
+                        :jwt-token jwt-token
+                        :redirecting-to redirect-destination}))
+  {:redirect redirect-destination})
+
+(defn- go-to*-event-fx
+  [{:keys [session] :as cofx} [_ evt access-config]]
+  {:pre [(contains? cofx session)]}
+  (rf/console :log "go-to*" (clj->js {:session session
+                                      :evt evt
+                                      :access-config access-config}))
+  (let [jwt-token (:jwt-token session)
+        access-config (merge access-config-defaults access-config)]
+    (cond
+      (and (not (:allow-authenticated? access-config)) jwt-token)
+      (deny-access access-config jwt-token "/#/home")
+
+      (and (not (:allow-unauthenticated? access-config)) (not jwt-token))
+      (deny-access access-config jwt-token "/#/landing")
+
+      :else
+      {:dispatch-n [[::ensure-data]
+                    evt]})))
 
 (rf/reg-event-fx
  :go-to*
- [(rf/inject-cofx ::session/jwt-token)]
- (fn [{:keys [db jwt-token]} [_ evt access-config]]
-   (let [access-config (merge access-config-defaults access-config)]
-     (merge
-      {:db db}
-      (cond
-        (anyone? access-config) {:dispatch evt}
-        (only-unauthenticated? access-config) (if jwt-token {:redirect "/#/home"} {:dispatch evt})
-        (only-authenticated? access-config) (if jwt-token {:dispatch evt} {:redirect "/#/landing"}))))))
+ [(rf/inject-cofx :user-pool)
+  (rf/inject-cofx :session)]
+ go-to*-event-fx)
 
 (rf/reg-event-fx
  :go-to

@@ -25,42 +25,58 @@
     (new js/AmazonCognitoIdentity.CognitoUserPool #js {:UserPoolId user-pool-id
                                                        :ClientId client-id})))
 
-(defn- get-id-token [current-user]
+(defn- get-user-session [current-user]
   (.getSession current-user (fn [err session]
-                              (when (not err)
-                                (-> session .-idToken)))))
+                              (when (not err) session))))
 
-(defn- get-jwt-token [current-user]
-  (.getSession current-user (fn [err session]
-                              (when (not err)
-                                (-> session .-idToken .-jwtToken)))))
+(defn- user-pool-cofx
+  [{:keys [db] :as cofx} _]
+  {:pre [(:config db)]
+   :post [(contains? % :user-pool)]}
+  (rf/console :log "user-pool cofx" (clj->js cofx))
+  (assoc cofx :user-pool (get-user-pool db)))
 
-(defn- set-token-and-sched-refresh [id-token]
-  (let [jwt-token (.getJwtToken id-token)
-        token-exp (.getExpiration id-token)]
-    (rf/dispatch [::set-token jwt-token])
-    (rf/dispatch [::schedule-token-refresh token-exp])))
+(rf/reg-cofx :user-pool user-pool-cofx)
 
-(rf/reg-fx
- ::refresh-token-cognito
- (fn [{:keys [current-user]}]
-   (if-let [id-token (get-id-token current-user)]
-     (set-token-and-sched-refresh id-token)
-     (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
-                    [::user-logout]]]
-       (rf/dispatch event)))))
+(defn- session-cofx
+  [{:keys [db user-pool] :as cofx} _]
+  {:pre [(or user-pool (:config db))]
+   :post [(contains? % :session)]}
+  (rf/console :log "session cofx" (clj->js cofx))
+  (let [user-pool (or user-pool (get-user-pool db))
+        session (when-let [current-user (.getCurrentUser user-pool)]
+                  (let [user-session (get-user-session current-user)
+                        id-token (.getIdToken user-session)
+                        jwt-token (.getJwtToken id-token)
+                        token-exp (.getExpiration id-token)]
+                    (when
+                      (and user-session id-token jwt-token token-exp)
+                      {:current-user current-user
+                       :user-session user-session
+                       :id-token id-token
+                       :jwt-token jwt-token
+                       :token-exp token-exp})))]
+    (assoc cofx :session session)))
+
+(rf/reg-cofx :session session-cofx)
+
+(defn- refresh-token-event-fx
+  [{:keys [session] :as cofx} _]
+  {:pre [(contains? cofx :session)]}
+  (if session
+    {:dispatch [::set-token-and-schedule-refresh]}
+    {:dispatch-n [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
+                  [::user-logout]]}))
 
 (rf/reg-event-fx
  ::refresh-token
- (fn [{:keys [db]} [_]]
-   (let [current-user (-> (get-user-pool db)
-                          (.getCurrentUser))]
-     {:db db
-      ::refresh-token-cognito {:current-user current-user}})))
+ [(rf/inject-cofx :user-pool)
+  (rf/inject-cofx :session)]
+ refresh-token-event-fx)
 
 (rf/reg-event-fx
  ::schedule-token-refresh
- (fn [{:keys [db]} [_ token-exp]]
+ (fn [_ [_ token-exp]]
    (let [now (/ (.getTime (js/Date.)) 1000)
          token-lifetime (int (- token-exp now))
          ;; If we refresh the token when it's close to the session
@@ -75,9 +91,20 @@
          ;; make sure half-lifetime is at least 1 second.
          half-lifetime (max 1 (quot token-lifetime 2))
          min-validity token-lifetime]
-     {:db db
-      :dispatch-later [{:ms (* 1000 half-lifetime)
+     {:dispatch-later [{:ms (* 1000 half-lifetime)
                         :dispatch [::refresh-token]}]})))
+
+(defn- set-token-and-schedule-refresh-event-fx
+  [{:keys [session] :as cofx} _]
+  {:pre [(contains? cofx :session)]}
+  {:dispatch-n [[::set-token (:jwt-token session)]
+                [::schedule-token-refresh (:token-exp session)]]})
+
+(rf/reg-event-fx
+ ::set-token-and-schedule-refresh
+ [(rf/inject-cofx :user-pool)
+  (rf/inject-cofx :session)]
+ set-token-and-schedule-refresh-event-fx)
 
 (rf/reg-event-fx
  ::set-token
@@ -96,47 +123,54 @@
    {:db (dissoc db :jwt-token)
     :dispatch [::oidc-sso/trigger-logout-apps]}))
 
-(defn- assoc-jwt-token-to-cofx
-  [cofx current-user]
-  (let [jwt-token (get-jwt-token current-user)]
-    (-> cofx
-        (assoc-in [:db :jwt-token] jwt-token)
-        (assoc :jwt-token jwt-token))))
-
-(rf/reg-cofx
- ::jwt-token
- (fn [{:keys [db] :as cofx} _]
-   (let [current-user (-> (get-user-pool db)
-                          (.getCurrentUser))]
-     (cond-> cofx
-       current-user (assoc-jwt-token-to-cofx current-user)))))
-
 (rf/reg-event-fx
- ::user-login
- (fn [{:keys [db]} [_ {:keys [username password]}]]
-   (let [user-pool (get-user-pool db)
-         auth-data #js {:Username username
+ ::on-login-success
+ (fn [_ _]
+   {:dispatch-n [[::set-token-and-schedule-refresh]
+                 [::set-auth-error nil]]
+    :redirect "/#/home"}))
+
+(rf/reg-fx
+ ::do-user-login
+ (fn [{:keys [user-pool username password]}]
+   (let [auth-data #js {:Username username
                         :Password password}
          auth-details (new js/AmazonCognitoIdentity.AuthenticationDetails auth-data)
          user-data #js {:Username username
                         :Pool user-pool}
          cognito-user (new js/AmazonCognitoIdentity.CognitoUser user-data)]
      (.authenticateUser
-      cognito-user
-      auth-details
-      #js {:onSuccess (fn [user-session]
-                        (let [id-token (-> user-session .-idToken)]
-                          (set-token-and-sched-refresh id-token)
-                          (rf/dispatch [::set-auth-error nil])
-                          (view/redirect! "/#/home")))
-           :onFailure (fn [err]
-                        (rf/dispatch [::set-auth-error "Incorrect username or password"]))}))))
+       cognito-user
+       auth-details
+       #js {:onSuccess #(rf/dispatch [::on-login-success])
+            :onFailure #(rf/dispatch [::set-auth-error "Incorrect username or password"])}))))
+
+(defn- user-login-event-fx
+  [{:keys [user-pool]} [_ {:keys [username password]}]]
+  {:pre [user-pool]}
+  {::do-user-login {:user-pool user-pool
+                    :username username
+                    :password password}})
+
+(rf/reg-event-fx
+ ::user-login
+ [(rf/inject-cofx :user-pool)]
+ user-login-event-fx)
+
+(rf/reg-fx
+ ::sign-out
+ (fn [current-user]
+   (.signOut current-user)))
+
+(defn- user-logout-event-fx
+  [{:keys [session] :as cofx} _]
+  {:pre [(contains? cofx :session)]}
+  (when-let [current-user (:current-user session)]
+    {::sign-out current-user
+     :dispatch [::remove-token]}))
 
 (rf/reg-event-fx
  ::user-logout
- (fn [{:keys [db]} [_]]
-   (let [user-pool (get-user-pool db)
-         current-user (.getCurrentUser user-pool)]
-     (when current-user
-       (.signOut current-user)
-       {:dispatch [::remove-token]}))))
+ [(rf/inject-cofx :user-pool)
+  (rf/inject-cofx :session)]
+ user-logout-event-fx)

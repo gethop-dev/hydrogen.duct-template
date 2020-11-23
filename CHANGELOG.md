@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - More btn class modifiers (btn--disabled, btn--secondary, btn--light)
 - [Issue 28] - now Keycloak-based applications should be able to restore sessions after refreshing
 - Support for prod and dev migrations sets
+- [Issue 21][Issue 15] Refactor cognito's client-side flow
+	- This solves the problem of an auth token not being refreshed.
 
 ### Fixed
 - [Issue 27]
@@ -194,10 +196,12 @@ This version unifies it to `rf`.
 [0.1.4]: https://github.com/magnetcoop/hydrogen.duct-template/v0.1.4
 [0.1.3]: https://github.com/magnetcoop/hydrogen.cljs.duct-template/v0.1.3
 
-[Issue 28]: https://github.com/magnetcoop/hydrogen.duct-template/issues/28
-[Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
+[Issue 15]: https://github.com/magnetcoop/hydrogen.duct-template/issues/15
+[Issue 17]: https://github.com/magnetcoop/hydrogen.duct-template/issues/17
+[Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19
+[Issue 21]: https://github.com/magnetcoop/hydrogen.duct-template/issues/21
+[Issue 22]: https://github.com/magnetcoop/hydrogen.duct-template/issues/22
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
 [Issue 24]: https://github.com/magnetcoop/hydrogen.duct-template/issues/24
-[Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19
-[Issue 17]: https://github.com/magnetcoop/hydrogen.duct-template/issues/17
-[Issue 22]: https://github.com/magnetcoop/hydrogen.duct-template/issues/22
+[Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
+[Issue 28]: https://github.com/magnetcoop/hydrogen.duct-template/issues/28
