@@ -28,10 +28,10 @@
    (assoc db :config config)))<</hydrogen-session-cognito?>><<#hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
-  ::set-config
-  (fn [{:keys [db]} [_ config]]
-    {:db (assoc db :config config)
-     :init-and-try-to-authenticate config}))<</hydrogen-session-keycloak?>>
+ ::set-config
+ (fn [{:keys [db]} [_ config]]
+   {:db (assoc db :config config)
+    :init-and-try-to-authenticate config}))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
  ::load-app

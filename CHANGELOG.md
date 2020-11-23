@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 	- Sometimes, when gettings a class on click, the output is an object
     instead of a string. For that reason, if we were to call `re-find` on
     that then it would explode. Hence the `string?` check.
+- Minor indentaton issues
 
 ## [0.5.0] - 2020-09-14
 ### Added

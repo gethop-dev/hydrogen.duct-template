@@ -20,13 +20,13 @@
 ;; This section contains code solely for demo purposes.
 ;; Go ahead and delete it.
 (rf/reg-event-fx
-  ::DELETEME-demo-request
-  (fn [_ _]
-    {:dispatch [::loading-popup/set-loading "Faking loading. I'll disappear after 5 seconds..."]
-     ;; This http-xhrio should be there instead of the dispatch-later in real situation.
-     ; http-xhrio {...}
-     :dispatch-later [{:ms 5000
-                       :dispatch [::loading-popup/stop-loading]}]}))
+ ::DELETEME-demo-request
+ (fn [_ _]
+   {:dispatch [::loading-popup/set-loading "Faking loading. I'll disappear after 5 seconds..."]
+    ;; This http-xhrio should be there instead of the dispatch-later in real situation.
+    ; http-xhrio {...}
+    :dispatch-later [{:ms 5000
+                      :dispatch [::loading-popup/stop-loading]}]}))
 
 (defn- DELETEME-demo-tooltip-component []
   [:div

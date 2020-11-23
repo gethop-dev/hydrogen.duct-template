@@ -12,21 +12,21 @@
 (defn- ragtime-config
   [project-ns]
   (format
-    "
+   "
   {:database #ig/ref :duct.database/sql
    :logger #ig/ref :duct/logger
    :strategy :raise-error
    :migrations [#ig/ref :%s.migrations/prod]}"
-    project-ns))
+   project-ns))
 
 (defn- dev-ragtime-config
   [project-ns]
   (format
-    "
+   "
  {:migrations ^:replace [#ig/ref :%s.migrations/prod
                          #ig/ref :%s.migrations/dev]}"
-    project-ns
-    project-ns))
+   project-ns
+   project-ns))
 
 (defn- persistence-sql-kw
   [project-ns]
