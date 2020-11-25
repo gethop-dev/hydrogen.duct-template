@@ -122,7 +122,7 @@
 
 (defn- go-to*-event-fx
   [{:keys [session] :as cofx} [_ evt access-config]]
-  {:pre [(contains? cofx session)]}
+  {:pre [(contains? cofx :session)]}
   (rf/console :log "go-to*" (clj->js {:session session
                                       :evt evt
                                       :access-config access-config}))
