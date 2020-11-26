@@ -9,8 +9,22 @@
            [java.util Base64]))
 
 (defn uuid
-  ([] (UUID/randomUUID))
-  ([str-uuid] (UUID/fromString str-uuid)))
+  "If no argument is passed, creates a random UUID. If the passed
+  paramenter is a UUID, returns it verbatim. If it is a string
+  representing a UUID value return the corresponding UUID. Any other
+  value or invalid string returns nil. "
+  ([]
+   (UUID/randomUUID))
+  ([uuid]
+   (try
+     (cond
+       (uuid? uuid)
+       uuid
+
+       (string? uuid)
+       (UUID/fromString uuid))
+     (catch Exception _
+       nil))))
 
 (defn base64?
   "Check that `src` is a valid Base64 encoded String"
