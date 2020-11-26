@@ -19,8 +19,8 @@
 (defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-session? true
           :hydrogen-session-cognito? true}
-   :deps '[[duct/middleware.buddy "0.1.0"]
-           [magnet/buddy-auth.jwt-oidc "0.9.0"]]
+   :deps '[[duct/middleware.buddy "0.2.0"]
+           [magnet/buddy-auth.jwt-oidc "0.10.0"]]
    :templates {;; Client
                "src/{{dirs}}/client/landing.cljs" (resource "session/cognito/cljs/landing.cljs")
                "src/{{dirs}}/client/session.cljs" (resource "session/cognito/cljs/session.cljs")
