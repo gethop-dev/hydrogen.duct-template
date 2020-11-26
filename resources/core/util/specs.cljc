@@ -19,10 +19,8 @@
   (try
     #?(:clj (URL. url)
        :cljs (js/URL. url))
-    (catch
-      #?(:clj Exception
-         :cljs :default)
-      e false)))
+    (catch #?(:clj Exception :cljs :default) _
+      false)))
 
 (s/def ::url-str (s/and string? try-url-str))
 (s/def ::url (s/or :string ::url-str

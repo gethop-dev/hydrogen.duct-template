@@ -4,8 +4,7 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.landing
-  (:require [ajax.core :as ajax]
-            [re-frame.core :as rf]
+  (:require [re-frame.core :as rf]
             [reagent.core :as reagent]
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.theme :as theme]

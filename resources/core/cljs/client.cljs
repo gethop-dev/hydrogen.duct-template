@@ -4,19 +4,19 @@
 
 {{=<< >>=}}
 (ns ^:figwheel-hooks <<namespace>>.client
-  (:require [ajax.core :as ajax]
+  (:require <<#hydrogen-session?>>[ajax.core :as ajax]
+            <</hydrogen-session?>>[day8.re-frame.http-fx]
             [re-frame.core :as rf]
-            [day8.re-frame.http-fx]
             [reagent.dom :as rd]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
-            [<<namespace>>.client.session :as session]<</hydrogen-session-keycloak?>>
+            [<<namespace>>.client.session]<</hydrogen-session-keycloak?>>
             [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.tooltip :as tooltip]
             [<<namespace>>.client.tooltip.generic-popup :as tooltip.generic-popup]
-            [<<namespace>>.client.tooltip.loading-popup :as tooltip.loading-popup]
-            [<<namespace>>.client.util :as util]
+            [<<namespace>>.client.tooltip.loading-popup :as tooltip.loading-popup]<<#hydrogen-session?>>
+            [<<namespace>>.client.util :as util]<</hydrogen-session?>>
             [<<namespace>>.client.view :as view]))
 
 (def default-db
@@ -35,7 +35,7 @@
 
 (rf/reg-event-fx
  ::load-app
- (fn [{:keys [db]} [_]]
+ (fn [_ _]
    {:db default-db<<#hydrogen-session?>>
     :http-xhrio {:method :get
                  :uri "/api/config"

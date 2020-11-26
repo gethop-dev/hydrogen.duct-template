@@ -3,9 +3,9 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 {{=<< >>=}}
-(ns <<namespace>>.api.util
-  (:require <<#hydrogen-session?>>[buddy.auth :refer [authenticated?]]
-            <</hydrogen-session?>>[compojure.core :refer [GET POST context]]))<<#hydrogen-session?>>
+(ns <<namespace>>.api.util<<#hydrogen-session?>>
+  (:require [buddy.auth :refer [authenticated?]]
+            [compojure.core :refer [wrap-routes]])<</hydrogen-session?>>)<<#hydrogen-session?>>
 
 (defn- restrict-fn
   "Restrict access to the handler. Only allow access if the request
@@ -20,5 +20,5 @@
 
 (defn wrap-authentication-required [handler auth-middleware]
   (-> handler
-      (compojure.core/wrap-routes restrict-fn)
-      (compojure.core/wrap-routes auth-middleware)))<</hydrogen-session?>>
+      (wrap-routes restrict-fn)
+      (wrap-routes auth-middleware)))<</hydrogen-session?>>

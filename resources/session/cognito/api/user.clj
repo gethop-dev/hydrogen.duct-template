@@ -4,7 +4,7 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.api.user
-  (:require [compojure.core :refer [context GET POST ANY context wrap-routes routes]]
+  (:require [compojure.core :refer [context GET context routes]]
             [integrant.core :as ig]
             [<<namespace>>.api.util :as api-util]
             [<<namespace>>.util :as util]))
@@ -16,12 +16,13 @@
      :headers {"content-type" "application/json"}
      :body {:avatar "https://www.w3schools.com/w3images/avatar2.png"
             :first-name "John"
-            :last-name "Doe"}}))
+            :last-name "Doe"
+            :id user-id}}))
 
-(defmethod ig/init-key :<<namespace>>.api/user [_ {:keys [auth-middleware] :as config}]
+(defmethod ig/init-key :<<namespace>>.api/user [_ {:keys [auth-middleware]}]
   (context "/api/user" []
     (->
-      (routes
-        (GET "/" req
-             (get-dummy-user-data req)))
-      (api-util/wrap-authentication-required auth-middleware))))
+     (routes
+      (GET "/" req
+        (get-dummy-user-data req)))
+     (api-util/wrap-authentication-required auth-middleware))))

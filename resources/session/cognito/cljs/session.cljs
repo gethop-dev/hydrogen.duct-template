@@ -98,8 +98,8 @@
          ;; not to be more frequent than one second, hence the `(max)` function.
          half-lifetime (quot token-lifetime 2)
          min-validity token-lifetime]
-        {:dispatch-later [{:ms (* 1000 (max 1 half-lifetime))
-                           :dispatch [::refresh-token min-validity]}]})))
+     {:dispatch-later [{:ms (* 1000 (max 1 half-lifetime))
+                        :dispatch [::refresh-token min-validity]}]})))
 
 (defn- set-token-and-schedule-refresh-event-fx
   [{:keys [session]} _]

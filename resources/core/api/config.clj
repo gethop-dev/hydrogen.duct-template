@@ -8,8 +8,8 @@
             [integrant.core :as ig]))
 
 (defmethod ig/init-key :<<namespace>>.api/config [_ config]
-  (GET "/api/config" req
-    (fn [req]
+  (GET "/api/config" []
+    (fn [_]
       {:status 200
        :body config
        :headers {"content-type" "application/json"}})))

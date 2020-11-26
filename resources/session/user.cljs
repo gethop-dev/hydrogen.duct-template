@@ -4,8 +4,8 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.user
-  (:require [re-frame.core :as rf]
-            [ajax.core :as ajax]
+  (:require [ajax.core :as ajax]
+            [re-frame.core :as rf]
             [<<namespace>>.client.util :as util]))
 
 (rf/reg-sub

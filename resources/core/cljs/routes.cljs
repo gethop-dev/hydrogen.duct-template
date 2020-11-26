@@ -6,16 +6,16 @@
 (ns <<namespace>>.client.routes
   (:require-macros [secretary.core :refer [defroute]])
   (:import goog.History)
-  (:require [clojure.spec.alpha :as s]
-            [goog.events]
+  (:require <<#hydrogen-session?>>[clojure.spec.alpha :as s]
+            <</hydrogen-session?>>[goog.events]
             [goog.history.EventType :as EventType]
             [re-frame.core :as rf]
             [secretary.core :as secretary]
             [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]
-            [<<namespace>>.client.user :as user]<</hydrogen-session?>>
-            [<<namespace>>.client.util :as util]
+            [<<namespace>>.client.user :as user]
+            [<<namespace>>.client.util :as util]<</hydrogen-session?>>
             [<<namespace>>.client.view :as view]))
 
 (defn hook-browser-navigation! []
@@ -104,7 +104,7 @@
   :remaining-retries - how many times this handler can be debounced until it meets
                        obligatory conditions. This is internal data and you probably don't want to touch it."
   [{:keys [db]}
-   [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
+   [_ evt & [{:keys [remaining-retries]
               :or {remaining-retries default-number-retries}
               :as access-config}]]]
   (cond
@@ -112,12 +112,15 @@
       (config-exists? db)
       (not (session/keycloak-process-ongoing?)))
     {:dispatch [:go-to* evt access-config]}
+
     (> remaining-retries 0)
     {:dispatch-later
      [{:ms default-delay-time
        :dispatch [:go-to evt
                   (assoc access-config :remaining-retries (dec remaining-retries))]}]}
-    :else {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
+
+    :else
+    {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-keycloak?>><<#hydrogen-session-cognito?>>
 
 (defn- go-to-handler
   "This rf event handler is responsible for making sure that
@@ -134,16 +137,21 @@
   :remaining-retries - how many times this handler can be debounced until it meets
                        obligatory conditions. This is internal data and you probably don't want to touch it."
   [{:keys [db]}
-   [_ evt & [{:keys [allow-authenticated? allow-unauthenticated remaining-retries]
+   [_ evt & [{:keys [remaining-retries]
               :or {remaining-retries default-number-retries}
               :as access-config}]]]
    (cond
-     (config-exists? db) {:dispatch [:go-to* evt access-config]}
-     (> remaining-retries 0) {:dispatch-later
-                              [{:ms default-delay-time
-                                :dispatch [:go-to evt
-                                           (assoc access-config :remaining-retries (dec remaining-retries))]}]}
-     :else {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-cognito?>>
+     (config-exists? db)
+     {:dispatch [:go-to* evt access-config]}
+
+     (> remaining-retries 0)
+     {:dispatch-later
+      [{:ms default-delay-time
+        :dispatch [:go-to evt
+                   (assoc access-config :remaining-retries (dec remaining-retries))]}]}
+
+     :else
+     {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-cognito?>>
 
 (rf/reg-event-fx :go-to go-to-handler)
 

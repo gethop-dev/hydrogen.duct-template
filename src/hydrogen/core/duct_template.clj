@@ -3,8 +3,7 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.core.duct-template
-  (:require [clojure.string :as str]
-            [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
+  (:require [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
 
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))

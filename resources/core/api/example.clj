@@ -5,10 +5,10 @@
 {{=<< >>=}}
 (ns <<namespace>>.api.example
   (:require [compojure.core :refer [context GET]]
-            [integrant.core :as ig]
-            [<<namespace>>.api.util :as util]))
+            [integrant.core :as ig]<<#hydrogen-session?>>
+            [<<namespace>>.api.util :as util]<</hydrogen-session?>>))
 
-(defmethod ig/init-key :<<namespace>>.api/example [_ {:keys [<<#hydrogen-session?>>auth-middleware<</hydrogen-session?>>] :as options}]
+(defmethod ig/init-key :<<namespace>>.api/example [_ <<#hydrogen-session?>>{:keys [auth-middleware]}<</hydrogen-session?>><<^hydrogen-session?>>_<</hydrogen-session?>>]
   (context "/api/example" []
     (GET "/" []
       {:status 200

@@ -4,8 +4,8 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.tooltip
-  (:require [re-frame.core :as rf]
-            [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [re-frame.core :as rf]))
 
 (def ^:const controller-class-prefix "js-tooltip-controller-")
 (def ^:const controller-class-pattern
@@ -18,7 +18,7 @@
 
 (rf/reg-sub
  ::by-id
- (fn [db _]
+ (fn [_ _]
    (rf/subscribe [::controls]))
  (fn [tooltips-controls [_ id]]
    (get tooltips-controls id)))
