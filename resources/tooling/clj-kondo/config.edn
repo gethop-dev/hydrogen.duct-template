@@ -1,0 +1,8 @@
+{{=<< >>=}}
+{:linters
+ {:unsorted-required-namespaces {:level :warning}
+  :refer-all
+  {:exclude #{clojure.test}}
+  :unresolved-symbol
+  {:exclude [(<<namespace>>.api.responses/http-statuses)
+             (secretary.core/defroute)]}}}

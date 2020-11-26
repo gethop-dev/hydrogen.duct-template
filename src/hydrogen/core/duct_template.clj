@@ -57,7 +57,10 @@
                "resources/{{dirs}}/public/css/_tooltip.scss" (resource "core/resources/css/_tooltip.scss")
                "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
                "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
-               "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")}
+               "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")
+               ;; Tooling
+               ".clj-kondo/.gitignore" (resource "tooling/clj-kondo/gitignore")
+               ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")}
    :modules {:hydrogen.module/core (cond->
                                     {}
                                      (utils/use-figwheel-main? profiles)
