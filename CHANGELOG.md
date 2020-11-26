@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - [Issue 27]
+- [Issue 33]
 - Make tooltip manager more robust
 	- Sometimes, when gettings a class on click, the output is an object
     instead of a string. For that reason, if we were to call `re-find` on
@@ -209,3 +210,4 @@ This version unifies it to `rf`.
 [Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
 [Issue 28]: https://github.com/magnetcoop/hydrogen.duct-template/issues/28
 [Issue 32]: https://github.com/magnetcoop/hydrogen.duct-template/issues/32
+[Issue 33]: https://github.com/magnetcoop/hydrogen.duct-template/issues/33
