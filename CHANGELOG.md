@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - [Issue 21][Issue 15] Refactor cognito's client-side flow
 	- This solves the problem of an auth token not being refreshed.
 - By default keep using lein-figwheel. If you want your new projects to use figwheel-main then add `+hydrogen/figwheel-main` profile.
+- [Issue 31] Use Hikari database pool instead of creating a connection each time
 - [Issue 32] Added basic clj-kondo configuration to the template for generated projects.
 
 ### Fixed
@@ -211,5 +212,6 @@ This version unifies it to `rf`.
 [Issue 27]: https://github.com/magnetcoop/hydrogen.duct-template/issues/27
 [Issue 28]: https://github.com/magnetcoop/hydrogen.duct-template/issues/28
 [Issue 30]: https://github.com/magnetcoop/hydrogen.duct-template/issues/30
+[Issue 31]: https://github.com/magnetcoop/hydrogen.duct-template/issues/31
 [Issue 32]: https://github.com/magnetcoop/hydrogen.duct-template/issues/32
 [Issue 33]: https://github.com/magnetcoop/hydrogen.duct-template/issues/33

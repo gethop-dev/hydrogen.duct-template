@@ -7,7 +7,14 @@
 
 (def ^:private ^:const sql-config
   "
-  {:connection-uri #duct/env [\"JDBC_DATABASE_URL\" Str]}")
+  #ig/ref :duct.database/sql")
+
+(def ^:private hikaricp-config
+  "
+  {:jdbc-url #duct/env [\"JDBC_DATABASE_URL\" Str]
+   :logger nil ;; We don't want log entries for sql sentences (not event ragtime ones!)
+   :minimum-idle 10
+   :maximum-pool-size 25}")
 
 (defn- ragtime-config
   [project-ns]
@@ -45,6 +52,8 @@
                "src/{{dirs}}/boundary/port/persistence.clj" (resource "core/boundary/port/persistence.clj")}
    :profile-base {(persistence-sql-kw project-ns) sql-config
 
+                  :duct.database.sql/hikaricp hikaricp-config
+
                   :duct.migrator/ragtime (ragtime-config project-ns)
 
                   [:duct.migrator.ragtime/resources (keyword (str project-ns ".migrations") "prod")]
@@ -52,5 +61,4 @@
    :profile-dev {:duct.migrator/ragtime (dev-ragtime-config project-ns)
 
                  [:duct.migrator.ragtime/resources (keyword (str project-ns ".migrations") "dev")]
-                 {:path (format "%s/dev_migrations" project-ns)}}
-   :modules {:duct.module/sql {}}})
+                 {:path (format "%s/dev_migrations" project-ns)}}})

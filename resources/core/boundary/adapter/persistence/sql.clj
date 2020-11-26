@@ -7,5 +7,5 @@
   (:require [integrant.core :as ig]
             [<<namespace>>.boundary.adapter.persistence.connector :as connector]))
 
-(defmethod ig/init-key :<<namespace>>.boundary.adapter.persistence/sql [_ db-spec]
-  (connector/->Sql db-spec))
+(defmethod ig/init-key :<<namespace>>.boundary.adapter.persistence/sql [_ {:keys [spec]}]
+  (connector/->Sql spec))
