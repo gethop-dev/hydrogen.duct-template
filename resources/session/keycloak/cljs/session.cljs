@@ -4,9 +4,9 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.session
-  (:require [re-frame.core :as rf]
+  (:require [clojure.spec.alpha :as s]
+            [re-frame.core :as rf]
             [<<namespace>>.client.session.oidc-sso :as oidc-sso]
-            [<<namespace>>.client.user :as user]
             [<<namespace>>.client.view :as view]))
 
 ;; Keycloak Javascript library is not designed to be used in a
@@ -47,25 +47,20 @@
    (:auth-error db)))
 
 (defn- handle-keycloak-obj-change [keycloak-obj]
-  (let [jwt-token (.-idToken keycloak-obj)
-        token-exp (-> keycloak-obj .-idTokenParsed .-exp)]
-    ;; See comment at the top of this file to see
-    ;; why we manage the keycloak object this way.
-    (reset! keycloak keycloak-obj)
-    (rf/dispatch [::set-token jwt-token])
-    (rf/dispatch [::schedule-token-refresh token-exp])))
+  (reset! keycloak keycloak-obj)
+  (rf/dispatch [::set-token-and-schedule-refresh]))
 
 (rf/reg-fx
-  ::refresh-token-keycloak
-  (fn [{:keys [min-validity]}]
-    (let [keycloak-obj @keycloak]
-      (-> keycloak-obj
-          (.updateToken min-validity)
-          (.then
-            (fn [refreshed]
-              ;; If token was still valid, do nothing
-              (when refreshed
-                (handle-keycloak-obj-change keycloak-obj))))
+ ::refresh-token-keycloak
+ (fn [{:keys [min-validity]}]
+   (let [keycloak-obj @keycloak]
+     (-> keycloak-obj
+         (.updateToken min-validity)
+         (.then
+           (fn [refreshed]
+             ;; If token was still valid, do nothing
+             (when refreshed
+               (handle-keycloak-obj-change keycloak-obj))))
           (.catch
             (fn []
               (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
@@ -74,30 +69,31 @@
 
 (rf/reg-event-fx
  ::refresh-token
- (fn [{:keys [db]} [_ min-validity]]
-   {:db db
-    ::refresh-token-keycloak {:min-validity min-validity}}))
+ (fn [_ [_ min-validity]]
+   {::refresh-token-keycloak {:min-validity min-validity}}))
+
+(defn- now-cofx
+  "Adds a cofx with a current timestamp in milliseconds"
+  [cofx]
+  (assoc cofx :now (.getTime (js/Date.))))
+
+(rf/reg-cofx :now now-cofx)
 
 (rf/reg-event-fx
  ::schedule-token-refresh
- (fn [{:keys [db]} [_ token-exp]]
-   (let [now (/ (.getTime (js/Date.)) 1000)
-         token-lifetime (int (- token-exp now))
+ [(rf/inject-cofx :now)]
+ (fn [{:keys [now]} [_ token-exp]]
+   (let [token-lifetime (int (- token-exp now))
          ;; If we refresh the token when it's close to the session
          ;; lifetime, keycloak returns a new token with a lifetime
          ;; that is the difference between the current time and the
          ;; session expiration time. Which may be lower than the
          ;; configured token lifetime. As we keep refreshing the token
-         ;; the lifetime gets shorter and shorter, and eventually gets
-         ;; smaller than 2 seconds. That means half-lifetime would be
-         ;; zero. But half-lifetime must be greater than zero.
-         ;; Otherwise :dispatch-later would get a zero min-delay
-         ;; and return immediately without dispatching the event(s). So
-         ;; make sure half-lifetime is at least 1 second.
-         half-lifetime (max 1 (quot token-lifetime 2))
+         ;; the lifetime gets shorter and shorter. But we want the dispatch
+         ;; not to be more frequent than one second, hence the `(max)` function.
+         half-lifetime (quot token-lifetime 2)
          min-validity token-lifetime]
-     {:db db
-      :dispatch-later [{:ms (* 1000 half-lifetime)
+     {:dispatch-later [{:ms (* 1000 (max 1 half-lifetime))
                         :dispatch [::refresh-token min-validity]}]})))
 
 (rf/reg-event-fx
@@ -106,30 +102,77 @@
    {:db (assoc db :jwt-token jwt-token)
     :dispatch [::oidc-sso/trigger-sso-apps]}))
 
+(defn- keycloak-cofx
+  [cofx _]
+  {:post [(contains? % :keycloak)]}
+  (assoc cofx :keycloak @keycloak))
+
+(rf/reg-cofx :keycloak keycloak-cofx)
+
+(defn- session-cofx
+  [cofx _]
+  {:pre [(or (:keycloak cofx) @keycloak)]
+   :post [(contains? % :session)
+          (s/valid? ::session-cofx-spec (:session %))]}
+  (rf/console :log "Calculating session cofx" (clj->js cofx))
+  (let [keycloak-state (or (:keycloak cofx) @keycloak)
+        session (when-let [jwt-token (.-idToken keycloak-state)]
+                  (let [token-exp (-> keycloak-state .-idTokenParsed .-exp)]
+                    {:jwt-token jwt-token
+                     :token-exp token-exp}))]
+    (assoc cofx :session session)))
+
+(rf/reg-cofx :session session-cofx)
+
+(s/def ::token-exp number?)
+(s/def ::session-cofx-spec
+  (s/nilable (s/keys :req-un [::jwt-token ::token-exp])))
+
+(defn- set-token-and-schedule-refresh-event-fx
+  [{:keys [session]} _]
+  {:pre [(some? session)
+         (s/valid? ::session-cofx-spec session)]}
+  {:dispatch-n [[::set-token (:jwt-token session)]
+                [::schedule-token-refresh (:token-exp session)]]})
+
+(rf/reg-event-fx
+ ::set-token-and-schedule-refresh
+ [(rf/inject-cofx :session)]
+ set-token-and-schedule-refresh-event-fx)
+
+(defn- remove-keycloak-process-query-params
+  [location-hash]
+  (-> location-hash
+    (view/remove-query-param :state)
+    (view/remove-query-param :code)
+    (view/remove-query-param :session_state)))
+
+(rf/reg-event-fx
+ ::on-login-success
+ (fn [_ _]
+   {:dispatch-n [[::set-token-and-schedule-refresh]
+                 [::set-auth-error nil]]
+    :redirect (remove-keycloak-process-query-params js/location.hash)}))
+
 (rf/reg-fx
-  :init-and-try-to-authenticate
-  (fn [config]
-    (let [{:keys [realm url client-id]} (get-in config [:oidc :keycloak])
-          keycloak-obj (js/Keycloak #js {:realm realm
-                                         :url url
-                                         :clientId client-id})]
-         (-> keycloak-obj
-             (.init #js {"onLoad" "check-sso"
-                         "promiseType" "native"
-                         "silentCheckSsoRedirectUri" (str js/window.location.origin "/silent-check.html")})
-             (.then (fn [authenticated]
-                      (reset! keycloak keycloak-obj)
-                      (when authenticated
-                        (handle-keycloak-obj-change keycloak-obj)
-                        (rf/dispatch [::user/fetch-user-data])
-                        ;; Since we sometime turn &state into ?state, Keycloak
-                        ;; is unable to clean up after itself.
-                        (view/redirect! (-> js/location.hash
-                                          (view/remove-query-param :state)
-                                          (view/remove-query-param :code)
-                                          (view/remove-query-param :session_state))))))
-             (.catch (fn []
-                       (rf/dispatch [::set-auth-error "Failed to initialize Keycloak"])))))))
+ :init-and-try-to-authenticate
+ (fn [config]
+   (let [{:keys [realm url client-id]} (get-in config [:oidc :keycloak])
+         keycloak-obj (js/Keycloak #js {:realm realm
+                                        :url url
+                                        :clientId client-id})]
+     (-> keycloak-obj
+       (.init #js {"onLoad" "check-sso"
+                   "promiseType" "native"
+                   "silentCheckSsoRedirectUri" (str js/window.location.origin "/silent-check.html")})
+       (.then (fn [authenticated]
+                (reset! keycloak keycloak-obj)
+                  (when authenticated
+                    (handle-keycloak-obj-change keycloak-obj)
+                    ;; Since we sometime turn &state into ?state, Keycloak
+                    ;; is unable to clean up after itself.
+                    (view/redirect! (remove-keycloak-process-query-params js/location.hash)))))
+       (.catch #(rf/dispatch [::set-auth-error "Failed to initialize Keycloak"]))))))
 
 (rf/reg-fx
  ::login

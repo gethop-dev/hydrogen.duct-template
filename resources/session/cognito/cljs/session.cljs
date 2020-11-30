@@ -4,10 +4,10 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.session
-  (:require [clojure.string :as str]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.string :as str]
             [re-frame.core :as rf]
-            [<<namespace>>.client.session.oidc-sso :as oidc-sso]
-            [<<namespace>>.client.view :as view]))
+            [<<namespace>>.client.session.oidc-sso :as oidc-sso]))
 
 (rf/reg-event-db
  ::set-auth-error
@@ -41,8 +41,9 @@
 (defn- session-cofx
   [{:keys [db user-pool] :as cofx} _]
   {:pre [(or user-pool (:config db))]
-   :post [(contains? % :session)]}
-  (rf/console :log "session cofx" (clj->js cofx))
+   :post [(contains? % :session)
+          (s/valid? ::session-cofx-spec (:session %))]}
+  (rf/console :log "Calculating session cofx" (clj->js cofx))
   (let [user-pool (or user-pool (get-user-pool db))
         session (when-let [current-user (.getCurrentUser user-pool)]
                   (let [user-session (get-user-session current-user)
@@ -60,9 +61,18 @@
 
 (rf/reg-cofx :session session-cofx)
 
+(s/def ::token-exp number?)
+(s/def ::session-cofx-spec
+  (s/nilable (s/keys :req-un [::current-user
+                              ::user-session
+                              ::id-token
+                              ::jwt-token
+                              ::token-exp])))
+
 (defn- refresh-token-event-fx
   [{:keys [session] :as cofx} _]
-  {:pre [(contains? cofx :session)]}
+  {:pre [(contains? cofx :session)
+         (s/valid? ::session-cofx-spec session)]}
   (if session
     {:dispatch [::set-token-and-schedule-refresh]}
     {:dispatch-n [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
@@ -84,19 +94,17 @@
          ;; that is the difference between the current time and the
          ;; session expiration time. Which may be lower than the
          ;; configured token lifetime. As we keep refreshing the token
-         ;; the lifetime gets shorter and shorter, and eventually may
-         ;; get to 1 second. But half-lifetime must be greater than
-         ;; zero. Otherwise :dispatch-later gets a zero min-delay and
-         ;; returns inmediatly without dispatching the event(s). So
-         ;; make sure half-lifetime is at least 1 second.
-         half-lifetime (max 1 (quot token-lifetime 2))
+         ;; the lifetime gets shorter and shorter. But we want the dispatch
+         ;; not to be more frequent than one second, hence the `(max)` function.
+         half-lifetime (quot token-lifetime 2)
          min-validity token-lifetime]
-     {:dispatch-later [{:ms (* 1000 half-lifetime)
-                        :dispatch [::refresh-token]}]})))
+        {:dispatch-later [{:ms (* 1000 (max 1 half-lifetime))
+                           :dispatch [::refresh-token min-validity]}]})))
 
 (defn- set-token-and-schedule-refresh-event-fx
-  [{:keys [session] :as cofx} _]
-  {:pre [(contains? cofx :session)]}
+  [{:keys [session]} _]
+  {:pre [session
+         (s/valid? ::session-cofx-spec session)]}
   {:dispatch-n [[::set-token (:jwt-token session)]
                 [::schedule-token-refresh (:token-exp session)]]})
 
@@ -164,7 +172,8 @@
 
 (defn- user-logout-event-fx
   [{:keys [session] :as cofx} _]
-  {:pre [(contains? cofx :session)]}
+  {:pre [(contains? cofx :session)
+         (s/valid? ::session-cofx-spec session)]}
   (when-let [current-user (:current-user session)]
     {::sign-out current-user
      :dispatch [::remove-token]}))
