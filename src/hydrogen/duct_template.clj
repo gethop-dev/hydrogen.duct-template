@@ -4,12 +4,14 @@
 
 (ns hydrogen.duct-template
   (:require [hydrogen.core.duct-template :as core]
-            [hydrogen.session.cognito.duct-template :as cognito]
-            [hydrogen.session.keycloak.duct-template :as keycloak]
+            [hydrogen.figwheel-main.duct-template :as figwheel-main]
             [hydrogen.persistence.sql.duct-template :as sql]
-            [hydrogen.scheduling.twarc.duct-template :as twarc]))
+            [hydrogen.scheduling.twarc.duct-template :as twarc]
+            [hydrogen.session.cognito.duct-template :as cognito]
+            [hydrogen.session.keycloak.duct-template :as keycloak]))
 
 (def core-profile core/profile)
+(def figwheel-main-profile figwheel-main/profile)
 (def session.cognito-profile cognito/profile)
 (def session.keycloak-profile keycloak/profile)
 (def persistence.sql-profile sql/profile)

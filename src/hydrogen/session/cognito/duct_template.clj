@@ -3,8 +3,8 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.session.cognito.duct-template
-  (:require [hydrogen.utils :refer [resource ns->dir-name]]
-            [hydrogen.session.core :as core]))
+  (:require [hydrogen.session.core :as core]
+            [hydrogen.utils :as utils :refer [resource ns->dir-name]]))
 
 (def ^:private ^:const cognito-config
   ":cognito
@@ -16,7 +16,7 @@
         api-config (format core/api-config-profile-base cognito-config)]
     (assoc core/session-core-profile-base api-config-kw api-config)))
 
-(defn profile [{:keys [project-ns]}]
+(defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-session? true
           :hydrogen-session-cognito? true}
    :deps '[[duct/middleware.buddy "0.1.0"]
@@ -31,7 +31,9 @@
                "resources/{{dirs}}/public/images/email-address.svg" (resource "session/cognito/resources/images/email-address.svg")
                "resources/{{dirs}}/public/images/password.svg" (resource "session/cognito/resources/images/password.svg")}
    :profile-base (profile-base project-ns)
-   :modules {:hydrogen.module/core {:figwheel-main true
-                                    :externs-paths
-                                    {:production
-                                     [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/cognito.js")]}}}})
+   :modules {:hydrogen.module/core (cond->
+                                    {:externs-paths
+                                     {:production
+                                      [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/cognito.js")]}}
+                                     (utils/use-figwheel-main? profiles)
+                                     (assoc :figwheel-main true))}})

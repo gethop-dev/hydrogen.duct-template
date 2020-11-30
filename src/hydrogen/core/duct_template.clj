@@ -4,7 +4,7 @@
 
 (ns hydrogen.core.duct-template
   (:require [clojure.string :as str]
-            [hydrogen.utils :refer [resource ns->js-ns gen-cascading-routes]]))
+            [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
 
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
@@ -23,7 +23,6 @@
            [reagent "0.10.0"]
            [clj-commons/secretary "1.2.4"]
            [hydrogen/module.core "0.2.0"]
-           [hydrogen/module.cljs "0.5.0"]
            [duct/module.web "0.7.1"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
    :templates {;; Client
@@ -59,7 +58,10 @@
                "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
                "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
                "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")}
-   :modules {:hydrogen.module/core {:figwheel-main true}}
+   :modules {:hydrogen.module/core (cond->
+                                    {}
+                                     (utils/use-figwheel-main? profiles)
+                                     (assoc :figwheel-main true))}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"

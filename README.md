@@ -14,10 +14,6 @@ It creates an SPA app that's ready for you to run. Front to back. It comes packe
 - API endpoint for downloading initial config from the server
 - Bread and butter FE code that manages routes, [themes toggling (just run `(themes/toggle-theme)`)](https://github.com/magnetcoop/hydrogen.duct-template/blob/master/resources/core/cljs/theme.cljs#L27-L32), js externs, etc.
 
-## Warning!
-As of version 0.5.0, until further notice, newly generated projects will have two conflicting dependencies:
-`hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one from the generated `project.clj` file.
-
 ### Additional profiles
 
 #### Authentication and session management
@@ -27,6 +23,16 @@ To use them simply add:
 - `+hydrogen/session.keycloak` to add Keycloak-based session management.
 
 Keep in mind that those two profiles are mutually exclusive.
+
+#### Figwheel main
+
+
+##### Warning!
+Until further notice, usage of `+hydrogen/figwheel-main` profile will require two manual fixes in `project.clj`:
+1. The are two conflicting dependencies: `hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one.
+2. Because of yet unidentified issue, even though `resource-paths` include `target/resources`, the compiler will
+complain about `target/resources/<project name>` not found on classpath. Please add add path too.
+
 
 #### SQL persistence boundary
 Hydrogen also offers a profile that provides a boundary (based on Clojure protocols and records) for data persistence using SQL databases. By default it uses Postgresql (by adding its JDBC driver as a dependency), but can be used with any JDBC compatible database as long as you add its driver as a dependency.

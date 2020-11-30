@@ -3,8 +3,8 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.session.keycloak.duct-template
-  (:require [hydrogen.utils :refer [resource ns->dir-name gen-cascading-routes]]
-            [hydrogen.session.core :as core]))
+  (:require [hydrogen.session.core :as core]
+            [hydrogen.utils :as utils :refer [resource ns->dir-name gen-cascading-routes]]))
 
 (def ^:private ^:const keycloak-config
   ":keycloak
@@ -27,7 +27,7 @@
         (assoc api-config-kw api-config)
         (assoc api-user-kw api-user))))
 
-(defn profile [{:keys [project-ns]}]
+(defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-session? true
           :hydrogen-session-keycloak? true
           :cascading-routes (gen-cascading-routes project-ns ["static/root"
@@ -48,7 +48,9 @@
                "resources/{{dirs}}/public/images/user.svg" (resource "session/keycloak/resources/images/user.svg")
                "resources/{{dirs}}/public/silent-check.html" (resource "session/keycloak/resources/silent-check.html")}
    :profile-base (profile-base project-ns)
-   :modules {:hydrogen.module/core {:figwheel-main true
-                                    :externs-paths
-                                    {:production
-                                     [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/keycloak.js")]}}}})
+   :modules {:hydrogen.module/core (cond->
+                                    {:externs-paths
+                                     {:production
+                                      [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/keycloak.js")]}}
+                                     (utils/use-figwheel-main? profiles)
+                                     (assoc :figwheel-main true))}})

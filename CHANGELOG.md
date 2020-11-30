@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Support for prod and dev migrations sets
 - [Issue 21][Issue 15] Refactor cognito's client-side flow
 	- This solves the problem of an auth token not being refreshed.
+- By default keep using lein-figwheel.
+If you want your new projects to use figwheel-main then add `+hydrogen/figwheel-main` profile.
 
 ### Fixed
 - [Issue 27]

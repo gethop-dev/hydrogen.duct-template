@@ -19,3 +19,6 @@
     (map #(format "#ig/ref :%s.%s" project-ns %) $)
     (str/join "\n   " $)
     (str "\n  [" $ "]")))
+
+(defn use-figwheel-main? [profiles]
+  (:hydrogen/figwheel-main (set profiles)))
