@@ -50,8 +50,7 @@
                         id-token (.getIdToken user-session)
                         jwt-token (.getJwtToken id-token)
                         token-exp (.getExpiration id-token)]
-                    (when
-                      (and user-session id-token jwt-token token-exp)
+                    (when (and user-session id-token jwt-token token-exp)
                       {:current-user current-user
                        :user-session user-session
                        :id-token id-token
@@ -148,10 +147,10 @@
                         :Pool user-pool}
          cognito-user (new js/AmazonCognitoIdentity.CognitoUser user-data)]
      (.authenticateUser
-       cognito-user
-       auth-details
-       #js {:onSuccess #(rf/dispatch [::on-login-success])
-            :onFailure #(rf/dispatch [::set-auth-error "Incorrect username or password"])}))))
+      cognito-user
+      auth-details
+      #js {:onSuccess #(rf/dispatch [::on-login-success])
+           :onFailure #(rf/dispatch [::set-auth-error "Incorrect username or password"])}))))
 
 (defn- user-login-event-fx
   [{:keys [user-pool]} [_ {:keys [username password]}]]

@@ -53,9 +53,9 @@
 
 (defn- deny-access [access-config jwt-token fx]
   (rf/console :warn "access denied"
-  (clj->js {:access-config access-config
-            :jwt-token jwt-token
-            :fx fx}))
+              (clj->js {:access-config access-config
+                        :jwt-token jwt-token
+                        :fx fx}))
   fx)
 
 (defn- go-to*-event-fx
@@ -109,8 +109,8 @@
               :as access-config}]]]
   (cond
     (and
-      (config-exists? db)
-      (not (session/keycloak-process-ongoing?)))
+     (config-exists? db)
+     (not (session/keycloak-process-ongoing?)))
     {:dispatch [:go-to* evt access-config]}
 
     (> remaining-retries 0)
@@ -140,18 +140,18 @@
    [_ evt & [{:keys [remaining-retries]
               :or {remaining-retries default-number-retries}
               :as access-config}]]]
-   (cond
-     (config-exists? db)
-     {:dispatch [:go-to* evt access-config]}
+  (cond
+    (config-exists? db)
+    {:dispatch [:go-to* evt access-config]}
 
-     (> remaining-retries 0)
-     {:dispatch-later
-      [{:ms default-delay-time
-        :dispatch [:go-to evt
-                   (assoc access-config :remaining-retries (dec remaining-retries))]}]}
+    (> remaining-retries 0)
+    {:dispatch-later
+     [{:ms default-delay-time
+       :dispatch [:go-to evt
+                  (assoc access-config :remaining-retries (dec remaining-retries))]}]}
 
-     :else
-     {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-cognito?>>
+    :else
+    {:dispatch [::util/generic-error ::route-access-error]}))<</hydrogen-session-cognito?>>
 
 (rf/reg-event-fx :go-to go-to-handler)
 

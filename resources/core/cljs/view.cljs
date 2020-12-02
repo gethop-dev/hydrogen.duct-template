@@ -29,24 +29,24 @@
   (let [[path query-params] (str/split loc-hash #"\?")]
     (if query-params
       (->>
-        (str/split query-params #"\&")
-        (remove
-          #(str/starts-with? % (str (name param) "=")))
-        (str/join "&")
-        (conj [path])
-        (filter seq)
-        (str/join "?"))
+       (str/split query-params #"\&")
+       (remove
+        #(str/starts-with? % (str (name param) "=")))
+       (str/join "&")
+       (conj [path])
+       (filter seq)
+       (str/join "?"))
       path)))
 
 (defn get-query-param [loc-hash param]
   (let [[_ query-params] (str/split loc-hash #"\?")]
     (when query-params
       (some->
-        (some
-          #(when (str/starts-with? % (str (name param) "=")) %)
-          (str/split query-params #"\&"))
-        (str/split #"\=")
-        (second)))))
+       (some
+        #(when (str/starts-with? % (str (name param) "=")) %)
+        (str/split query-params #"\&"))
+       (str/split #"\=")
+       (second)))))
 
 (defn fix-query-params
   "This function makes sure that query params list in location url

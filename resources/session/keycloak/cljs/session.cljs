@@ -30,11 +30,11 @@
 
 (defn keycloak-process-ongoing? []
   (or
-    (nil? @keycloak)
-    (and
-      (view/get-query-param js/location.hash "state")
-      (view/get-query-param js/location.hash "session_state")
-      (view/get-query-param js/location.hash "code"))))
+   (nil? @keycloak)
+   (and
+    (view/get-query-param js/location.hash "state")
+    (view/get-query-param js/location.hash "session_state")
+    (view/get-query-param js/location.hash "code"))))
 
 (rf/reg-event-fx
  ::set-auth-error
@@ -57,15 +57,15 @@
      (-> keycloak-obj
          (.updateToken min-validity)
          (.then
-           (fn [refreshed]
-             ;; If token was still valid, do nothing
-             (when refreshed
-               (handle-keycloak-obj-change keycloak-obj))))
-          (.catch
-            (fn []
-              (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
-                             [::user-logout]]]
-                (rf/dispatch event))))))))
+          (fn [refreshed]
+            ;; If token was still valid, do nothing
+            (when refreshed
+              (handle-keycloak-obj-change keycloak-obj))))
+         (.catch
+          (fn []
+            (doseq [event [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
+                           [::user-logout]]]
+              (rf/dispatch event))))))))
 
 (rf/reg-event-fx
  ::refresh-token
@@ -143,9 +143,9 @@
 (defn- remove-keycloak-process-query-params
   [location-hash]
   (-> location-hash
-    (view/remove-query-param :state)
-    (view/remove-query-param :code)
-    (view/remove-query-param :session_state)))
+      (view/remove-query-param :state)
+      (view/remove-query-param :code)
+      (view/remove-query-param :session_state)))
 
 (rf/reg-event-fx
  ::on-login-success
@@ -162,17 +162,17 @@
                                         :url url
                                         :clientId client-id})]
      (-> keycloak-obj
-       (.init #js {"onLoad" "check-sso"
-                   "promiseType" "native"
-                   "silentCheckSsoRedirectUri" (str js/window.location.origin "/silent-check.html")})
-       (.then (fn [authenticated]
-                (reset! keycloak keycloak-obj)
+         (.init #js {"onLoad" "check-sso"
+                     "promiseType" "native"
+                     "silentCheckSsoRedirectUri" (str js/window.location.origin "/silent-check.html")})
+         (.then (fn [authenticated]
+                  (reset! keycloak keycloak-obj)
                   (when authenticated
                     (handle-keycloak-obj-change keycloak-obj)
                     ;; Since we sometime turn &state into ?state, Keycloak
                     ;; is unable to clean up after itself.
                     (view/redirect! (remove-keycloak-process-query-params js/location.hash)))))
-       (.catch #(rf/dispatch [::set-auth-error "Failed to initialize Keycloak"]))))))
+         (.catch #(rf/dispatch [::set-auth-error "Failed to initialize Keycloak"]))))))
 
 (rf/reg-fx
  ::login

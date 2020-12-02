@@ -24,10 +24,7 @@
 
 (s/def ::url-str (s/and string? try-url-str))
 (s/def ::url (s/or :string ::url-str
-                   :url #(instance?
-                           #?(:cljs js/URL
-                              :clj URL)
-                           %)))
+                   :url #(instance? #?(:cljs js/URL :clj URL) %)))
 
 (s/def ::str-number (s/and string?
                            #(re-matches #"[0-9]+" %)))

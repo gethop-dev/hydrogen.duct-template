@@ -9,14 +9,14 @@
             [<<namespace>>.client.util :as util]))
 
 (rf/reg-sub
-  ::user-data
-  (fn [db _]
-    (get db :user)))
+ ::user-data
+ (fn [db _]
+   (get db :user)))
 
 (rf/reg-event-db
-  ::set-user-data
-  (fn [db [_ user]]
-    (assoc db :user user)))
+ ::set-user-data
+ (fn [db [_ user]]
+   (assoc db :user user)))
 
 (rf/reg-event-fx
  ::fetch-user-data
