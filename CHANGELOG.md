@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.5.1] - 2020-12-03
 ### Added
 - More btn class modifiers (btn--disabled, btn--secondary, btn--light)
 - [Issue 28] - now Keycloak-based applications should be able to restore sessions after refreshing
@@ -23,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
     instead of a string. For that reason, if we were to call `re-find` on
     that then it would explode. Hence the `string?` check.
 - Minor indentaton issues
+- Lots of warnings produced by clj-kondo
 
 ## [0.5.0] - 2020-09-14
 ### Added
@@ -179,7 +182,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.0...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.4.3...v0.5.0
 [0.4.3]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.4.1...v0.4.2
