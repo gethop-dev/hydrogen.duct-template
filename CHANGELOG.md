@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
     This event handler now gets jwt-token from session cofx instead of appdb.
     It is so because at times the token may not be present in appdb yet when
     `::ensure-data` is called.
+    
+- Don't add `[hydrogen/module.cljs "0.5.2"]` in core profile.
 
 ## [0.5.1] - 2020-12-03
 ### Added
