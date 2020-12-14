@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Fixed
+- Fix `::fetch-user-data` event handler
+    
+    This event handler now gets jwt-token from session cofx instead of appdb.
+    It is so because at times the token may not be present in appdb yet when
+    `::ensure-data` is called.
 
 ## [0.5.1] - 2020-12-03
 ### Added
