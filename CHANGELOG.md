@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+## [0.5.3] - 2020-12-15
 ### Fixed
 - [Issue 36] User session is broken after 08bcff44
 
@@ -194,7 +195,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
  
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.2...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.3...HEAD
+[0.5.3]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.4.3...v0.5.0
