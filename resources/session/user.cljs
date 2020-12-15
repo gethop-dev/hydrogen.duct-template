@@ -5,7 +5,9 @@
 {{=<< >>=}}
 (ns <<namespace>>.client.user
   (:require [ajax.core :as ajax]
+            [clojure.spec.alpha :as s]
             [re-frame.core :as rf]
+            [<<namespace>>.client.session :as session]
             [<<namespace>>.client.util :as util]))
 
 (rf/reg-sub

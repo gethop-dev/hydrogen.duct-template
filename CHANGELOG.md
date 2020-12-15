@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Fixed
+- [Issue 36] User session is broken after 08bcff44
 
 ## [0.5.2] - 2020-12-14
 ### Fixed
@@ -230,3 +232,4 @@ This version unifies it to `rf`.
 [Issue 31]: https://github.com/magnetcoop/hydrogen.duct-template/issues/31
 [Issue 32]: https://github.com/magnetcoop/hydrogen.duct-template/issues/32
 [Issue 33]: https://github.com/magnetcoop/hydrogen.duct-template/issues/33
+[Issue 36]: https://github.com/magnetcoop/hydrogen.duct-template/issues/36
