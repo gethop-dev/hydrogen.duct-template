@@ -18,7 +18,7 @@
            [cljs-ajax "0.8.1"]
            [day8.re-frame/http-fx "0.2.1"]
            [duct/compiler.sass "0.2.1"]
-           [hydrogen/module.core "0.2.0"]
+           [hydrogen/module.core "0.2.1"]
            [org.clojure/clojurescript "1.10.773"]
            [re-frame "1.1.1"]
            [reagent "0.10.0"]]

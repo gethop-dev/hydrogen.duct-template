@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Changed
+- Use v0.2.1 of `hydrogen/module.core`
+
 ## [0.5.3] - 2020-12-15
 ### Fixed
 - [Issue 36] User session is broken after 08bcff44
