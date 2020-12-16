@@ -65,7 +65,44 @@ could be populated with something as simple as
 
 ## Decision
 
-Because of all the complexity this feature involves, the template will be given:
+Because of all the complexity this feature involves, the template will only be given:
 - a namespace with a UI component for displaying breadcrumbs registered in the appdb
 - re-frame subscription for getting breadcrumbs from the appdb
-- re-frame event handler for populating appdb with breadcrumbs data. 
+- re-frame event handler for populating appdb with breadcrumbs data.
+
+The missing piece - where to get the breadcrumbs data **from** - will have to be individually applied given the specific project domain.
+However I assume that using `re-frame-async-flow-fx` might be helpful:
+
+```clojure
+(defn- set-breadcrumbs-event-fx
+  [{:keys [db]} [_ category-id id]]
+  {:pre [(:category db)
+         (:shop-item db)]}
+  {:dispatch [::breadcrumbs/set
+              [{:title "Shop"
+                :url "/#/shop"}
+               {:title (get-in db [:category :name])
+                :url (str "/#/shop/" category-id)}
+               {:title (get-in db [:shop-item :name])
+                :url (str "/#/shop/" category-id "/" id)
+                :disabled true}]]})
+
+(rf/reg-event-fx ::set-breadcrumbs set-breadcrumbs-event-fx)
+
+(rf/reg-event-fx
+  ::fetch-breadcrumbs
+  (fn [_ [_ category-id id]]
+    {:dispatch-n [[::hydrogen-demo.category/get category-id]]
+     :async-flow {:rules [{:when :seen-all-of?
+                           :events [::got ::hydrogen-demo.category/got]
+                           :dispatch [::set-breadcrumbs category-id id]}]}}))
+
+(rf/reg-event-fx
+  ::go-to-shop-item
+  (fn [{:keys [db]} [_ category-id id]]
+    {:dispatch-n [[::view/set-active-view :shop-item]
+                  [::fetch-breadcrumbs category-id id]
+                  [::get id]]
+     :db (dissoc db :shop-item)
+     :redirect (str "/#/shop/" id)}))
+```
