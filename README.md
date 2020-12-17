@@ -28,9 +28,10 @@ Keep in mind that those two profiles are mutually exclusive.
 
 
 ##### Warning!
-Until further notice, usage of `+hydrogen/figwheel-main` profile will require two manual fixes in `project.clj`:
+Until further notice, usage of `+hydrogen/figwheel-main` profile will require some manual fixes in `project.clj`:
 1. The are two conflicting dependencies: `hydrogen/module.cljs` and `duct/module.cljs`. Please remove the latter one.
-2. Because of yet unidentified issue, even though `resource-paths` include `target/resources`, the compiler will
+2. `[duct/module.web "0.7.0"]` doesn't have recent enough version of `jetty`. Please upgrade it to at least `[duct/module.web "0.7.1"]`
+3. Because of yet unidentified issue, even though `resource-paths` include `target/resources`, the compiler will
 complain about `target/resources/<project name>` not found on classpath. Please add add path too.
 
 
