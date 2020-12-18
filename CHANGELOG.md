@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Added
+- [Issue 34] `.client.breadcrumbs` and `_breadcrumbs.scss` added.
 
 ## [0.5.4] - 2020-12-16
 ### Changed
@@ -230,6 +232,7 @@ This version unifies it to `rf`.
 [Issue 15]: https://github.com/magnetcoop/hydrogen.duct-template/issues/15
 [Issue 17]: https://github.com/magnetcoop/hydrogen.duct-template/issues/17
 [Issue 19]: https://github.com/magnetcoop/hydrogen.duct-template/issues/19
+[Issue 20]: https://github.com/magnetcoop/hydrogen.duct-template/issues/20
 [Issue 21]: https://github.com/magnetcoop/hydrogen.duct-template/issues/21
 [Issue 22]: https://github.com/magnetcoop/hydrogen.duct-template/issues/22
 [Issue 23]: https://github.com/magnetcoop/hydrogen.duct-template/issues/23
@@ -240,4 +243,5 @@ This version unifies it to `rf`.
 [Issue 31]: https://github.com/magnetcoop/hydrogen.duct-template/issues/31
 [Issue 32]: https://github.com/magnetcoop/hydrogen.duct-template/issues/32
 [Issue 33]: https://github.com/magnetcoop/hydrogen.duct-template/issues/33
+[Issue 34]: https://github.com/magnetcoop/hydrogen.duct-template/issues/34
 [Issue 36]: https://github.com/magnetcoop/hydrogen.duct-template/issues/36

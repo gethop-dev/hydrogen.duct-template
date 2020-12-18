@@ -26,6 +26,7 @@
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
                "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
+               "src/{{dirs}}/client/breadcrumbs.cljs" (resource "core/cljs/breadcrumbs.cljs")
                "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
                "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
@@ -49,8 +50,9 @@
                "resources/{{dirs}}/index.html" (resource "core/resources/index.html")
                "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
                "resources/{{dirs}}/public/images/spinner.svg" (resource "core/resources/images/spinner.svg")
-               "resources/{{dirs}}/public/css/_button.scss" (resource "core/resources/css/_button.scss")
                "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
+               "resources/{{dirs}}/public/css/_breadcrumbs.scss" (resource "core/resources/css/_breadcrumbs.scss")
+               "resources/{{dirs}}/public/css/_button.scss" (resource "core/resources/css/_button.scss")
                "resources/{{dirs}}/public/css/_theming.scss" (resource "core/resources/css/_theming.scss")
                "resources/{{dirs}}/public/css/_tooltip.scss" (resource "core/resources/css/_tooltip.scss")
                "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")

@@ -1,6 +1,6 @@
 # Add breadcrumbs feature to the template
 
-## Status - proposed
+## Status - accepted and implemented
 
 ## Context
 
@@ -69,6 +69,9 @@ Because of all the complexity this feature involves, the template will only be g
 - a namespace with a UI component for displaying breadcrumbs registered in the appdb
 - re-frame subscription for getting breadcrumbs from the appdb
 - re-frame event handler for populating appdb with breadcrumbs data.
+- The main container will include breadcrumbs/main component. The component itself will decide
+whether or not the content should be displayed based on existence of breadcrumbs
+data in appdb.
 
 The missing piece - where to get the breadcrumbs data **from** - will have to be individually applied given the specific project domain.
 However I assume that using `re-frame-async-flow-fx` might be helpful:
