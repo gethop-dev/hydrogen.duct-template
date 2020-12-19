@@ -10,9 +10,15 @@
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-event-fx
- ::go-to-landing
+ ::view.enter
  (fn [_ _]
-   {:dispatch [::view/set-active-view :landing]}))
+   {:dispatch [::view/set-active-view [::view]]
+    :redirect "/#/home"}))
+
+(rf/reg-event-fx
+ ::view.leave
+ (fn [_ _]
+   {}))
 
 (defn login-form []
   [:div.login-form
@@ -30,3 +36,7 @@
        {:class (str "theme-" (name @theme))}
        [header]
        [login-form]])))
+
+(defmethod view/view-display ::view
+  [_]
+  [main])

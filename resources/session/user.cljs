@@ -36,6 +36,6 @@
                 :on-failure [::util/generic-error]}})
 
 (rf/reg-event-fx
-  ::fetch-user-data
-  [(rf/inject-cofx :session)]
-  fetch-user-data-event-fx)
+ ::fetch-user-data
+ [(rf/inject-cofx :session)]
+ fetch-user-data-event-fx)

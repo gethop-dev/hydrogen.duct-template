@@ -13,6 +13,7 @@
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
             [<<namespace>>.client.session]<</hydrogen-session-keycloak?>>
+            [<<namespace>>.client.sidebar :as sidebar]
             [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.tooltip :as tooltip]
             [<<namespace>>.client.tooltip.generic-popup :as tooltip.generic-popup]
@@ -46,18 +47,16 @@
                  :on-failure [::util/generic-error]}<</hydrogen-session?>>}))
 
 (defn app []
-  (let [theme (rf/subscribe [::theme/get-theme])
-        active-view (rf/subscribe [::view/active-view])]
+  (let [theme (rf/subscribe [::theme/get-theme])]
     (fn []
       [:div.app-container
        {:on-click #(tooltip/destroy-on-click-out (.. % -target))
         :class (str "theme-" (name @theme))}
+       [sidebar/main]
        [:div.app-container__main
         {:id "app-container__main"}
         [breadcrumbs/main]
-        (case @active-view
-          :foo [:div "FIXME"]
-          [home/main])]
+        [view/main]]
        [tooltip.loading-popup/main]
        [tooltip.generic-popup/main]])))
 

@@ -29,6 +29,7 @@
                "src/{{dirs}}/client/breadcrumbs.cljs" (resource "core/cljs/breadcrumbs.cljs")
                "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
                "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
+               "src/{{dirs}}/client/sidebar.cljs" (resource "core/cljs/sidebar.cljs")
                "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
                "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
                "src/{{dirs}}/client/tooltip.cljs" (resource "core/cljs/tooltip.cljs")
@@ -36,6 +37,8 @@
                "src/{{dirs}}/client/tooltip/loading_popup.cljs" (resource "core/cljs/tooltip/loading_popup.cljs")
                "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
                "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
+               "src/{{dirs}}/client/hydrogen_demo/shop.cljs" (resource "core/cljs/hydrogen_demo/shop.cljs")
+               "src/{{dirs}}/client/hydrogen_demo/shop_item.cljs" (resource "core/cljs/hydrogen_demo/shop_item.cljs")
                ;; API
                "src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
                "src/{{dirs}}/api/example.clj" (resource "core/api/example.clj")

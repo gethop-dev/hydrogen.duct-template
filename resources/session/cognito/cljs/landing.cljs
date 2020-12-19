@@ -11,9 +11,15 @@
             [<<namespace>>.client.view :as view]))
 
 (rf/reg-event-fx
- ::go-to-landing
+ ::view.enter
  (fn [_ _]
-   {:dispatch [::view/set-active-view :landing]}))
+   {:dispatch [::view/set-active-view [::view]]
+    :redirect "/#/landing"}))
+
+(rf/reg-event-fx
+ ::view.leave
+ (fn [_ _]
+   {}))
 
 (def credentials (reagent/atom {:username "" :password ""}))
 
@@ -67,3 +73,7 @@
        {:class (str "theme-" (name @theme))}
        [header]
        [login-form]])))
+
+(defmethod view/view-display ::view
+  [_]
+  [main])

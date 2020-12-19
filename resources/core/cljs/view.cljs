@@ -10,7 +10,7 @@
 (rf/reg-sub
  ::active-view
  (fn [db]
-   (get db :active-view <<#hydrogen-session?>>:landing<</hydrogen-session?>><<^hydrogen-session?>>:home<</hydrogen-session?>>)))
+   (get db :active-view)))
 
 (rf/reg-event-db
  ::set-active-view
@@ -23,7 +23,19 @@
 (rf/reg-fx
  :redirect
  (fn [loc]
-   (redirect! loc)))<<#hydrogen-session-keycloak?>>
+   (redirect! loc)))
+
+(defmulti view-display #(when (vector? %) (first %)))
+
+(defmethod view-display :default
+  [_]
+  [:div "No content :("])
+
+(defn main
+  []
+  (let [active-view (rf/subscribe [::active-view])]
+    (fn []
+      (view-display @active-view))))<<#hydrogen-session-keycloak?>>
 
 (defn remove-query-param [loc-hash param]
   (let [[path query-params] (str/split loc-hash #"\?")]

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [UNRELEASED]
 ### Added
 - [Issue 34] `.client.breadcrumbs` and `_breadcrumbs.scss` added.
+- [Issue 20] Re-added sidebar component and populated it with demo content.
+- Brand new and simplified system of registering views. It supports `view.enter` and `view.leave`
+events which should greatly improve abilities to collect garbage after leaving a view.
+
+### Changed
+- Demo code used for capabilities presentation has been moved to separate namespaces and views.
 
 ## [0.5.4] - 2020-12-16
 ### Changed

@@ -41,7 +41,9 @@ The stylesheet presented new is there just as an example of usage.
   display: flex;
 }
 
-.app-container__sidebar {}
+.app-container__sidebar {
+  padding: $spacing-normal;
+}
 
 .app-container__main {
   flex: 1;

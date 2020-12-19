@@ -11,7 +11,9 @@
             [goog.history.EventType :as EventType]
             [re-frame.core :as rf]
             [secretary.core :as secretary]
-            [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
+            [<<namespace>>.client.home :as home]
+            [<<namespace>>.client.hydrogen-demo.shop :as hydrogen-demo.shop]
+            [<<namespace>>.client.hydrogen-demo.shop-item :as hydrogen-demo.shop-item]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.user :as user]
@@ -21,7 +23,18 @@
 (defn hook-browser-navigation! []
   (doto (History.)
     (goog.events/listen EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-    (.setEnabled true)))<<#hydrogen-session?>>
+    (.setEnabled true)))
+
+(defn- compose-nav-evt
+  [direction [view-key & argv]]
+  {:pre [(#{:enter :leave} direction)]}
+  (let [evt-key (if (namespace view-key)
+                  (keyword
+                   (namespace view-key)
+                   (str (name view-key) "." (name direction)))
+                  (keyword
+                   (str (name view-key) "." (name direction))))]
+    (vec (cons evt-key argv))))<<#hydrogen-session?>>
 
 (def ^:const access-config-defaults
   {:allow-unauthenticated? false
@@ -53,18 +66,18 @@
 
 (defn- deny-access [access-config jwt-token fx]
   (rf/console :warn "access denied"
-              (clj->js {:access-config access-config
-                        :jwt-token jwt-token
-                        :fx fx}))
+              #js {:access-config access-config
+                   :jwt-token jwt-token
+                   :fx fx})
   fx)
 
 (defn- go-to*-event-fx
-  [{:keys [session] :as cofx} [_ evt access-config]]
+  [{:keys [db session] :as cofx} [_ new-view access-config]]
   {:pre [(contains? cofx :session)
          (s/valid? ::session/session-cofx-spec session)]}
-  (rf/console :log "go-to*" (clj->js {:session session
-                                      :evt evt
-                                      :access-config access-config}))
+  (rf/console :log "go-to*" #js {:session session
+                                 :new-view new-view
+                                 :access-config access-config})
   (let [jwt-token (:jwt-token session)
         access-config (merge access-config-defaults access-config)]
     (cond
@@ -76,8 +89,24 @@
       (deny-access access-config jwt-token {:redirect "/#/landing"})<</hydrogen-session-cognito?>>
 
       :else
-      {:dispatch-n [[::ensure-data]
-                    evt]})))
+      ; This part takes a vector for new view to navigate to.
+      ; That vector has min. arity 1 - a keyword identifying a view.
+      ; By convention we recommend using a namespaced one with 'view' as a name (e.g. ::shop/view).
+      ; The optional remaining arguments of that view vector are arguments to the view.
+      ;
+      ; Then this handler composes up to two event handlers and dispatches them:
+      ; - New view always is composed into ::*/view.enter event
+      ; - Previously active view (if present) is composed into ::*/view.leave event
+      ;
+      ; That said, each namespace introducing a new view need to have both ::view.enter and ::view.leave
+      ; events defined.
+      (let [enter-evt (compose-nav-evt :enter new-view)
+            set-active-view-event nil
+            leave-evt (when-let [active-view (:active-view db)]
+                        (compose-nav-evt :leave active-view))]
+        {:dispatch-n [[::ensure-data]
+                      leave-evt
+                      enter-evt]}))))
 
 (rf/reg-event-fx
  :go-to*
@@ -161,11 +190,17 @@
   ;; define routes here
 
   (defroute "/landing" []
-    (rf/dispatch [:go-to [::landing/go-to-landing]
+    (rf/dispatch [:go-to [::landing/view]
                   {:allow-authenticated? false :allow-unauthenticated? true}]))
 
   (defroute "/home" []
-    (rf/dispatch [:go-to [::home/go-to-home]]))
+    (rf/dispatch [:go-to [::home/view]]))
+
+  (defroute "/shop" []
+    (rf/dispatch [:go-to [::hydrogen-demo.shop/view]]))
+
+  (defroute "/shop/:item-id" [item-id]
+    (rf/dispatch [:go-to [::hydrogen-demo.shop-item/view item-id]]))
 
   (defroute "*" []
     (view/redirect! "/#/landing"))
@@ -173,16 +208,43 @@
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>><<^hydrogen-session?>>
 
+(defn- go-to-handler
+  "This handler takes a vector for new view to navigate to.
+  That vector has min. arity 1 - a keyword identifying a view.
+  By convention we recommend using a namespaced one with 'view' as a name (e.g. ::shop/view).
+  The optional remaining arguments of that view vector are arguments to the view.
+
+  Then this handler composes up to two event handlers and dispatches them:
+  - New view always is composed into ::*/view.enter event
+  - Previously active view (if present) is composed into ::*/view.leave event
+
+  That said, each namespace introducing a new view need to have both ::view.enter and ::view.leave
+  events defined."
+  [{:keys [db]} [_ new-view]]
+  (let [enter-evt (compose-nav-evt :enter new-view)
+        leave-evt (when-let [active-view (:active-view db)]
+                    (compose-nav-evt :leave active-view))]
+    {:dispatch-n [leave-evt
+                  enter-evt]}))
+
+(rf/reg-event-fx :go-to go-to-handler)
+
 (defn app-routes []
   (secretary/set-config! :prefix "#")
   ;; --------------------
   ;; define routes here
 
-  (defroute "/" []
-    (view/redirect! "/#/home"))
-
   (defroute "/home" []
-    (rf/dispatch [::home/go-to-home]))
+    (rf/dispatch [:go-to [::home/view]]))
+
+  (defroute "/shop" []
+    (rf/dispatch [:go-to [::hydrogen-demo.shop/view]]))
+
+  (defroute "/shop/:item-id" [item-id]
+    (rf/dispatch [:go-to [::hydrogen-demo.shop-item/view item-id]]))
+
+  (defroute "*" []
+    (view/redirect! "/#/home"))
 
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>>
