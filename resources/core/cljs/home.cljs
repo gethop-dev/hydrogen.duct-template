@@ -4,8 +4,8 @@
 
 {{=<< >>=}}
 (ns <<namespace>>.client.home
-  (:require [re-frame.core :as rf]<<#hydrogen-session?>>
-            [<<namespace>>.client.breadcrumbs :as breadcrumbs]
+  (:require [re-frame.core :as rf]
+            [<<namespace>>.client.breadcrumbs :as breadcrumbs]<<#hydrogen-session?>>
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.user :as user]<</hydrogen-session?>>
             [<<namespace>>.client.view :as view]))
