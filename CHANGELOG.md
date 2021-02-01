@@ -24,11 +24,11 @@ events which should greatly improve abilities to collect garbage after leaving a
 ## [0.5.2] - 2020-12-14
 ### Fixed
 - Fix `::fetch-user-data` event handler
-    
+
     This event handler now gets jwt-token from session cofx instead of appdb.
     It is so because at times the token may not be present in appdb yet when
     `::ensure-data` is called.
-    
+
 - Don't add `[hydrogen/module.cljs "0.5.2"]` in core profile.
 
 ## [0.5.1] - 2020-12-03
@@ -37,7 +37,7 @@ events which should greatly improve abilities to collect garbage after leaving a
 - [Issue 28] - now Keycloak-based applications should be able to restore sessions after refreshing
 - Support for prod and dev migrations sets
 - [Issue 21][Issue 15] Refactor cognito's client-side flow
-	- This solves the problem of an auth token not being refreshed.
+    - This solves the problem of an auth token not being refreshed.
 - By default keep using lein-figwheel. If you want your new projects to use figwheel-main then add `+hydrogen/figwheel-main` profile.
 - [Issue 31] Use Hikari database pool instead of creating a connection each time
 - [Issue 32] Added basic clj-kondo configuration to the template for generated projects.
@@ -47,7 +47,7 @@ events which should greatly improve abilities to collect garbage after leaving a
 - [Issue 30]
 - [Issue 33]
 - Make tooltip manager more robust
-	- Sometimes, when gettings a class on click, the output is an object
+    - Sometimes, when gettings a class on click, the output is an object
     instead of a string. For that reason, if we were to call `re-find` on
     that then it would explode. Hence the `string?` check.
 - Minor indentaton issues
