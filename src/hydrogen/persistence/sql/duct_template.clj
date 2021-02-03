@@ -16,24 +16,25 @@
    :minimum-idle 10
    :maximum-pool-size 25}")
 
-(defn- ragtime-config
-  [project-ns]
-  (format
-   "
+(def ^:private ragtime-config
+  "
   {:database #ig/ref :duct.database/sql
    :logger #ig/ref :duct/logger
    :strategy :raise-error
-   :migrations [#ig/ref :%s.migrations/prod]}"
-   project-ns))
+   :migrations-table \"ragtime_migrations\"
+   :migrations []}")
 
 (defn- dev-ragtime-config
   [project-ns]
   (format
-   "
- {:migrations ^:replace [#ig/ref :%s.migrations/prod
-                         #ig/ref :%s.migrations/dev]}"
-   project-ns
-   project-ns))
+  "
+  {:database #ig/ref :duct.database/sql
+   :logger #ig/ref :duct/logger
+   :strategy :raise-error
+   :migrations-table \"ragtime_migrations_dev\"
+   :fake-dependency-to-force-initialization-order #ig/ref [:duct.migrator/ragtime :%s/prod]
+   :migrations []}"
+  project-ns))
 
 (defn- persistence-sql-kw
   [project-ns]
@@ -54,11 +55,5 @@
 
                   :duct.database.sql/hikaricp hikaricp-config
 
-                  :duct.migrator/ragtime (ragtime-config project-ns)
-
-                  [:duct.migrator.ragtime/resources (keyword (str project-ns ".migrations") "prod")]
-                  {:path (format "%s/migrations" project-ns)}}
-   :profile-dev {:duct.migrator/ragtime (dev-ragtime-config project-ns)
-
-                 [:duct.migrator.ragtime/resources (keyword (str project-ns ".migrations") "dev")]
-                 {:path (format "%s/dev_migrations" project-ns)}}})
+                  [:duct.migrator/ragtime (keyword (str project-ns "/prod"))] ragtime-config}
+   :profile-dev {[:duct.migrator/ragtime (keyword (str project-ns "/dev"))] (dev-ragtime-config project-ns)}})
