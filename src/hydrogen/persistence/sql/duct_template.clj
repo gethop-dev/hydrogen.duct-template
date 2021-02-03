@@ -27,14 +27,14 @@
 (defn- dev-ragtime-config
   [project-ns]
   (format
-  "
+   "
   {:database #ig/ref :duct.database/sql
    :logger #ig/ref :duct/logger
    :strategy :raise-error
    :migrations-table \"ragtime_migrations_dev\"
    :fake-dependency-to-force-initialization-order #ig/ref [:duct.migrator/ragtime :%s/prod]
    :migrations []}"
-  project-ns))
+   project-ns))
 
 (defn- persistence-sql-kw
   [project-ns]
