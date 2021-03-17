@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+
+## [0.5.6] - 2021-03-17
 ### Changed
 - Changed Keycloak session configuration variable from KEYCLOAK_URL to KEYCLOAK_FRONTEND_URL, to use the standard Keycloak variable name (instead of our own name).
 
@@ -213,7 +215,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.4...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.6...HEAD
+[0.5.6]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.2...v0.5.3
