@@ -9,7 +9,7 @@
 (def ^:private ^:const keycloak-config
   ":keycloak
     {:realm #duct/env [\"KEYCLOAK_REALM\" Str]
-     :url #duct/env [\"KEYCLOAK_URL\" Str]
+     :url #duct/env [\"KEYCLOAK_FRONTEND_URL\" Str]
      :client-id #duct/env [\"KEYCLOAK_CLIENT_ID\" Str]}
    :sso-apps
     [{:name #duct/env [\"OIDC_SSO_APP_1_NAME\" Str]

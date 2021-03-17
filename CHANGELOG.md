@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Changed
+- Changed Keycloak session configuration variable from KEYCLOAK_URL to KEYCLOAK_FRONTEND_URL, to use the standard Keycloak variable name (instead of our own name).
 
 ## [0.5.5] - 2021-02-02
 ### Added
