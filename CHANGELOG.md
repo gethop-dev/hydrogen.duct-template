@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+
+## [0.5.7] - 2021-04-09
 ### Changed
 - Use v0.10.3 of `magnet/buddy-auth.jwt-oidc` (fixes a caching bug)
 
@@ -217,7 +219,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.6...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.7...HEAD
+[0.5.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.3...v0.5.4
