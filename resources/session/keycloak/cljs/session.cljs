@@ -73,9 +73,9 @@
    {::refresh-token-keycloak {:min-validity min-validity}}))
 
 (defn- now-cofx
-  "Adds a cofx with a current timestamp in milliseconds"
+  "Adds a cofx with a current timestamp in seconds"
   [cofx]
-  (assoc cofx :now (.getTime (js/Date.))))
+  (assoc cofx :now (quot (.getTime (js/Date.)) 1000)))
 
 (rf/reg-cofx :now now-cofx)
 
