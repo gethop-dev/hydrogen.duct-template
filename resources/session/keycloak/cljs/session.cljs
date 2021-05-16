@@ -24,8 +24,8 @@
 ;; handler (that would be side-effectful!). But if we build it in the
 ;; effect handler, we can't store in the appdb (it's not available
 ;; there). So after an internal discussion, we have decided that the
-;; least hacky way of doing it is storing the Keycloak object in a
-;; Reagent atom.
+;; least hacky way of doing it is storing the Keycloak object in an
+;; atom.
 (def keycloak (atom nil))
 
 (defn keycloak-process-ongoing? []
