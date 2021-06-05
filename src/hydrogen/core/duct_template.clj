@@ -18,7 +18,7 @@
            [cljs-ajax "0.8.1"]
            [day8.re-frame/http-fx "0.2.1"]
            [duct/compiler.sass "0.2.1"]
-           [hydrogen/module.core "0.2.1"]
+           [hydrogen/module.core "0.4.2"]
            [org.clojure/clojurescript "1.10.773"]
            [re-frame "1.1.1"]
            [reagent "0.10.0"]]
@@ -64,10 +64,9 @@
                ;; Tooling
                ".clj-kondo/.gitignore" (resource "tooling/clj-kondo/gitignore")
                ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")}
-   :modules {:hydrogen.module/core (cond->
-                                    {}
+   :modules {:hydrogen.module/core (cond-> {}
                                      (utils/use-figwheel-main? profiles)
-                                     (assoc :figwheel-main true))}
+                                     (assoc :figwheel-main {}))}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"
