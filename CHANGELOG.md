@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [UNRELEASED]
 ### Changed
 - Use v0.4.2 of `hydrogen/module.core`
+- Use version "0.8.3" of cljs-ajax
 
 ## [0.5.10] - 2021-06-24
 ### Fixed

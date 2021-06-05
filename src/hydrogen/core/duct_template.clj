@@ -15,7 +15,7 @@
                                                               "api/config"
                                                               "api/example"])}
    :deps '[[clj-commons/secretary "1.2.4"]
-           [cljs-ajax "0.8.1"]
+           [cljs-ajax "0.8.3"]
            [day8.re-frame/http-fx "0.2.1"]
            [duct/compiler.sass "0.2.1"]
            [hydrogen/module.core "0.4.2"]
