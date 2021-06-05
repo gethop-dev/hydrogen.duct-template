@@ -21,7 +21,8 @@
            [hydrogen/module.core "0.4.2"]
            [org.clojure/clojurescript "1.10.773"]
            [re-frame "1.1.1"]
-           [reagent "0.10.0"]]
+           [reagent "0.10.0"]
+           [metosin/jsonista "0.3.3"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
    :templates {;; Client
                "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
