@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+
+## [0.5.10] - 2021-06-24
 ### Fixed
 - [Issue 44] Themify doesn't work for pseudoelements/pseuselectors
 
@@ -229,7 +231,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.9...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.10...HEAD
+[0.5.10]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.6...v0.5.7
