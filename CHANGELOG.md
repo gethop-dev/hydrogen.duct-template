@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
 
+## [0.5.9] - 2021-06-24
+### Fixed
+- [Issue 43] Fix landing active-view check in client.cljs ns
+
 ## [0.5.8] - 2021-05-16
 ### Fixed
 - [Issue 40] Fix Keycloak token lifetime and refresh interval calculation
