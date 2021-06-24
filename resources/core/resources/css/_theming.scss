@@ -80,10 +80,14 @@ $themes: (
 @mixin themify($property, $key, $themes: $themes) {
   // Iterate over the themes
   @each $theme, $colors in $themes {
-    // Create a selector (e.g. `.media.theme-unicorn, .theme-unicorn .media`)
-    &.theme-#{$theme},
+    // Create two selectors (e.g. `.media.theme-unicorn and .theme-unicorn .media`)
+    // They are not joined by comma-separator because
+    // sometimes, when the `&` has a pseudocomponent,
+    // the first rule might fail.
+    &.theme-#{$theme} {
+      #{$property}: map-get($colors, $key);
+    }
     .theme-#{$theme} & {
-      // Output the declaration
       #{$property}: map-get($colors, $key);
     }
   }

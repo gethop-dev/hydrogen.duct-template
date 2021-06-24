@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Fixed
+- [Issue 44] Themify doesn't work for pseudoelements/pseuselectors
 
 ## [0.5.9] - 2021-06-24
 ### Fixed
