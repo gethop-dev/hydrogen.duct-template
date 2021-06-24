@@ -227,7 +227,9 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.7...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.9...HEAD
+[0.5.9]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.8...v0.5.9
+[0.5.8]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.4...v0.5.5
@@ -274,3 +276,6 @@ This version unifies it to `rf`.
 [Issue 34]: https://github.com/magnetcoop/hydrogen.duct-template/issues/34
 [Issue 35]: https://github.com/magnetcoop/hydrogen.duct-template/issues/35
 [Issue 36]: https://github.com/magnetcoop/hydrogen.duct-template/issues/36
+[Issue 40]: https://github.com/magnetcoop/hydrogen.duct-template/issues/40
+[Issue 43]: https://github.com/magnetcoop/hydrogen.duct-template/issues/43
+[Issue 44]: https://github.com/magnetcoop/hydrogen.duct-template/issues/44
