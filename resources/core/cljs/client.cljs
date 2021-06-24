@@ -63,7 +63,7 @@
 (defn main []<<#hydrogen-session?>>
   (let [active-view (rf/subscribe [::view/active-view])]
     (fn []
-      (if (= @active-view :landing)
+      (if (= @active-view ::landing/view)
         [landing/main]
         [app])))<</hydrogen-session?>><<^hydrogen-session?>>
   [app]<</hydrogen-session?>>)
