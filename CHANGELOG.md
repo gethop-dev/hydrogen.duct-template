@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+
+## [0.5.11] - 2021-06-28
 ### Changed
 - Use v0.4.2 of `hydrogen/module.core`
 - Use version "0.8.3" of cljs-ajax
@@ -237,7 +239,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.10...HEAD
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.11...HEAD
+[0.5.11]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.9...v0.5.10
 [0.5.9]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.7...v0.5.8
@@ -288,5 +291,6 @@ This version unifies it to `rf`.
 [Issue 35]: https://github.com/magnetcoop/hydrogen.duct-template/issues/35
 [Issue 36]: https://github.com/magnetcoop/hydrogen.duct-template/issues/36
 [Issue 40]: https://github.com/magnetcoop/hydrogen.duct-template/issues/40
+[Issue 42]: https://github.com/magnetcoop/hydrogen.duct-template/issues/42
 [Issue 43]: https://github.com/magnetcoop/hydrogen.duct-template/issues/43
 [Issue 44]: https://github.com/magnetcoop/hydrogen.duct-template/issues/44
