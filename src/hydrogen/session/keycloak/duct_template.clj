@@ -53,4 +53,4 @@
                                      {:production
                                       [(str (ns->dir-name project-ns) "/client/foreign-libs/externs/keycloak.js")]}}
                                      (utils/use-figwheel-main? profiles)
-                                     (assoc :figwheel-main true))}})
+                                     (assoc :figwheel-main {}))}})
