@@ -25,10 +25,6 @@
     (new js/AmazonCognitoIdentity.CognitoUserPool #js {:UserPoolId user-pool-id
                                                        :ClientId client-id})))
 
-(defn- get-user-session [current-user]
-  (.getSession current-user (fn [err session]
-                              (when (not err) session))))
-
 (defn- user-pool-cofx
   [{:keys [db] :as cofx} _]
   {:pre [(:config db)]
@@ -38,6 +34,26 @@
 
 (rf/reg-cofx :user-pool user-pool-cofx)
 
+(def session-error-events
+  "Collection of events to dispatch on session error"
+  [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
+   [::user-logout]])
+
+(defn- session-error
+  []
+  (doseq [event session-error-events]
+    (rf/dispatch event)))
+
+(defn- get-user-session
+  [current-user]
+  (.getSession current-user (fn [err session]
+                              (if err
+                                (do
+                                  (session-error)
+                                  ;; Make sure we return nil to signal there is no active session.
+                                  nil)
+                                session))))
+
 (defn- session-cofx
   [{:keys [db user-pool] :as cofx} _]
   {:pre [(or user-pool (:config db))]
@@ -46,16 +62,16 @@
   (rf/console :log "Calculating session cofx" (clj->js cofx))
   (let [user-pool (or user-pool (get-user-pool db))
         session (when-let [current-user (.getCurrentUser user-pool)]
-                  (let [user-session (get-user-session current-user)
-                        id-token (.getIdToken user-session)
-                        jwt-token (.getJwtToken id-token)
-                        token-exp (.getExpiration id-token)]
-                    (when (and user-session id-token jwt-token token-exp)
-                      {:current-user current-user
-                       :user-session user-session
-                       :id-token id-token
-                       :jwt-token jwt-token
-                       :token-exp token-exp})))]
+                  (when-let [user-session (get-user-session current-user)]
+                    (let [id-token (.getIdToken user-session)
+                          jwt-token (.getJwtToken id-token)
+                          token-exp (.getExpiration id-token)]
+                      (when (and user-session id-token jwt-token token-exp)
+                        {:current-user current-user
+                         :user-session user-session
+                         :id-token id-token
+                         :jwt-token jwt-token
+                         :token-exp token-exp}))))]
     (assoc cofx :session session)))
 
 (rf/reg-cofx :session session-cofx)
@@ -73,9 +89,13 @@
   {:pre [(contains? cofx :session)
          (s/valid? ::session-cofx-spec session)]}
   (if session
-    {:dispatch [::set-token-and-schedule-refresh]}
-    {:dispatch-n [[::set-auth-error "Failed to refresh token, or the session has expired. Logging user out."]
-                  [::user-logout]]}))
+    (.refreshSession (:current-user session)
+                     (.getRefreshToken (:user-session session))
+                     (fn [err _]
+                       (if err
+                         (session-error)
+                         (rf/dispatch [::set-token-and-schedule-refresh]))))
+    {:dispatch-n session-error-events}))
 
 (rf/reg-event-fx
  ::refresh-token
@@ -83,11 +103,18 @@
   (rf/inject-cofx :session)]
  refresh-token-event-fx)
 
+(defn- now-cofx
+  "Adds a cofx with a current timestamp in seconds"
+  [cofx]
+  (assoc cofx :now (quot (.getTime (js/Date.)) 1000)))
+
+(rf/reg-cofx :now now-cofx)
+
 (rf/reg-event-fx
  ::schedule-token-refresh
- (fn [_ [_ token-exp]]
-   (let [now (/ (.getTime (js/Date.)) 1000)
-         token-lifetime (int (- token-exp now))
+ [(rf/inject-cofx :now)]
+ (fn [{:keys [now]} [_ token-exp]]
+   (let [token-lifetime (int (- token-exp now))
          ;; If we refresh the token when it's close to the session
          ;; lifetime, cognito returns a new token with a lifetime
          ;; that is the difference between the current time and the

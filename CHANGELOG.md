@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Fixed
+- [Issue 45] Fix token renewal when using AWS Cognito
 
 ## [0.5.11] - 2021-06-28
 ### Changed
@@ -294,3 +296,4 @@ This version unifies it to `rf`.
 [Issue 42]: https://github.com/magnetcoop/hydrogen.duct-template/issues/42
 [Issue 43]: https://github.com/magnetcoop/hydrogen.duct-template/issues/43
 [Issue 44]: https://github.com/magnetcoop/hydrogen.duct-template/issues/44
+[Issue 45]: https://github.com/magnetcoop/hydrogen.duct-template/issues/45
