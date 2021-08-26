@@ -8,10 +8,12 @@
             [hydrogen.persistence.sql.duct-template :as sql]
             [hydrogen.scheduling.twarc.duct-template :as twarc]
             [hydrogen.session.cognito.duct-template :as cognito]
-            [hydrogen.session.keycloak.duct-template :as keycloak]))
+            [hydrogen.session.keycloak.duct-template :as keycloak]
+            [hydrogen.ssr.duct-template :as ssr]))
 
 (def core-profile core/profile)
 (def figwheel-main-profile figwheel-main/profile)
+(def ssr-profile ssr/profile)
 (def session.cognito-profile cognito/profile)
 (def session.keycloak-profile keycloak/profile)
 (def persistence.sql-profile sql/profile)

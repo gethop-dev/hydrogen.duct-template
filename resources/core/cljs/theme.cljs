@@ -9,7 +9,7 @@
 (rf/reg-sub
  ::get-theme
  (fn [db]
-   (:theme db)))
+   (get db :theme :light)))
 
 (rf/reg-event-db
  ::set-theme

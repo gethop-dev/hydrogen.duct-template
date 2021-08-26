@@ -20,5 +20,6 @@
     (str/join "\n   " $)
     (str "\n  [" $ "]")))
 
-(defn use-figwheel-main? [profiles]
-  (:hydrogen/figwheel-main (set profiles)))
+(defn use-profile?
+  [profiles p]
+  (get (set profiles) p))

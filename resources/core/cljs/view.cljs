@@ -35,7 +35,7 @@
   []
   (let [active-view (rf/subscribe [::active-view])]
     (fn []
-      (view-display @active-view))))<<#hydrogen-session-keycloak?>>
+      [view-display @active-view])))<<#hydrogen-session-keycloak?>>
 
 (defn remove-query-param [loc-hash param]
   (let [[path query-params] (str/split loc-hash #"\?")]

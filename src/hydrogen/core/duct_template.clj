@@ -3,10 +3,65 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.core.duct-template
-  (:require [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
+  (:require [hydrogen.ssr.duct-template :as ssr]
+            [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
 
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
+
+(defn client-files
+  [profiles]
+  (when-not (utils/use-profile? profiles :hydrogen/ssr)
+    {"src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
+     "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
+     "src/{{dirs}}/client/breadcrumbs.cljs" (resource "core/cljs/breadcrumbs.cljs")
+     "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
+     "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
+     "src/{{dirs}}/client/sidebar.cljs" (resource "core/cljs/sidebar.cljs")
+     "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
+     "src/{{dirs}}/client/tooltip.cljs" (resource "core/cljs/tooltip.cljs")
+     "src/{{dirs}}/client/tooltip/generic_popup.cljs" (resource "core/cljs/tooltip/generic_popup.cljs")
+     "src/{{dirs}}/client/tooltip/loading_popup.cljs" (resource "core/cljs/tooltip/loading_popup.cljs")
+     "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
+     "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
+     "src/{{dirs}}/client/hydrogen_demo/shop.cljs" (resource "core/cljs/hydrogen_demo/shop.cljs")
+     "src/{{dirs}}/client/hydrogen_demo/shop_item.cljs" (resource "core/cljs/hydrogen_demo/shop_item.cljs")}))
+
+(defn api-files
+  []
+  {"src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
+   "src/{{dirs}}/api/example.clj" (resource "core/api/example.clj")
+   "src/{{dirs}}/api/util.clj" (resource "core/api/util.clj")
+   "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")})
+
+(defn static-files
+  [profiles]
+  (when (utils/use-profile? profiles :hydrogen/ssr)
+    {"src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")}))
+
+(defn utils-files
+  []
+  {"src/{{dirs}}/util.clj" (resource "core/util.clj")
+   "src/{{dirs}}/util/specs.cljc" (resource "core/util/specs.cljc")})
+
+(defn resources-files
+  []
+  {"resources/{{dirs}}/index.html" (resource "core/resources/index.html")
+   "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
+   "resources/{{dirs}}/public/images/spinner.svg" (resource "core/resources/images/spinner.svg")
+   "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
+   "resources/{{dirs}}/public/css/_breadcrumbs.scss" (resource "core/resources/css/_breadcrumbs.scss")
+   "resources/{{dirs}}/public/css/_button.scss" (resource "core/resources/css/_button.scss")
+   "resources/{{dirs}}/public/css/_theming.scss" (resource "core/resources/css/_theming.scss")
+   "resources/{{dirs}}/public/css/_tooltip.scss" (resource "core/resources/css/_tooltip.scss")
+   "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
+   "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
+   "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")})
+
+(defn tooling-files
+  []
+  {".clj-kondo/.gitignore" (resource "tooling/clj-kondo/gitignore")
+   ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")})
 
 (defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-core? true
@@ -24,50 +79,16 @@
            [reagent "0.10.0"]
            [metosin/jsonista "0.3.3"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
-   :templates {;; Client
-               "src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
-               "src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
-               "src/{{dirs}}/client/breadcrumbs.cljs" (resource "core/cljs/breadcrumbs.cljs")
-               "src/{{dirs}}/client/home.cljs" (resource "core/cljs/home.cljs")
-               "src/{{dirs}}/client/routes.cljs" (resource "core/cljs/routes.cljs")
-               "src/{{dirs}}/client/sidebar.cljs" (resource "core/cljs/sidebar.cljs")
-               "src/{{dirs}}/client/session/oidc_sso.cljs" (resource "session/oidc_sso.cljs")
-               "src/{{dirs}}/client/theme.cljs" (resource "core/cljs/theme.cljs")
-               "src/{{dirs}}/client/tooltip.cljs" (resource "core/cljs/tooltip.cljs")
-               "src/{{dirs}}/client/tooltip/generic_popup.cljs" (resource "core/cljs/tooltip/generic_popup.cljs")
-               "src/{{dirs}}/client/tooltip/loading_popup.cljs" (resource "core/cljs/tooltip/loading_popup.cljs")
-               "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
-               "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
-               "src/{{dirs}}/client/hydrogen_demo/shop.cljs" (resource "core/cljs/hydrogen_demo/shop.cljs")
-               "src/{{dirs}}/client/hydrogen_demo/shop_item.cljs" (resource "core/cljs/hydrogen_demo/shop_item.cljs")
-               ;; API
-               "src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
-               "src/{{dirs}}/api/example.clj" (resource "core/api/example.clj")
-               "src/{{dirs}}/api/util.clj" (resource "core/api/util.clj")
-               "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")
-               ;; Static
-               "src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")
-               ;; Utils
-               "src/{{dirs}}/util.clj" (resource "core/util.clj")
-               "src/{{dirs}}/util/specs.cljc" (resource "core/util/specs.cljc")
-               ;; Resources
-               "resources/{{dirs}}/index.html" (resource "core/resources/index.html")
-               "resources/{{dirs}}/public/images/hydrogen-logo-white.svg" (resource "core/resources/images/hydrogen-logo-white.svg")
-               "resources/{{dirs}}/public/images/spinner.svg" (resource "core/resources/images/spinner.svg")
-               "resources/{{dirs}}/public/css/main.scss" (resource "core/resources/css/main.scss")
-               "resources/{{dirs}}/public/css/_breadcrumbs.scss" (resource "core/resources/css/_breadcrumbs.scss")
-               "resources/{{dirs}}/public/css/_button.scss" (resource "core/resources/css/_button.scss")
-               "resources/{{dirs}}/public/css/_theming.scss" (resource "core/resources/css/_theming.scss")
-               "resources/{{dirs}}/public/css/_tooltip.scss" (resource "core/resources/css/_tooltip.scss")
-               "resources/{{dirs}}/public/css/_generic-popup.scss" (resource "core/resources/css/_generic-popup.scss")
-               "resources/{{dirs}}/public/css/_loading-popup.scss" (resource "core/resources/css/_loading-popup.scss")
-               "resources/{{dirs}}/public/css/_utils.scss" (resource "core/resources/css/_utils.scss")
-               ;; Tooling
-               ".clj-kondo/.gitignore" (resource "tooling/clj-kondo/gitignore")
-               ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")}
+   :templates (merge
+                (client-files profiles)
+                (api-files)
+                (static-files profiles)
+                (utils-files)
+                (resources-files)
+                (tooling-files))
    :modules {:hydrogen.module/core (cond-> {}
-                                     (utils/use-figwheel-main? profiles)
-                                     (assoc :figwheel-main {}))}
+                                           (utils/use-profile? profiles :hydrogen/figwheel-main)
+                                           (assoc :figwheel-main {}))}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"
