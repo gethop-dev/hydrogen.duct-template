@@ -43,6 +43,19 @@ Hydrogen also offers a profile that provides job scheduling using Twarc scheduli
 To use it simply add:
 - `+hydrogen/persistence.sql +hydrogen/scheduling.twarc` to the list of required profiles
 
+#### Isomorphic / Server Side Rendering
+If you want to use either of those, hydrogen leverages the [blogpost of Techascent](https://techascent.com/blog/isomorphic-rendering.html)
+to deliver this feature. Note that this is still in its infancy and it will be improved in future. 
+
+Usage: `+hydrogen/ssr`
+
+##### Warning!
+
+Current re-frame (1.2.0 in the time of writing this documentation) doesn't support reliably using
+app db state in a multithreaded environment without running into concurrency problems.
+However there is a [fork](https://github.com/techascent/re-frame) by Techascent that patches that.
+Please see the `handle-route` function in `ssr/root.clj` file to read more. 
+
 ### What else can it do?
 
 In order to be able to finally share our toolset with the community, we had to cut some corners

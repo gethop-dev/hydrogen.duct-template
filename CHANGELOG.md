@@ -5,12 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
 ### Added
-- [Issue 47] Added ssr module.
-            
-     - KNOWN ISSUES:
-     
-        - When opening a browser on a specific url (e.g. localhost:3000/show), it returns 404.
-        - Re-frame 10x doesn't see the appdb
+- [Issue 47] Added an ssr module.
         
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
