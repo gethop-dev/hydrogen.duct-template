@@ -67,8 +67,8 @@
 
 (defn profile [{:keys [project-ns profiles]}]
   {:vars (cond->
-           {:hydrogen-core? true
-            :js-namespace (ns->js-ns project-ns)}
+          {:hydrogen-core? true
+           :js-namespace (ns->js-ns project-ns)}
            (not (utils/use-profile? profiles :hydrogen/ssr))
            (assoc :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                                       "api/config"
@@ -84,16 +84,16 @@
            [metosin/jsonista "0.3.3"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
    :templates (merge
-                (client-files profiles)
-                (api-files)
-                (static-files)
-                (service-files)
-                (utils-files)
-                (resources-files)
-                (tooling-files))
+               (client-files profiles)
+               (api-files)
+               (static-files)
+               (service-files)
+               (utils-files)
+               (resources-files)
+               (tooling-files))
    :modules {:hydrogen.module/core (cond-> {}
-                                           (utils/use-profile? profiles :hydrogen/figwheel-main)
-                                           (assoc :figwheel-main {}))}
+                                     (utils/use-profile? profiles :hydrogen/figwheel-main)
+                                     (assoc :figwheel-main {}))}
    :profile-base {:duct.middleware.web/defaults " {:security {:anti-forgery false}}"
                   :duct.middleware.web/format " {}"
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"

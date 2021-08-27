@@ -31,9 +31,9 @@
                                                               "api/example"
                                                               "ssr/root"])}
    :templates (merge
-                cljs-templates
-                cljc-templates
-                other-templates)
+               cljs-templates
+               cljc-templates
+               other-templates)
    :deps '[[kibu/pushy "0.3.8"]
            [hiccup "2.0.0-alpha2"]]
    :profile-base {(keyword (str project-ns ".ssr/root")) " {}"}})
