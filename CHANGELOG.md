@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
      
         - When opening a browser on a specific url (e.g. localhost:3000/show), it returns 404.
         - Re-frame 10x doesn't see the appdb
+        
+### Fixed
+- [Issue 46] Fixed wrong aritiy in rf subscriptions
 
 ## [0.5.12] - 2021-07-05
 ### Fixed
@@ -307,4 +310,5 @@ This version unifies it to `rf`.
 [Issue 43]: https://github.com/magnetcoop/hydrogen.duct-template/issues/43
 [Issue 44]: https://github.com/magnetcoop/hydrogen.duct-template/issues/44
 [Issue 45]: https://github.com/magnetcoop/hydrogen.duct-template/issues/45
+[Issue 46]: https://github.com/magnetcoop/hydrogen.duct-template/issues/46
 [Issue 47]: https://github.com/magnetcoop/hydrogen.duct-template/issues/47

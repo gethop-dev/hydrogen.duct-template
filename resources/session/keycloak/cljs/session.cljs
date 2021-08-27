@@ -43,7 +43,7 @@
 
 (rf/reg-sub
  ::auth-error
- (fn [db]
+ (fn [db _]
    (:auth-error db)))
 
 (defn- handle-keycloak-obj-change [keycloak-obj]

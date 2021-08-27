@@ -8,7 +8,7 @@
 
 (rf/reg-sub
  ::get-theme
- (fn [db]
+ (fn [db _]
    (get db :theme :light)))
 
 (rf/reg-event-db

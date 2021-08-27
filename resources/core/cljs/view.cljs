@@ -9,7 +9,7 @@
 
 (rf/reg-sub
  ::active-view
- (fn [db]
+ (fn [db _]
    (get db :active-view)))
 
 (rf/reg-event-db

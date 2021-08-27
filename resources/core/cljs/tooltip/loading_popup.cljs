@@ -11,7 +11,7 @@
 
 (rf/reg-sub
  ::loading
- (fn [db]
+ (fn [db _]
    (:loading db)))
 
 (rf/reg-event-fx

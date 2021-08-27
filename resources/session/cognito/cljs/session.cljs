@@ -16,7 +16,7 @@
 
 (rf/reg-sub
  ::auth-error
- (fn [db]
+ (fn [db _]
    (:auth-error db)))
 
 (defn- get-user-pool [db]
@@ -148,7 +148,7 @@
 
 (rf/reg-sub
  ::token
- (fn [db]
+ (fn [db _]
    (:jwt-token db)))
 
 (rf/reg-event-fx
