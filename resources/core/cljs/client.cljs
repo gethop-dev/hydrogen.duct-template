@@ -52,10 +52,10 @@
     :init-and-try-to-authenticate config}))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
- [(rf/inject-cofx ::initial-app-db)]
  ::load-app
- (fn [_ _]
-   {:db default-db<<#hydrogen-session?>>
+ [(rf/inject-cofx ::initial-app-db)]
+ (fn [{:keys [initial-app-db]} _]
+   {:db initial-app-db<<#hydrogen-session?>>
     :http-xhrio {:method :get
                  :uri "/api/config"
                  :format (ajax/json-request-format)

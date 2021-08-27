@@ -67,7 +67,7 @@
        (hiccup-parser/parse-tag-content
          [app])]
       [:script {:src "/js/main.js"}]
-      [:script "<<namespace>>.client.init(true);"]]]
+      [:script "<<js-namespace>>.client.init(true);"]]]
     (html)
     (as-str)))
 
