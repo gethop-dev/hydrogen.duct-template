@@ -3,8 +3,7 @@
 ;; file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 (ns hydrogen.core.duct-template
-  (:require [hydrogen.ssr.duct-template :as ssr]
-            [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
+  (:require [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
 
 (defn- use-sessions? [profiles]
   (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
@@ -35,9 +34,12 @@
    "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")})
 
 (defn static-files
-  [profiles]
-  (when (utils/use-profile? profiles :hydrogen/ssr)
-    {"src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")}))
+  []
+  {"src/{{dirs}}/static/root.clj" (resource "core/static/root.clj")})
+
+(defn service-files
+  []
+  {"src/{{dirs}}/service/shop.clj" (resource "core/service/shop.clj")})
 
 (defn utils-files
   []
@@ -64,11 +66,13 @@
    ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")})
 
 (defn profile [{:keys [project-ns profiles]}]
-  {:vars {:hydrogen-core? true
-          :js-namespace (ns->js-ns project-ns)
-          :cascading-routes (gen-cascading-routes project-ns ["static/root"
-                                                              "api/config"
-                                                              "api/example"])}
+  {:vars (cond->
+           {:hydrogen-core? true
+            :js-namespace (ns->js-ns project-ns)}
+           (not (utils/use-profile? profiles :hydrogen/ssr))
+           (assoc :cascading-routes (gen-cascading-routes project-ns ["static/root"
+                                                                      "api/config"
+                                                                      "api/example"])))
    :deps '[[clj-commons/secretary "1.2.4"]
            [cljs-ajax "0.8.3"]
            [day8.re-frame/http-fx "0.2.1"]
@@ -82,7 +86,8 @@
    :templates (merge
                 (client-files profiles)
                 (api-files)
-                (static-files profiles)
+                (static-files)
+                (service-files)
                 (utils-files)
                 (resources-files)
                 (tooling-files))

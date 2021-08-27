@@ -5,7 +5,8 @@
 {{=<< >>=}}
 (ns ^:figwheel-hooks <<namespace>>.client
   (:require <<#hydrogen-session?>>[ajax.core :as ajax]
-            <</hydrogen-session?>>[day8.re-frame.http-fx]
+            <</hydrogen-session?>><<#hydrogen-ssr?>>
+            [cognitect.transit :as transit]<</hydrogen-ssr?>>[day8.re-frame.http-fx]
             [re-frame.core :as rf]
             [reagent.dom :as rd]
             [<<namespace>>.client.breadcrumbs :as breadcrumbs]
@@ -23,7 +24,21 @@
             [<<namespace>>.client.view :as view]))
 
 (def default-db
-  {:theme :light})<<#hydrogen-session-cognito?>>
+  {:theme :light})<<#hydrogen-ssr?>>
+
+(rf/reg-cofx
+  ::initial-app-db
+  (fn [cofx _]
+      (let [initial-app-db js/INITIAL_APP_DB
+            transit-reader (transit/reader :json)]
+           (assoc cofx :initial-app-db (if initial-app-db
+                                         (transit/read transit-reader initial-app-db)
+                                         default-db)))))<</hydrogen-ssr?>><<^hydrogen-ssr?>>
+
+(rf/reg-cofx
+  ::initial-app-db
+  (fn [cofx _]
+      (assoc cofx :initial-app-db default-db)))<</hydrogen-ssr?>><<#hydrogen-session-cognito?>>
 
 (rf/reg-event-db
  ::set-config
@@ -37,6 +52,7 @@
     :init-and-try-to-authenticate config}))<</hydrogen-session-keycloak?>>
 
 (rf/reg-event-fx
+ [(rf/inject-cofx ::initial-app-db)]
  ::load-app
  (fn [_ _]
    {:db default-db<<#hydrogen-session?>>

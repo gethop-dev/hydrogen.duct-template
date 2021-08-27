@@ -5,7 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
 ### Added
-- **(UNFINISHED)** [Issue 47] Added ssr module. For now it only serves new shape of client files (cljc extension, no /#/ prefix in urls etc.)
+- [Issue 47] Added ssr module.
+            
+     - KNOWN ISSUES:
+     
+        - When opening a browser on a specific url (e.g. localhost:3000/show), it returns 404.
+        - Re-frame 10x doesn't see the appdb
 
 ## [0.5.12] - 2021-07-05
 ### Fixed

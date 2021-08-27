@@ -1,5 +1,5 @@
 (ns hydrogen.ssr.duct-template
-  (:require [hydrogen.utils :as utils :refer [resource ns->dir-name gen-cascading-routes]]))
+  (:require [hydrogen.utils :refer [resource ns->dir-name gen-cascading-routes]]))
 
 (def cljs-templates
   {"src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
@@ -20,15 +20,20 @@
    "src/{{dirs}}/client/tooltip/loading_popup.cljc" (resource "core/cljs/tooltip/loading_popup.cljs")})
 
 (def other-templates
-  {"src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")})
+  {"src/{{dirs}}/client/externs.js" (resource "core/cljs/externs.js")
+   "src/{{dirs}}/ssr/root.clj" (resource "ssr/ssr/root.clj")
+   "src/{{dirs}}/util/hiccup_parser.clj" (resource "ssr/util/hiccup_parser.clj")
+   "test/{{dirs}}/util/hiccup_parser_test.clj" (resource "ssr/test/util/hiccup_parser_test.clj")})
 
-(def client-templates
-  (merge
-    cljs-templates
-    cljc-templates
-    other-templates))
-
-(defn profile [_]
-  {:vars {:hydrogen-ssr? true}
-   :templates client-templates
-   :deps '[[kibu/pushy "0.3.8"]]})
+(defn profile [{:keys [project-ns]}]
+  {:vars {:hydrogen-ssr? true
+          :cascading-routes (gen-cascading-routes project-ns ["api/config"
+                                                              "api/example"
+                                                              "ssr/root"])}
+   :templates (merge
+                cljs-templates
+                cljc-templates
+                other-templates)
+   :deps '[[kibu/pushy "0.3.8"]
+           [hiccup "2.0.0-alpha2"]]
+   :profile-base {(keyword (str project-ns ".ssr/root")) " {}"}})
