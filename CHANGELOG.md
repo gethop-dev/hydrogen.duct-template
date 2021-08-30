@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [UNRELEASED]
 ### Added
 - [Issue 47] Added an ssr module.
+- Document in README the need for env variables config
+when using session profiles.
         
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions

@@ -23,3 +23,7 @@
 (defn use-profile?
   [profiles p]
   (get (set profiles) p))
+
+(defn use-session-profile?
+  [profiles]
+  (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))

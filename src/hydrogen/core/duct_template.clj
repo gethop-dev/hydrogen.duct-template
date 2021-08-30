@@ -5,9 +5,6 @@
 (ns hydrogen.core.duct-template
   (:require [hydrogen.utils :as utils :refer [resource ns->js-ns gen-cascading-routes]]))
 
-(defn- use-sessions? [profiles]
-  (some #(re-matches #":hydrogen/session\..*" (str %)) profiles))
-
 (defn client-files
   [profiles]
   (when-not (utils/use-profile? profiles :hydrogen/ssr)
@@ -99,7 +96,7 @@
                   :duct.handler/root " {:middleware [#ig/ref :duct.middleware.web/format]}"
                   :duct.compiler/sass "\n  {:source-paths [\"resources\"]\n   :output-path \"target/resources\"}"
                   (keyword (str project-ns ".static/root")) " {}"
-                  (keyword (str project-ns ".api/example")) (if (use-sessions? profiles)
+                  (keyword (str project-ns ".api/example")) (if (utils/use-session-profile? profiles)
                                                               " {:auth-middleware #ig/ref :duct.middleware.buddy/authentication}"
                                                               " {}")
                   (keyword (str project-ns ".api/config")) " {}"}

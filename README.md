@@ -24,6 +24,9 @@ To use them simply add:
 
 Keep in mind that those two profiles are mutually exclusive.
 
+These authentication profiles expect you to configure some environment variables in order to work properly.
+Please see the specs in [buddy-auth.jwt-oid](https://github.com/magnetcoop/buddy-auth.jwt-oidc/blob/master/src/magnet/buddy_auth/jwt_oidc.clj).
+
 #### Figwheel main
 
 
