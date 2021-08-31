@@ -11,6 +11,7 @@ when using session profiles.
         
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
+- Put one precondition in tooltip ns into a vector (this was making eastwood complain)
 
 ## [0.5.12] - 2021-07-05
 ### Fixed

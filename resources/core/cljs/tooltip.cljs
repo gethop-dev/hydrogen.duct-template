@@ -68,5 +68,5 @@
       (rf/dispatch [::destroy-by-ids ids-to-destroy]))))
 
 (defn gen-controller-class [tooltip-id]
-  {:pre (string? tooltip-id)}
+  {:pre [(string? tooltip-id)]}
   (str controller-class-prefix tooltip-id))
