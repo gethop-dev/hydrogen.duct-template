@@ -147,7 +147,8 @@
                         (and (not authenticated?) allow-unauthenticated?))
         app-db (if authorised?
                  app-db
-                 {:error "Unnauthorised"})]
+                 {:error "Unauthorised"
+                  :active-view [::client.landing/view]})]
     (handle-route* app-db)))
 
 (defmethod ig/init-key :<<namespace>>.ssr/root [_ {:keys [auth-middleware]}]
