@@ -50,7 +50,7 @@ To use it simply add:
 If you want to use either of those, hydrogen leverages the [blogpost of Techascent](https://techascent.com/blog/isomorphic-rendering.html)
 to deliver this feature. Note that this is still in its infancy and it will be improved in future. 
 
-Usage: `+hydrogen/ssr`
+Usage: `+hydrogen/ssr` (NOTE: combo with session.keycloak profile is not fully supported yet)
 
 ##### Warning!
 
