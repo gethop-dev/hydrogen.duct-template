@@ -8,7 +8,8 @@
             [<<namespace>>.client.breadcrumbs :as breadcrumbs]<<#hydrogen-session?>>
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.user :as user]<</hydrogen-session?>>
-            [<<namespace>>.client.view :as view]))
+            [<<namespace>>.client.view :as view]
+            [<<namespace>>.client.navigation :as navigation]))
 
 (rf/reg-event-fx
  ::view.enter
@@ -34,7 +35,7 @@
 (defn- logout []
   [:div.logout
    {:on-click #(do (rf/dispatch [::session/user-logout])
-                   (view/redirect! "/#/landing"))}
+                   (navigation/redirect! "/#/landing"))}
    "Logout"])<</hydrogen-session?>>
 
 (defn main []

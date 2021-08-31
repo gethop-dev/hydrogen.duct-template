@@ -21,7 +21,8 @@
      "src/{{dirs}}/client/util.cljs" (resource "core/cljs/util.cljs")
      "src/{{dirs}}/client/view.cljs" (resource "core/cljs/view.cljs")
      "src/{{dirs}}/client/hydrogen_demo/shop.cljs" (resource "core/cljs/hydrogen_demo/shop.cljs")
-     "src/{{dirs}}/client/hydrogen_demo/shop_item.cljs" (resource "core/cljs/hydrogen_demo/shop_item.cljs")}))
+     "src/{{dirs}}/client/hydrogen_demo/shop_item.cljs" (resource "core/cljs/hydrogen_demo/shop_item.cljs")
+     "src/{{dirs}}/client/navigation.cljs" (resource "core/cljs/navigation.cljs")}))
 
 (defn api-files
   []
