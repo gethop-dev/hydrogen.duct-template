@@ -21,4 +21,7 @@
 (defn wrap-authentication-required [handler auth-middleware]
   (-> handler
       (wrap-routes restrict-fn)
-      (wrap-routes auth-middleware)))<</hydrogen-session?>>
+      (wrap-routes auth-middleware)))
+
+(defn wrap-authentication [handler auth-middleware]
+  (wrap-routes handler auth-middleware))<</hydrogen-session?>>

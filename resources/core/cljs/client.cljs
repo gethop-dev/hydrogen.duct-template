@@ -10,7 +10,8 @@
             [re-frame.core :as rf]
             [reagent.dom :as rd]
             [<<namespace>>.client.breadcrumbs :as breadcrumbs]
-            [<<namespace>>.client.home :as home]<<#hydrogen-session?>>
+            [<<namespace>>.client.home :as home]
+            [<<namespace>>.client.navigation :as navigation]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
             [<<namespace>>.client.session]<</hydrogen-session-keycloak?>>
@@ -104,6 +105,6 @@
 (defn ^:export init []
   (dev-setup)
   (rf/dispatch-sync [::load-app])<<#hydrogen-session-keycloak?>>
-  (view/fix-query-params js/location.hash)<</hydrogen-session-keycloak?>>
+  (navigation/fix-query-params js/location.hash)<</hydrogen-session-keycloak?>>
   (routes/app-routes)
   (mount-root))

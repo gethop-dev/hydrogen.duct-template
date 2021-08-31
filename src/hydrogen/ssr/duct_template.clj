@@ -6,7 +6,7 @@
   []
   {"src/{{dirs}}/client.cljs" (resource "core/cljs/client.cljs")
    "src/{{dirs}}/client/routes.cljs" (resource "ssr/cljs/routes.cljs")
-   "src/{{dirs}}/client/navigation.cljs" (resource "ssr/cljs/navigation.cljs")})
+   "src/{{dirs}}/client/navigation.cljs" (resource "core/cljs/navigation.cljs")})
 
 (defn- cljc-templates
   []
@@ -30,17 +30,29 @@
     "src/{{dirs}}/util/hiccup_parser.clj" (resource "ssr/util/hiccup_parser.clj")
     "test/{{dirs}}/util/hiccup_parser_test.clj" (resource "ssr/test/util/hiccup_parser_test.clj")}
     (utils/use-session-profile? profiles)
-    (merge {"src/{{dirs}}/client/home.clj" (resource "ssr/client_substitutes/home.clj")})))
+    (merge {"src/{{dirs}}/client/home.clj" (resource "ssr/client_substitutes/home.clj")
+            "src/{{dirs}}/client/landing.clj" (resource "ssr/client_substitutes/landing.clj")})))
+
+(defn routes-refs
+  [profiles]
+  (if (utils/use-session-profile? profiles)
+    ["api/config"
+     "api/example"
+     "api/user"
+     "ssr/root"]
+    ["api/config"
+     "api/example"
+     "ssr/root"]))
 
 (defn profile [{:keys [project-ns profiles]}]
   {:vars {:hydrogen-ssr? true
-          :cascading-routes (gen-cascading-routes project-ns ["api/config"
-                                                              "api/example"
-                                                              "ssr/root"])}
+          :cascading-routes (gen-cascading-routes project-ns (routes-refs profiles))}
    :templates (merge
                (cljs-templates)
                (cljc-templates)
                (other-templates profiles))
    :deps '[[kibu/pushy "0.3.8"]
            [hiccup "2.0.0-alpha2"]]
-   :profile-base {(keyword (str project-ns ".ssr/root")) " {}"}})
+   :profile-base {(keyword (str project-ns ".ssr/root")) (if (utils/use-session-profile? profiles)
+                                                           " {:auth-middleware #ig/ref :duct.middleware.buddy/authentication}"
+                                                           " {}")}})

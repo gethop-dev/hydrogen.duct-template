@@ -18,7 +18,7 @@
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.user :as user]
             [<<namespace>>.client.util :as util]<</hydrogen-session?>>
-            [<<namespace>>.client.view :as view]))
+            [<<namespace>>.client.navigation :as navigation]))
 
 (defn hook-browser-navigation! []
   (doto (History.)
@@ -203,7 +203,7 @@
     (rf/dispatch [:go-to [::hydrogen-demo.shop-item/view item-id]]))
 
   (defroute "*" []
-    (view/redirect! "/#/landing"))
+    (navigation/redirect! "/#/landing"))
 
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>><<^hydrogen-session?>>
@@ -244,7 +244,7 @@
     (rf/dispatch [:go-to [::hydrogen-demo.shop-item/view item-id]]))
 
   (defroute "*" []
-    (view/redirect! "/#/home"))
+    (navigation/redirect! "/#/home"))
 
   ;; --------------------
   (hook-browser-navigation!))<</hydrogen-session?>>

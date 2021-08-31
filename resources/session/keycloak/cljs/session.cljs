@@ -7,7 +7,7 @@
   (:require [clojure.spec.alpha :as s]
             [re-frame.core :as rf]
             [<<namespace>>.client.session.oidc-sso :as oidc-sso]
-            [<<namespace>>.client.view :as view]))
+            [<<namespace>>.client.navigation :as navigation]))
 
 ;; Keycloak Javascript library is not designed to be used in a
 ;; functional way. When you create a keycloak object to interact with
@@ -32,9 +32,9 @@
   (or
    (nil? @keycloak)
    (and
-    (view/get-query-param js/location.hash "state")
-    (view/get-query-param js/location.hash "session_state")
-    (view/get-query-param js/location.hash "code"))))
+    (navigation/get-query-param js/location.hash "state")
+    (navigation/get-query-param js/location.hash "session_state")
+    (navigation/get-query-param js/location.hash "code"))))
 
 (rf/reg-event-fx
  ::set-auth-error
@@ -143,9 +143,9 @@
 (defn- remove-keycloak-process-query-params
   [location-hash]
   (-> location-hash
-      (view/remove-query-param :state)
-      (view/remove-query-param :code)
-      (view/remove-query-param :session_state)))
+      (navigation/remove-query-param :state)
+      (navigation/remove-query-param :code)
+      (navigation/remove-query-param :session_state)))
 
 (rf/reg-event-fx
  ::on-login-success
@@ -171,7 +171,7 @@
                     (handle-keycloak-obj-change keycloak-obj)
                     ;; Since we sometime turn &state into ?state, Keycloak
                     ;; is unable to clean up after itself.
-                    (view/redirect! (remove-keycloak-process-query-params js/location.hash)))))
+                    (navigation/redirect! (remove-keycloak-process-query-params js/location.hash)))))
          (.catch #(rf/dispatch [::set-auth-error "Failed to initialize Keycloak"]))))))
 
 (rf/reg-fx

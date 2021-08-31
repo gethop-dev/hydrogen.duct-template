@@ -13,7 +13,7 @@
  ::view.enter
  (fn [_ _]
    {:dispatch [::view/set-active-view [::view]]
-    :redirect "/#/home"}))
+    :redirect "/<<^hydrogen-ssr?>>#/<</hydrogen-ssr?>>home"}))
 
 (rf/reg-event-fx
  ::view.leave

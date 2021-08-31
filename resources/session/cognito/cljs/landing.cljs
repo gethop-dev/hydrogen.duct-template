@@ -5,7 +5,7 @@
 {{=<< >>=}}
 (ns <<namespace>>.client.landing
   (:require [re-frame.core :as rf]
-            [reagent.core :as reagent]
+            [reagent.core :as r]
             [<<namespace>>.client.session :as session]
             [<<namespace>>.client.theme :as theme]
             [<<namespace>>.client.view :as view]))
@@ -14,14 +14,14 @@
  ::view.enter
  (fn [_ _]
    {:dispatch [::view/set-active-view [::view]]
-    :redirect "/#/landing"}))
+    :redirect "/<<^hydrogen-ssr?>>#/<</hydrogen-ssr?>>landing"}))
 
 (rf/reg-event-fx
  ::view.leave
  (fn [_ _]
    {}))
 
-(def credentials (reagent/atom {:username "" :password ""}))
+(def credentials (r/atom {:username "" :password ""}))
 
 (defn swap-input! [event atom field]
   (swap! atom assoc field (.. event -target -value)))

@@ -162,7 +162,7 @@
  (fn [_ _]
    {:dispatch-n [[::set-token-and-schedule-refresh]
                  [::set-auth-error nil]]
-    :redirect "/#/home"}))
+    :redirect "/<<^hydrogen-ssr?>>#/<</hydrogen-ssr?>>home"}))
 
 (rf/reg-fx
  ::do-user-login
