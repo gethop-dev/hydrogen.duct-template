@@ -165,7 +165,7 @@
                (GET "/shop" req
                     (handle-route
                       req
-                      {:appp-db
+                      {:app-db
                        {:active-view [::client.shop/view]
                         :shop {:items [:apple :orange :banana]}
                         :breadcrumbs [{:title "Home" :url "/home"}
