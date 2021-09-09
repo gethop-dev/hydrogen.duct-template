@@ -180,6 +180,7 @@
 (rf/reg-event-fx :go-to go-to-handler)
 
 (defn app-routes []
+      ;; NOTE: this routes registry needs to be a ONE TO ONE matching in regards to :<<namespace>>.ssr/root routes
       (secretary/set-config! :prefix "#")
       ;; --------------------
       ;; define routes here
@@ -225,6 +226,7 @@
 (rf/reg-event-fx :go-to go-to-handler)
 
 (defn app-routes []
+      ;; NOTE: this routes registry needs to be a ONE TO ONE matching in regards to :<<namespace>>.ssr/root routes
       (secretary/set-config! :prefix "#")
       ;; --------------------
       ;; define routes here
