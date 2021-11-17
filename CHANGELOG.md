@@ -8,9 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - [Issue 47] Added an ssr module.
 - Document in README the need for env variables config
 when using session profiles.
-        
+
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
+- [Issue 48] Fixed warnings from newer Google Clouse compiler when doing advanced compilation.
 - Put one precondition in tooltip ns into a vector (this was making eastwood complain)
 
 ## [0.5.12] - 2021-07-05
