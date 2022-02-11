@@ -75,6 +75,7 @@ libs, gists and blog posts with our know-how:
   - [cms.webflow](https://github.com/magnetcoop/cms.webflow) A Duct library for managing Webflow CMS
   - [payments.stripe](https://github.com/magnetcoop/payments.stripe) - A Duct library for interacting with Stripe
   - [dashboard-manager.grafana](https://github.com/magnetcoop/dashboard-manager.grafana) - A Duct library for managing dashboards and associated users and organizations in Grafana
+  - [esignatures.docusign](https://github.com/magnetcoop/esignatures.docusign) - A Duct library for interacting with the Docusign eSignature API 
 - #### Persistence
   - [sql-utils](https://github.com/magnetcoop/sql-utils) - A library designed as a thin convenience wapper over clojure.java.jdbc
   - [ragtime-wrapper](https://github.com/magnetcoop/hydrogen.module.ragtime-wrapper) - Duct module wrapping configuration for Ragtime migrations
