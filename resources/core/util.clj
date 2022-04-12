@@ -35,7 +35,7 @@
 
 (defn encode-base64
   "Encodes a byte[] as String using Base64"
-  [src]
+  [^bytes src]
   (.encodeToString (Base64/getEncoder) src))
 
 (s/fdef encode-base64
@@ -44,7 +44,7 @@
 
 (defn decode-base64
   "Returns a byte[] from a Base64 encoded String"
-  [src]
+  [^String src]
   (.decode (Base64/getDecoder) src))
 
 (s/fdef decode-base64

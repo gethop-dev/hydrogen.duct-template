@@ -17,6 +17,7 @@ when using session profiles.
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
 - [Issue 48] Fixed warnings from newer Google Clouse compiler when doing advanced compilation.
 - Put one precondition in tooltip ns into a vector (this was making eastwood complain)
+- Fix eastwood reflection warnings in "util" namespace.
 
 ## [0.5.12] - 2021-07-05
 ### Fixed
