@@ -18,4 +18,10 @@
   {:dev          [:project/dev :profiles/dev]
    :profiles/dev {}
    :project/dev  {:plugins [[jonase/eastwood "1.2.3"]
-                            [lein-cljfmt "0.8.0"]]}})
+                            [lein-cljfmt "0.8.0"]]
+                  :eastwood {:linters [:all]
+                             :exclude-linters [:keyword-typos
+                                               :boxed-math
+                                               :non-clojure-file
+                                               :performance]
+                             :debug [:progress :time]}}})
