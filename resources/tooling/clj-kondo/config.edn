@@ -1,8 +1,29 @@
 {{=<< >>=}}
-{:linters
- {:unsorted-required-namespaces {:level :warning}
+{:skip-comments
+ true
+
+ :linters
+ {:unsorted-required-namespaces
+  {:level :warning}
+
   :refer-all
   {:exclude #{clojure.test}}
+
   :unresolved-symbol
   {:exclude [(<<namespace>>.api.responses/http-statuses)
-             (secretary.core/defroute)]}}}
+             (secretary.core/defroute)]}
+
+  :unresolved-var
+  {:exclude [<<namespace>>.api.responses]}
+
+  :single-key-in
+  {:level :warning}
+
+  :used-underscored-binding
+  {:level :warning}
+
+  :redundant-fn-wrapper
+  {:level :warning}
+
+  :missing-docstring
+  {:level :info}}}
