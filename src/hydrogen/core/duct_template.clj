@@ -29,7 +29,8 @@
   {"src/{{dirs}}/api/config.clj" (resource "core/api/config.clj")
    "src/{{dirs}}/api/example.clj" (resource "core/api/example.clj")
    "src/{{dirs}}/api/util.clj" (resource "core/api/util.clj")
-   "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")})
+   "src/{{dirs}}/api/responses.clj" (resource "core/api/responses.clj")
+   "test/{{dirs}}/api/test_utils.clj" (resource "core/test/api/test_utils.clj")})
 
 (defn static-files
   []
@@ -42,7 +43,8 @@
 (defn utils-files
   []
   {"src/{{dirs}}/util.clj" (resource "core/util.clj")
-   "src/{{dirs}}/util/specs.cljc" (resource "core/util/specs.cljc")})
+   "src/{{dirs}}/util/specs.cljc" (resource "core/util/specs.cljc")
+   "src/{{dirs}}/util/thread_transactions.clj" (resource "core/util/thread_transactions.clj")})
 
 (defn resources-files
   []
