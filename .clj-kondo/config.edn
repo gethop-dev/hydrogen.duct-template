@@ -1,3 +1,27 @@
-{:linters
- {:refer-all
-  {:exclude #{clojure.test}}}}
+{:skip-comments
+ true
+
+ :linters
+ {:unsorted-required-namespaces
+  {:level :warning}
+
+  :refer-all
+  {:exclude #{clojure.test}}
+
+  :unresolved-symbol
+  {}
+
+  :unresolved-var
+  {}
+
+  :single-key-in
+  {:level :warning}
+
+  :used-underscored-binding
+  {:level :warning}
+
+  :redundant-fn-wrapper
+  {:level :warning}
+
+  :missing-docstring
+  {:level :info}}}
