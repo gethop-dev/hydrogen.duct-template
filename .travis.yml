@@ -1,5 +1,5 @@
 language: clojure
-lein: 2.9.0
+lein: 2.9.8
 dist: xenial
 jdk:
   -openjdk8

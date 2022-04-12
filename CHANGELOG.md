@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 when using session profiles.
 - Added utility namespaces for API integration testing, and threaded transactions.
 
+### Changed
+- Use version "2.9.8" of leiningen
+
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
 - [Issue 48] Fixed warnings from newer Google Clouse compiler when doing advanced compilation.
