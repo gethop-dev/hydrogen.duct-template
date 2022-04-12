@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Document in README the need for env variables config
 when using session profiles.
 - Added utility namespaces for API integration testing, and threaded transactions.
+- Added a couple of commonly used functions in "util" namespace, to conditionally update a key in a map
 
 ### Changed
 - Use version "2.9.8" of leiningen

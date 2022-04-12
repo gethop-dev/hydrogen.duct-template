@@ -50,3 +50,15 @@
 (s/fdef decode-base64
   :args (s/cat :src base64?)
   :ret bytes?)
+
+(defn update-if-exists
+ [map key update-fn & args]
+  (if-not (= ::not-found (get map key ::not-found))
+    (apply update map key update-fn args)
+    map))
+
+(defn update-if-not-nil
+ [map key update-fn & args]
+  (if-not (nil? (get map key))
+    (apply update map key update-fn args)
+    map))
