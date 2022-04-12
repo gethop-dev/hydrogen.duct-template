@@ -74,15 +74,15 @@
                                                                       "api/config"
                                                                       "api/example"])))
    :deps '[[clj-commons/secretary "1.2.4"]
-           [cljs-ajax "0.8.3"]
-           [day8.re-frame/http-fx "0.2.1"]
+           [cljs-ajax/cljs-ajax "0.8.4"]
+           [day8.re-frame/http-fx "0.2.4"]
            [duct/compiler.sass "0.2.1"]
            [hydrogen/module.core "0.4.2"]
            [org.clojure/clojurescript "1.10.773"]
-           [re-frame "1.1.1"]
-           [reagent "0.10.0"]
-           [metosin/jsonista "0.3.3"]]
-   :dev-deps '[[day8.re-frame/re-frame-10x "0.7.0"]]
+           [re-frame/re-frame "1.1.2"]
+           [reagent/reagent "1.1.1"]
+           [metosin/jsonista "0.3.5"]]
+   :dev-deps '[[day8.re-frame/re-frame-10x "1.2.5"]]
    :templates (merge
                (client-files profiles)
                (api-files)

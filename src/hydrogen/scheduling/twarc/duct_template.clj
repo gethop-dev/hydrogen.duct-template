@@ -20,6 +20,6 @@
   {:migrations-table \"ragtime_migrations_twarc\"}")
 
 (defn profile [_]
-  {:deps '[[magnet/scheduling.twarc "0.5.0"]]
+  {:deps '[[magnet/scheduling.twarc "0.6.0"]]
    :profile-base {:magnet.scheduling/twarc twarc-config}
    :modules {:magnet.module.scheduling/twarc-pgsql twarc-psql-config}})

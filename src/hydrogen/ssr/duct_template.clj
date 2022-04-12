@@ -52,7 +52,7 @@
                (cljc-templates)
                (other-templates profiles))
    :deps '[[kibu/pushy "0.3.8"]
-           [hiccup "2.0.0-alpha2"]]
+           [hiccup/hiccup "2.0.0-alpha2"]]
    :profile-base {(keyword (str project-ns ".ssr/root")) (if (utils/use-session-profile? profiles)
                                                            " {:auth-middleware #ig/ref :duct.middleware.buddy/authentication}"
                                                            " {}")}})

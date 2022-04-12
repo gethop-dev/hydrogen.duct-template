@@ -12,7 +12,16 @@ when using session profiles.
 - Added a couple of commonly used functions in "util" namespace, to conditionally update a key in a map
 
 ### Changed
-- Use version "2.9.8" of leiningen
+- Use version "2.9.8" of `leiningen`
+- Use "v0.8.4" of `cljs-ajax/cljs-ajax`
+- Use "v0.2.4" of `day8.re-frame/http-fx`
+- Use "v1.1.2" of `re-frame/re-frame`
+- Use "v1.1.1" of `reagent/reagent`
+- Use "v0.3.5" of `metosin/jsonista`
+- Use "v1.2.5" of `day8.re-frame/re-frame-10x`
+- Use "v0.4.12" of `magnet/sql-utils`
+- Use "v42.3.3" of `org.postgresql/postgresql`
+- Use "v0.6.0" of `magnet/scheduling.twarc`
 
 ### Fixed
 - [Issue 46] Fixed wrong aritiy in rf subscriptions
@@ -317,3 +326,4 @@ This version unifies it to `rf`.
 [Issue 45]: https://github.com/magnetcoop/hydrogen.duct-template/issues/45
 [Issue 46]: https://github.com/magnetcoop/hydrogen.duct-template/issues/46
 [Issue 47]: https://github.com/magnetcoop/hydrogen.duct-template/issues/47
+[Issue 48]: https://github.com/magnetcoop/hydrogen.duct-template/issues/48
