@@ -66,9 +66,8 @@
    ".clj-kondo/config.edn" (resource "tooling/clj-kondo/config.edn")})
 
 (defn profile [{:keys [project-ns profiles]}]
-  {:vars (cond->
-          {:hydrogen-core? true
-           :js-namespace (ns->js-ns project-ns)}
+  {:vars (cond-> {:hydrogen-core? true
+                  :js-namespace (ns->js-ns project-ns)}
            (not (utils/use-profile? profiles :hydrogen/ssr))
            (assoc :cascading-routes (gen-cascading-routes project-ns ["static/root"
                                                                       "api/config"

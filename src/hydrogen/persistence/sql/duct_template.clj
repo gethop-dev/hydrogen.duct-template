@@ -52,8 +52,6 @@
                "src/{{dirs}}/boundary/adapter/persistence/sql.clj" (resource "core/boundary/adapter/persistence/sql.clj")
                "src/{{dirs}}/boundary/port/persistence.clj" (resource "core/boundary/port/persistence.clj")}
    :profile-base {(persistence-sql-kw project-ns) sql-config
-
                   :duct.database.sql/hikaricp hikaricp-config
-
                   [:duct.migrator/ragtime (keyword (str project-ns "/prod"))] ragtime-config}
    :profile-dev {[:duct.migrator/ragtime (keyword (str project-ns "/dev"))] (dev-ragtime-config project-ns)}})
