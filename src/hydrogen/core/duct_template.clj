@@ -81,6 +81,8 @@
            [org.clojure/clojurescript "1.10.773"]
            [re-frame/re-frame "1.1.2"]
            [reagent/reagent "1.1.1"]
+           [cljsjs/react "17.0.2-0"]
+           [cljsjs/react-dom "17.0.2-0"]
            [metosin/jsonista "0.3.5"]]
    :dev-deps '[[day8.re-frame/re-frame-10x "1.2.5"]]
    :templates (merge
