@@ -6,13 +6,9 @@
 
 (def ^:private ^:const twarc-config
   "
-  {:postgres-cfg {:host #duct/env [\"POSTGRES_HOST\" Str]
-                  :port #duct/env [\"POSTGRES_PORT\" Str]
-                  :db #duct/env [\"POSTGRES_DB\" Str]
-                  :user #duct/env [\"POSTGRES_USER\" Str]
-                  :password #duct/env [\"POSTGRES_PASSWORD\" Str]}
-   :thread-count 10
+  {:postgres-url #duct/env [\"JDBC_DATABASE_URL\" Str]
    :scheduler-name \"main-scheduler\"
+   :thread-count 10
    :logger #ig/ref :duct/logger}")
 
 (def ^:private ^:const twarc-psql-config
