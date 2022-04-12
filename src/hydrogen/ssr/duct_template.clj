@@ -1,6 +1,5 @@
 (ns hydrogen.ssr.duct-template
-  (:require [hydrogen.utils :refer [resource ns->dir-name gen-cascading-routes]]
-            [hydrogen.utils :as utils]))
+  (:require [hydrogen.utils :as utils :refer [resource gen-cascading-routes]]))
 
 (defn- cljs-templates
   []
