@@ -2,6 +2,18 @@
 {:skip-comments
  true
 
+ :config-in-ns
+ {dev
+  {:linters
+   {:refer-all
+    {:exclude #{clojure.repl}}
+    :unsorted-required-namespaces
+    {:level :off}
+    :unused-referred-var
+    {:level :off}
+    :unused-namespace
+    {:level :off}}}}
+
  :linters
  {:unsorted-required-namespaces
   {:level :warning}

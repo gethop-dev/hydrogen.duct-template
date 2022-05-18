@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Cosmetic formatting
 - Removed unused namespaces and bindings, to avoid complaints from clj-kondon and eastwood in the generated projects.
 
+### Added
+- Specific clj-kondo configuration for Duct `dev` namespace.
+
 ## [0.5.13] - 2022-04-13
 ### Added
 - [Issue 47] Added an ssr module.
