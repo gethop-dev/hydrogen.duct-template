@@ -27,18 +27,18 @@
   {:theme :light})<<#hydrogen-ssr?>>
 
 (rf/reg-cofx
-  ::initial-app-db
-  (fn [cofx _]
-      (let [initial-app-db js/INITIAL_APP_DB
-            transit-reader (transit/reader :json)]
-           (assoc cofx :initial-app-db (if initial-app-db
-                                         (transit/read transit-reader initial-app-db)
-                                         default-db)))))<</hydrogen-ssr?>><<^hydrogen-ssr?>>
+ ::initial-app-db
+ (fn [cofx _]
+   (let [initial-app-db js/INITIAL_APP_DB
+         transit-reader (transit/reader :json)]
+     (assoc cofx :initial-app-db (if initial-app-db
+                                   (transit/read transit-reader initial-app-db)
+                                   default-db)))))<</hydrogen-ssr?>><<^hydrogen-ssr?>>
 
 (rf/reg-cofx
-  ::initial-app-db
-  (fn [cofx _]
-      (assoc cofx :initial-app-db default-db)))<</hydrogen-ssr?>><<#hydrogen-session-cognito?>>
+ ::initial-app-db
+ (fn [cofx _]
+   (assoc cofx :initial-app-db default-db)))<</hydrogen-ssr?>><<#hydrogen-session-cognito?>>
 
 (rf/reg-event-db
  ::set-config

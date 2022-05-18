@@ -89,17 +89,17 @@
       (deny-access access-config jwt-token {:redirect "/#/landing"})<</hydrogen-session-cognito?>>
 
       :else
-      ; This part takes a vector for new view to navigate to.
-      ; That vector has min. arity 1 - a keyword identifying a view.
-      ; By convention we recommend using a namespaced one with 'view' as a name (e.g. ::shop/view).
-      ; The optional remaining arguments of that view vector are arguments to the view.
-      ;
-      ; Then this handler composes up to two event handlers and dispatches them:
-      ; - New view always is composed into ::*/view.enter event
-      ; - Previously active view (if present) is composed into ::*/view.leave event
-      ;
-      ; That said, each namespace introducing a new view need to have both ::view.enter and ::view.leave
-      ; events defined.
+      ;; This part takes a vector for new view to navigate to.
+      ;; That vector has min. arity 1 - a keyword identifying a view.
+      ;; By convention we recommend using a namespaced one with 'view' as a name (e.g. ::shop/view).
+      ;; The optional remaining arguments of that view vector are arguments to the view.
+      ;;
+      ;; Then this handler composes up to two event handlers and dispatches them:
+      ;; - New view always is composed into ::*/view.enter event
+      ;; - Previously active view (if present) is composed into ::*/view.leave event
+      ;;
+      ;; That said, each namespace introducing a new view need to have both ::view.enter and ::view.leave
+      ;; events defined.
       (let [enter-evt (compose-nav-evt :enter new-view)
             set-active-view-event nil
             leave-evt (when-let [active-view (:active-view db)]
