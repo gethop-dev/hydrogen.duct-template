@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+
+## [0.5.14] - 2022-06-18
 ### Fixed
 - Cosmetic formatting
 - Removed unused namespaces and bindings, to avoid complaints from clj-kondon and eastwood in the generated projects.
@@ -275,8 +277,9 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.13...HEAD
-[0.5.13]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.13...v0.5.13
+[UNRELEASED]:  https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.14...HEAD
+[0.5.14]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.13...v0.5.14
+[0.5.13]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.12...v0.5.13
 [0.5.12]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.11...v0.5.12
 [0.5.11]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.10...v0.5.11
 [0.5.10]: https://github.com/magnetcoop/hydrogen.duct-template/compare/v0.5.9...v0.5.10

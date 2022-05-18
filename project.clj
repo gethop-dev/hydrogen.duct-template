@@ -1,4 +1,4 @@
-(defproject hydrogen/duct-template "0.5.14-SNAPSHOT"
+(defproject hydrogen/duct-template "0.5.14"
   :description "Hydrogen duct template"
   :min-lein-version "2.9.8"
   :url "https://github.com/magnetcoop/hydrogen.duct-template"
