@@ -24,9 +24,8 @@
   (set! (.-location js/window) loc))<</hydrogen-ssr?>>
 
 (rf/reg-fx
-  :redirect
-  (fn [loc]
-    (redirect! loc)))<<#hydrogen-session-keycloak?>>
+ :redirect
+ redirect!)<<#hydrogen-session-keycloak?>>
 
 (defn remove-query-param [loc-hash param]
   (let [[path query-params] (str/split loc-hash #"\?")]

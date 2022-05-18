@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [UNRELEASED]
 ### Fixed
 - Cosmetic formatting
+- Removed unused namespaces and bindings, to avoid complaints from clj-kondon and eastwood in the generated projects.
 
 ## [0.5.13] - 2022-04-13
 ### Added

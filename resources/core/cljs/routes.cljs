@@ -101,7 +101,6 @@
       ;; That said, each namespace introducing a new view need to have both ::view.enter and ::view.leave
       ;; events defined.
       (let [enter-evt (compose-nav-evt :enter new-view)
-            set-active-view-event nil
             leave-evt (when-let [active-view (:active-view db)]
                         (compose-nav-evt :leave active-view))]
         {:dispatch-n [[::ensure-data]
