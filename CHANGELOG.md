@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
+### Fixed
+- Fix bug introduced in commit c08cdf5 that completely breaks the template.
 
 ## [0.5.14] - 2022-06-18
 ### Fixed

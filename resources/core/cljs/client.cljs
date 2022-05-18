@@ -9,7 +9,7 @@
             [cognitect.transit :as transit]<</hydrogen-ssr?>>[day8.re-frame.http-fx]
             [re-frame.core :as rf]
             [reagent.dom :as rd]
-            [<<namespace>>.client.breadcrumbs :as breadcrumbs]
+            [<<namespace>>.client.breadcrumbs :as breadcrumbs]<<#hydrogen-session?>>
             [<<namespace>>.client.landing :as landing]<</hydrogen-session?>>
             [<<namespace>>.client.routes :as routes]<<#hydrogen-session-keycloak?>>
             [<<namespace>>.client.session]<</hydrogen-session-keycloak?>>
