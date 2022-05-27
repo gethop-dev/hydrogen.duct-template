@@ -1,17 +1,17 @@
 (defproject hydrogen/duct-template "0.5.15"
   :description "Hydrogen duct template"
   :min-lein-version "2.9.8"
-  :url "https://github.com/magnetcoop/hydrogen.duct-template"
+  :url "https://github.com/gethop-dev/hydrogen.duct-template"
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
   :dependencies [[org.clojure/clojure "1.11.0"]]
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
-                                      :username :env/clojars_username
-                                      :password :env/clojars_password
+                                      :username :env/CLOJARS_USERNAME
+                                      :password :env/CLOJARS_PASSWORD
                                       :sign-releases false}]
                         ["releases"  {:url "https://clojars.org/repo"
-                                      :username :env/clojars_username
-                                      :password :env/clojars_password
+                                      :username :env/CLOJARS_USERNAME
+                                      :password :env/CLOJARS_USERNAME
                                       :sign-releases false}]]
   :repl-options {:init-ns hydrogen.duct-template}
   :profiles
