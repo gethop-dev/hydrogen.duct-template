@@ -1,5 +1,5 @@
 # hydrogen.duct-template
-[![Build Status](https://travis-ci.com/magnetcoop/hydrogen.duct-template.svg?branch=master)](https://travis-ci.com/magnetcoop/hydrogen.duct-template)
+[![ci-cd](https://github.com/gethop-dev/hydrogen.duct-template/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/gethop-dev/hydrogen.duct-template/actions/workflows/ci-cd.yml)
 [![Clojars Project](https://img.shields.io/clojars/v/hydrogen/duct-template.svg)](https://clojars.org/hydrogen/duct-template)
 
 An external profile for [Duct template](https://github.com/duct-framework/duct) that introduces Hydrogen code.
