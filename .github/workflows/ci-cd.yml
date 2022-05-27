@@ -40,7 +40,7 @@ jobs:
         run: lein cljfmt check
 
       - name: Lint
-        run: clj-kondo --lint src --lint test && lein eastwood
+        run: clj-kondo --lint src && lein eastwood
 
       - name: Test
         run: lein test :all
