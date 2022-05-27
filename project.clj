@@ -1,4 +1,4 @@
-(defproject dev.gethop/hydrogen.duct-template "0.5.16"
+(defproject dev.gethop/hydrogen.duct-template "0.5.17-SNAPSHOT"
   :description "Hydrogen duct template"
   :min-lein-version "2.9.8"
   :url "https://github.com/gethop-dev/hydrogen.duct-template"
