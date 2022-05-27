@@ -46,7 +46,7 @@ You can further config this popup by modifying those config keys:
           
         (rf/dispatch [::tooltip/register {:id "generic-popup"
                                           :component greet
-                                          :argv ["Magnet team"]}])
+                                          :argv ["HOP team"]}])
         ``` 
     - example 2
         ```clojurescript
