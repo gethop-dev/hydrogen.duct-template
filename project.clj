@@ -11,7 +11,7 @@
                                       :sign-releases false}]
                         ["releases"  {:url "https://clojars.org/repo"
                                       :username :env/CLOJARS_USERNAME
-                                      :password :env/CLOJARS_USERNAME
+                                      :password :env/CLOJARS_PASSWORD
                                       :sign-releases false}]]
   :repl-options {:init-ns hydrogen.duct-template}
   :profiles
