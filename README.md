@@ -12,7 +12,7 @@ This template profile needs to be used in conjunction with `+site` and `+cljs` h
 
 It creates an SPA app that's ready for you to run. Front to back. It comes packed with some of the features we use in most of our projects:
 - API endpoint for downloading initial config from the server
-- Bread and butter FE code that manages routes, [themes toggling (just run `(themes/toggle-theme)`)](https://github.com/magnetcoop/hydrogen.duct-template/blob/master/resources/core/cljs/theme.cljs#L27-L32), js externs, etc.
+- Bread and butter FE code that manages routes, [themes toggling (just run `(themes/toggle-theme)`)](https://github.com/gethop-dev/hydrogen.duct-template/blob/master/resources/core/cljs/theme.cljs#L27-L32), js externs, etc.
 
 ### Additional profiles
 
@@ -25,7 +25,7 @@ To use them simply add:
 Keep in mind that those two profiles are mutually exclusive.
 
 These authentication profiles expect you to configure some environment variables in order to work properly.
-Please see the specs in [buddy-auth.jwt-oid](https://github.com/magnetcoop/buddy-auth.jwt-oidc/blob/master/src/magnet/buddy_auth/jwt_oidc.clj).
+Please see the specs in [buddy-auth.jwt-oid](https://github.com/gethop-dev/buddy-auth.jwt-oidc/blob/master/src/dev/gethop/buddy_auth/jwt_oidc.clj).
 
 #### Figwheel main
 
@@ -42,7 +42,7 @@ To use it simply add:
 - `+hydrogen/persistence.sql` to the list of required profiles
 
 #### Job Scheduling
-Hydrogen also offers a profile that provides job scheduling using Twarc scheduling library, with persistent JobStore backed by a Postgresql database, through [scheduling.twarc](https://github.com/magnetcoop/scheduling.twarc) Duct library. This profile depends on `+hydrogen/persistence.sql` profile, so make sure you also specify it when adding the job scheduling profile.
+Hydrogen also offers a profile that provides job scheduling using Twarc scheduling library, with persistent JobStore backed by a Postgresql database, through [scheduling.twarc](https://github.com/gethop-dev/scheduling.twarc) Duct library. This profile depends on `+hydrogen/persistence.sql` profile, so make sure you also specify it when adding the job scheduling profile.
 To use it simply add:
 - `+hydrogen/persistence.sql +hydrogen/scheduling.twarc` to the list of required profiles
 
@@ -66,27 +66,27 @@ and narrow down the scope of the template's content. However we'll be delighted 
 libs, gists and blog posts with our know-how:
 
 - #### OpenID Authentication
-  - [buddy-auth.jwt-oidc](https://github.com/magnetcoop/buddy-auth.jwt-oidc) - Integrant keys and associated code implementing a :duct.middleware.buddy/authentication compatible JWT token validation function for OpenID Connect ID Tokens
+  - [buddy-auth.jwt-oidc](https://github.com/gethop-dev/buddy-auth.jwt-oidc) - Integrant keys and associated code implementing a :duct.middleware.buddy/authentication compatible JWT token validation function for OpenID Connect ID Tokens
 - #### Object storage
-  - [object-storage.core](https://github.com/magnetcoop/object-storage.core) - Library that provides an object-storage protocol that can be implemented by other libraries.
-  - [object-storage.ftp](https://github.com/magnetcoop/object-storage.ftp) - Integrant keys for managing objects in an FTP server
-  - [object-storage.s3](https://github.com/magnetcoop/object-storage.s3) - Integrant keys for managing AWS S3 objects
+  - [object-storage.core](https://github.com/gethop-dev/object-storage.core) - Library that provides an object-storage protocol that can be implemented by other libraries.
+  - [object-storage.ftp](https://github.com/gethop-dev/object-storage.ftp) - Integrant keys for managing objects in an FTP server
+  - [object-storage.s3](https://github.com/gethop-dev/object-storage.s3) - Integrant keys for managing AWS S3 objects
 - #### Integration with third party systems
   - [cms.webflow](https://github.com/magnetcoop/cms.webflow) A Duct library for managing Webflow CMS
-  - [payments.stripe](https://github.com/magnetcoop/payments.stripe) - A Duct library for interacting with Stripe
-  - [dashboard-manager.grafana](https://github.com/magnetcoop/dashboard-manager.grafana) - A Duct library for managing dashboards and associated users and organizations in Grafana
-  - [esignatures.docusign](https://github.com/magnetcoop/esignatures.docusign) - A Duct library for interacting with the Docusign eSignature API 
+  - [payments.stripe](https://github.com/gethop-dev/payments.stripe) - A Duct library for interacting with Stripe
+  - [dashboard-manager.grafana](https://github.com/gethop-dev/dashboard-manager.grafana) - A Duct library for managing dashboards and associated users and organizations in Grafana
+  - [esignatures.docusign](https://github.com/gethop-dev/esignatures.docusign) - A Duct library for interacting with the Docusign eSignature API 
 - #### Persistence
-  - [sql-utils](https://github.com/magnetcoop/sql-utils) - A library designed as a thin convenience wapper over clojure.java.jdbc
-  - [ragtime-wrapper](https://github.com/magnetcoop/hydrogen.module.ragtime-wrapper) - Duct module wrapping configuration for Ragtime migrations
-  - [stork](https://github.com/magnetcoop/stork) - A Clojure/Datomic migrations library heavily inspired by rkneufeld/conformity
+  - [sql-utils](https://github.com/gethop-dev/sql-utils) - A library designed as a thin convenience wapper over clojure.java.jdbc
+  - [ragtime-wrapper](https://github.com/gethop-dev/hydrogen.module.ragtime-wrapper) - Duct module wrapping configuration for Ragtime migrations
+  - [stork](https://github.com/gethop-dev/stork) - A Clojure/Datomic migrations library heavily inspired by rkneufeld/conformity
 - #### IoT
-  - [pubsub](https://github.com/magnetcoop/pubsub) - MQTT and AMQP Publish Subscribe library
+  - [pubsub](https://github.com/gethop-dev/pubsub) - MQTT and AMQP Publish Subscribe library
 - #### Scheduling
-  - [scheduling.twarc](https://github.com/magnetcoop/scheduling.twarc) - Integrant keys for using Twarc scheduling library, with persistent JobStore backed by a Postgresql database
+  - [scheduling.twarc](https://github.com/gethop-dev/scheduling.twarc) - Integrant keys for using Twarc scheduling library, with persistent JobStore backed by a Postgresql database
 - #### Crypto
-  - [encryption](https://github.com/magnetcoop/encryption) - Library for encrypting and decrypting arbitrary Clojure values, using caesium symmetric encryption primitives.
-  - [secret-storage.aws-ssm-ps](https://github.com/magnetcoop/secret-storage.aws-ssm-ps) - Duct library with a boundary for obtaining secrets from AWS SSM PS
+  - [encryption](https://github.com/gethop-dev/encryption) - Library for encrypting and decrypting arbitrary Clojure values, using caesium symmetric encryption primitives.
+  - [secret-storage.aws-ssm-ps](https://github.com/gethop-dev/secret-storage.aws-ssm-ps) - Duct library with a boundary for obtaining secrets from AWS SSM PS
   - [Example client code using the components mentioned above](https://gist.github.com/werenall/c2a0187c8c4a66e25645edae57fb9a60)
 - #### Misc.
   - [CLJS image cropping](https://medium.com/magnetcoop/cropping-images-in-clojurescript-aed776747a65) - Small image cropper implementation for ClojureScript
@@ -128,10 +128,10 @@ dev=> (reset)
 
 ## Future work
 
-For the list of our features to come please take a look at this project's [issues list](https://github.com/magnetcoop/hydrogen.duct-template/issues).
+For the list of our features to come please take a look at this project's [issues list](https://github.com/gethop-dev/hydrogen.duct-template/issues).
 
 ## License
 
-Copyright (c) 2018, 2019, 2020, 2021 Magnet S Coop.
+Copyright (c) 2022 HOP Technologies
 
 The source code for the library is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
