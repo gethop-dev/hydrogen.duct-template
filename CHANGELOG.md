@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
 
+## [0.5.16] - 2022-05-27
+### Changed
+- Moving the repository to [gethop-dev](https://github.com/gethop-dev) organization
+- CI/CD solution switch from [TravisCI](https://travis-ci.org/) to [GitHub Actions](Ihttps://github.com/features/actions)
+
 ## [0.5.15] - 2022-06-18
 ### Fixed
 - Fix bug introduced in commit c08cdf5 that completely breaks the template.
@@ -281,7 +286,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.15...HEAD
+[UNRELEASED]:  https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.16...HEAD
+[0.5.16]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.15...v0.5.16
 [0.5.15]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.14...v0.5.15
 [0.5.14]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.13...v0.5.14
 [0.5.13]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.12...v0.5.13
