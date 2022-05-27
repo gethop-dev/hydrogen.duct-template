@@ -12,7 +12,7 @@
   "
   {:backend :token
    :token-name \"Bearer\"
-   :authfn #ig/ref :magnet.buddy-auth/jwt-oidc}")
+   :authfn #ig/ref :dev.gethop.buddy-auth/jwt-oidc}")
 
 (def ^:const api-config-profile-base
   "
@@ -25,5 +25,5 @@
    :logger #ig/ref :duct/logger}")
 
 (def ^:const session-core-profile-base
-  {:magnet.buddy-auth/jwt-oidc jwt-oidc-profile-base
+  {:dev.gethop.buddy-auth/jwt-oidc jwt-oidc-profile-base
    :duct.middleware.buddy/authentication buddy-auth-profile-base})

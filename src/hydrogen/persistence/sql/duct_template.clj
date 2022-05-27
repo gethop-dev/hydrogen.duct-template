@@ -44,7 +44,7 @@
 (defn profile [{:keys [project-ns]}]
   {:vars {:hydrogen-persistence-sql? true}
    :deps '[[duct/module.sql "0.6.1"]
-           [magnet/sql-utils "0.4.12"]
+           [dev.gethop/sql-utils "0.4.13"]
            [org.postgresql/postgresql "42.3.3"]]
    :dirs ["dev/resources/{{dirs}}/dev_migrations"
           "resources/{{dirs}}/migrations"]
