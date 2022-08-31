@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [UNRELEASED]
 
+## [0.5.17] - 2022-08-31
+### Fixed
+- Fix uuid-regex for ::str-uuid spec
+
 ## [0.5.16] - 2022-05-27
 ### Changed
 - Moving the repository to [gethop-dev](https://github.com/gethop-dev) organization
@@ -286,7 +290,8 @@ were moved to an index of suggested next steps in the relevant `.md` file.
 Sometimes it was `re-frame` and sometimes it was `rf`.
 This version unifies it to `rf`.
 
-[UNRELEASED]:  https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.16...HEAD
+[UNRELEASED]:  https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.17...HEAD
+[0.5.17]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.16...v0.5.17
 [0.5.16]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.15...v0.5.16
 [0.5.15]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.14...v0.5.15
 [0.5.14]: https://github.com/gethop-dev/hydrogen.duct-template/compare/v0.5.13...v0.5.14
