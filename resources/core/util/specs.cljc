@@ -10,7 +10,7 @@
 
 (s/def ::uuid uuid?)
 
-(def ^:private ^:const uuid-regex #"^[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}$")
+(def ^:private ^:const uuid-regex #"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 (s/def ::str-uuid (s/and string? #(re-matches uuid-regex %)))
 
 (s/def ::id (s/or :uuid ::uuid :str-uuid ::str-uuid))
